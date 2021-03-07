@@ -1,23 +1,40 @@
 
 import os
 import subprocess
+#import pandas as pd
+#import numpy as np
+
+
+def find_number(str):
+    for t in str.split():
+        try:
+            value = float(t)
+        except ValueError:
+            pass
+    return value
 
 def define_copiler_settings(opLevel, simdType,n1 = 256 ,n2 = 256 ,n3 = 256 , nb_threads = 4, nb_it = 100 , 
                             tblock1 = 32 ,tblock2 = 32, tblock3 = 32,):
-    #os.system("cd ~/Proj-Intel/Appli-iso3dfd/")
-    #os.system("pwd")
-    os.system("cd ~/Proj-Intel/Appli-iso3dfd/ && make -e OPTIMIZATION=\"-O"+ str(opLevel) + "\" -e simd=" + simdType + " last" )
-    #make -e OPTIMIZATION="-O3" -e simd=sse last
 
-    os.system("cd ~/Proj-Intel/Appli-iso3dfd/bin")
-    os.system("pwd")
+    os.system("cd ~/Proj-Intel/Appli-iso3dfd/ && make -e OPTIMIZATION=\"-O"+ str(opLevel) + "\" -e simd=" + simdType + " last" )
+
     res = subprocess.run("cd ~/Proj-Intel/Appli-iso3dfd/bin && iso3dfd_dev05_cpu_" + simdType + ".exe", shell=True,
                          stdout=subprocess.PIPE)
-    print(str(res.stdout,'utf-8'))
-    print(type(res.stdout))
-    print("testeeeeeee\naaaaaaaaaaa")
-    print(type("aa"))
+    res_str = str(res.stdout,'utf-8')
+    print(res_str)
+
+    res_str_lines = res_str.split('\n')
+
+    flops = find_number(res_str_lines[-1])
+    thrpt = find_number(res_str_lines[-2])
+    time  = find_number(res_str_lines[-3])
+    print(flops)
+    print(thrpt)
+    print(time)
     return res.stdout
 print("V2 starting execution")
+#d = {'n1' : n1, "n2" : n2, "n3" : n3, "nb_threads" : nb_threads, "nb_it": nb_it, "tblock1" : tblock1, 
+     #"tblock2": tblock2, "tblock3": tblock3, "opLevel": opLevel, "simdType": simdType, "time": time, "throughput": thrpt, "flops": flops}
+#df = pd.Dataframe(data=d)
 define_copiler_settings(opLevel = 3, simdType = "sse")
 print("execution finished")
