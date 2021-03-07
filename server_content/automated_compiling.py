@@ -6,6 +6,7 @@ import subprocess
 
 
 def find_number(str):
+    value = 0
     for t in str.split():
         try:
             value = float(t)
@@ -24,10 +25,13 @@ def define_copiler_settings(opLevel, simdType,n1 = 256 ,n2 = 256 ,n3 = 256 , nb_
     print(res_str)
 
     res_str_lines = res_str.split('\n')
-
-    flops = find_number(res_str_lines[-1])
-    thrpt = find_number(res_str_lines[-2])
-    time  = find_number(res_str_lines[-3])
+    
+    print(res_str_lines[-2])
+    print(res_str_lines[-3])
+    print(res_str_lines[-4])
+    flops = find_number(res_str_lines[-2])
+    thrpt = find_number(res_str_lines[-3])
+    time  = find_number(res_str_lines[-4])
     print(flops)
     print(thrpt)
     print(time)
