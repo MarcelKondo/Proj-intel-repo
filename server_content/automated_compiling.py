@@ -13,9 +13,11 @@ def define_copiler_settings(opLevel, simdType,n1 = 256 ,n2 = 256 ,n3 = 256 , nb_
     os.system("pwd")
     res = subprocess.run("cd ~/Proj-Intel/Appli-iso3dfd/bin && iso3dfd_dev05_cpu_" + simdType + ".exe", shell=True,
                          stdout=subprocess.PIPE)
-    print(res.stdout)
+    print(str(res.stdout,'utf-8'))
+    print(type(res.stdout))
+    print("testeeeeeee\naaaaaaaaaaa")
+    print(type("aa"))
     return res.stdout
-
 print("V2 starting execution")
 define_copiler_settings(opLevel = 3, simdType = "sse")
 print("execution finished")
