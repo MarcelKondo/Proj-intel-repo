@@ -55,5 +55,5 @@ def Cost(param, cost_type = "flops"):
 param = [256, 256 ,256, 4, 100, 32 ,32, 32, "sse"]
 define_copiler_settings(opLevel = 3, simdType = "sse")
 e = Cost(param, cost_type="flops")
-print("e: " + e)
+print("e: " + str(e))
 print("execution finished")
