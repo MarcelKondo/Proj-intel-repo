@@ -40,6 +40,6 @@ print("V2 starting execution")
 #df = pd.Dataframe(data=d)
 
 
-define_copiler_settings(opLevel = 3, simdType = "sse")
+define_compiler_settings(opLevel = 3, simdType = "sse")
 define_exec_param(simdType = "sse")
 print("execution finished")
