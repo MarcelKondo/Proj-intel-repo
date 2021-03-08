@@ -43,7 +43,7 @@ print("V2 starting execution")
 def Cost(param, cost_type = "flops"):
     '''This function calculates only the cost using the exec parameters,
        none of the compilator parameters are treated in this case. '''
-    list_values = define_exec_param(*param)
+    list_values = define_exec_param(**param)
 
     if(cost_type == "flops"):
         e = list_values[0]
