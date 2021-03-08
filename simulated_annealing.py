@@ -23,16 +23,27 @@ def get_neighbourhood(S):
     LNgbh = []
   
     for param in param_space.keys():
-    
-        S1 = S.copy()
-        S1[param] += param_space[param][2]
-        if S1[param] < param_space[param][1]:
-            LNgbh.append(S1)
-        
-        S2 = S.copy()
-        S2[param] -= 1
-        if S2[param] >= param_space[param][0]:
-            LNgbh.append(S2)
+        if param == 'simdType':
+            p_idx = param_space[param].index(S[param])
+            S1 = S.copy()
+            if p_idx + 1 < len(param_space[param]):
+                S1[param] = param_space[param][p_idx + 1]
+                LNgbh.append(S1)
+            
+            S2 = S.copy()
+            if p_idx - 1 >= 0:
+                S2[param] = param_space[param][p_idx - 1]
+                LNgbh.append(S2)
+        else:
+            S1 = S.copy()
+            S1[param] += param_space[param][2]
+            if S1[param] < param_space[param][1]:
+                LNgbh.append(S1)
+            
+            S2 = S.copy()
+            S2[param] -= 1
+            if S2[param] >= param_space[param][0]:
+                LNgbh.append(S2)
     
     return LNgbh
 
