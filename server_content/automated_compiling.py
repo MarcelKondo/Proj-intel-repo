@@ -23,9 +23,6 @@ def define_exec_param(n1 = 256, n2 = 256, n3 = 256, nb_threads = 4, nb_it = 100,
 
     res_str_lines = res_str.split('\n')
     
-    print(res_str_lines[-2])
-    print(res_str_lines[-3])
-    print(res_str_lines[-4])
     flops = find_number(res_str_lines[-2])
     thrpt = find_number(res_str_lines[-3])
     time  = find_number(res_str_lines[-4])
