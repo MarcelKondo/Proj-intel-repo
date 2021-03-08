@@ -48,7 +48,7 @@ def generateS0():
     
     return LNgbh
 
-  def HillClimbing(S0,IterMax,param_list,cost_type):  #T0, la, ltl unused in HC
+def HillClimbing(S0,IterMax,param_list,cost_type):  #T0, la, ltl unused in HC
     #SO: initial solution
     #IterMax: max nb of iteration
     #T0: initial temperature for "simulated annealing"
