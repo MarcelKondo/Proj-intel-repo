@@ -18,11 +18,12 @@ def fcost(S):
     z= S[2]
 
     #obtention du nom du fichier automatiquement pour pas réécrire l'avx utilisé
-    filepath = glob.glob('bin/*.exe')[0]
+    
+    filepath = glob.glob('Proj-Intel/Appli-iso3dfd/bin/*.exe')[0]
     filename = splitext(basename(filepath))[0]
 
     #ecriture de la commande pour recupérer les Gflops
-    command= "bin/"+filename+".exe "+str(x)+" "+str(y)+" "+str(z)+"4 100 32 32 32"
+    command= "Proj-Intel/Appli-iso3dfd/bin/"+filename+".exe "+str(x)+" "+str(y)+" "+str(z)+"4 100 32 32 32"
       
     sub = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     subprocess_return = sub.stdout.read()
