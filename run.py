@@ -12,7 +12,7 @@ S0 = {
     'simdType' : "sse"
 }
 T0 = 100
-IterMax = 100
+IterMax = 5
 la = 0.8
 
 eb, Sb, iters = simulated_annealing.SimulatedAnnealing(S0, IterMax, T0, la)
