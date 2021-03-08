@@ -70,11 +70,11 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
         k = rd.randrange(len(LNgbh))
         Sp = LNgbh[k]
         ep = Cost(Sp)
-        if ep < e or rd.random() < np.exp(-(ep - e)/T):
+        if ep > e or rd.random() < np.exp(-(ep - e)/T):
             S = Sp
             e = ep
             LNgbh = get_neighbourhood(S)
-            if (e < eb):
+            if (e > eb):
                 Sb = S
                 eb = e
         T = la*T
