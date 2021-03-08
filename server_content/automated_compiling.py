@@ -28,9 +28,9 @@ def define_exec_param(n1 = 256, n2 = 256, n3 = 256, nb_threads = 4, nb_it = 100,
     print(flops)
     print(thrpt)
     print(time)
-    return res.stdout
+    return [flops, thrpt, time]
 
-def define_compiler_settings(opLevel, simdType,n1 = 256):
+def define_copiler_settings(opLevel, simdType):
 
     os.system("cd ~/Proj-Intel/Appli-iso3dfd/ && make -e OPTIMIZATION=\"-O"+ str(opLevel) + "\" -e simd=" + simdType + " last" )
     
@@ -40,6 +40,19 @@ print("V2 starting execution")
 #df = pd.Dataframe(data=d)
 
 
-define_compiler_settings(opLevel = 3, simdType = "sse")
-define_exec_param(simdType = "sse")
+def Cost(param, cost_type = "flops"):
+    '''This function calculates only the cost using the exec parameters,
+       none of the compilator parameters are treated in this case. '''
+    list_values = define_exec_param(*param)
+
+    if(cost_type == "flops"):
+        e = list_values[0]
+    else:
+        e = 0
+    return e
+
+param = [256, 256 ,256, 4, 100, 32 ,32, 32, "sse"]
+define_copiler_settings(opLevel = 3, simdType = "sse")
+e = Cost(param, cost_type="flops")
+print("e: " + str(e))
 print("execution finished")
