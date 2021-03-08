@@ -30,7 +30,7 @@ def generateS0():
   return(S0)
 
 
-  def Neighborhood(S, param_indices):                                                
+def Neighborhood(S, param_indices):                                                
     LNgbh = []
   
     for i in param_indices:
