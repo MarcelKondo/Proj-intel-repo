@@ -55,7 +55,7 @@ def find_best(LNgbh, L_tabu):
     for Sp in LNgbh:
         if Sp not in L_tabu:
             ep = Cost(Sp)
-            if ep < e :
+            if ep > e :
                 S = Sp
                 e = ep
     return S, e
@@ -85,7 +85,7 @@ def tabu_greedy(S0,IterMax,tabu_size):
 
     while iter < IterMax and NewBetterS:
         S,e = find_best(LNgbh, L_tabu)
-        if e < eb:
+        if e > eb:
             Sb = S
             eb = e
             L_tabu = fifo_add(Sb, L_tabu, tabu_size)
