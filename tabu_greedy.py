@@ -84,7 +84,9 @@ def tabu_greedy(S0,IterMax,tabu_size):
     L_tabu = [Sb]
 
     while iter < IterMax and NewBetterS:
+        print("BONJOUR")
         S,e = find_best(LNgbh, L_tabu)
+        print("BONJOUR bis")
         print(S)
         print(e)
         if e > eb:
