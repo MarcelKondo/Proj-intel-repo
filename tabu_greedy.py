@@ -50,7 +50,7 @@ def get_neighbourhood(S):
     return LNgbh
 
 def find_best(LNgbh, L_tabu):
-    e = -10e9
+    e = 0
     S = None
     for Sp in LNgbh:
         if Sp not in L_tabu:
