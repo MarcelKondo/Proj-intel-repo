@@ -15,9 +15,9 @@ param_space = {
     'n3' : [256, 500, 1],
     'nb_threads' : [4, 10, 1],
     'nb_it' : [10, 20, 1],
-    'tblock1' : [32, 50, 16],
-    'tblock2' : [32, 50, 1],
-    'tblock3' : [32, 50, 1],
+    'tblock1' : 32 #[32, 50, 16],
+    'tblock2' : 32 #[32, 50, 1],
+    'tblock3' : 32 #[32, 50, 1],
     'simdType' : ["sse"]
 }
 
@@ -74,7 +74,7 @@ def tabu_greedy(S0,IterMax,tabu_size):
     # tabu_size: length of Tabu list for "Tabu List" method"""
     print(f"[TG] STARTED OPTIMISATION : itermax:{IterMax}, tabu_size:{tabu_size}")
     Sb = S0
-    print("so",S0)
+    #print("so",S0)
     eb = Cost(Sb)
     iter = 0
     NewBetterS = True
@@ -85,9 +85,9 @@ def tabu_greedy(S0,IterMax,tabu_size):
     L_tabu = [Sb]
 
     while iter < IterMax and NewBetterS:
-        print("BONJOUR")
+        #print("BONJOUR")
         S,e = find_best(LNgbh, L_tabu)
-        print("BONJOUR bis")
+        #print("BONJOUR bis")
         print(S)
         print(e)
         if e > eb:
