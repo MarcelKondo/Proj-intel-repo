@@ -74,6 +74,7 @@ def tabu_greedy(S0,IterMax,tabu_size):
     # tabu_size: length of Tabu list for "Tabu List" method"""
     print(f"[TG] STARTED OPTIMISATION : itermax:{IterMax}, tabu_size:{tabu_size}")
     Sb = S0
+    print("so",S0)
     eb = Cost(Sb)
     iter = 0
     NewBetterS = True
