@@ -15,6 +15,7 @@ Sbest= [256,256,256]# point de départ de search le mieux est de séparer l'espa
 r= 1 #rayon pour le neighborhood
 
 def fcost(S):
+    print("computing fcost")
     #au début on peut faire juste moins les gigaflops et appres on pourra rajouter des paramètres
     x= S[0]
     y= S[1]
@@ -74,6 +75,7 @@ def greedy(Sbest,Ebest,L,kmax,NewbetterS,r,Me,NbP):
         liste_p= [j+i for i in range(q)]
 
     while (k<kmax and NewbetterS):
+        print("iteration n° {}, q = {}, Me={}  ".format(k,q,Me) + 40*"==")
         TabE= np.zeros(len(liste_p))
         for i in liste_p :
            TabE[i-j]= fcost(L[i])
@@ -81,9 +83,12 @@ def greedy(Sbest,Ebest,L,kmax,NewbetterS,r,Me,NbP):
         for i in range(len(liste_p)):
             if TabE[i]<TabE[jp]:
                 jp=i
-                E= TabE[j]
+        E= TabE[jp]
+        print("j = {} and jp = {}".format(j,jp))
         j=j+jp
-        response = comm.allreduce(E, op=MPI.MINLOC)
+        print(E)
+        response = comm.allreduce(E, MPI.MINLOC)
+        print("response", response)
         E= response[0]    
         rank= response[1]
         print(E, rank)
@@ -93,6 +98,7 @@ def greedy(Sbest,Ebest,L,kmax,NewbetterS,r,Me,NbP):
             Sbest=S
             Ebest=E
             L= neighborhood(Sbest,r)
+            print("New Ebest found")
 
         else: 
             NewbetterS= False
