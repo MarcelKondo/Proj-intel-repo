@@ -15,9 +15,9 @@ param_space = {
     'n3' : [256, 500, 1],
     'nb_threads' : [4, 10, 1],
     'nb_it' : [10, 20, 1],
-    'tblock1' : [32, 32, 0]
-    'tblock2' : [32, 32, 0]
-    'tblock3' : [32, 32, 0]
+    'tblock1' : [32, 32, 0],
+    'tblock2' : [32, 32, 0],
+    'tblock3' : [32, 32, 0],
     'simdType' : ["sse"]
 }
 
