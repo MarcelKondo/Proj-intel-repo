@@ -89,6 +89,7 @@ def tabu_greedy(S0,IterMax,tabu_size):
             Sb = S
             eb = e
             L_tabu = fifo_add(Sb, L_tabu, tabu_size)
+            LNgbh = get_neighbourhood(Sb)
         else:
             NewBetterS = False
         iter += 1
