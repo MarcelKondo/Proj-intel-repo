@@ -12,7 +12,7 @@ S0 = {
     'simdType' : "sse"
 }
 IterMax = 5
-tabu_size = 10
+tabu_size = 2
 eb, Sb, iters = tabu_greedy.tabu_greedy(S0,IterMax,tabu_size)
 
 print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
