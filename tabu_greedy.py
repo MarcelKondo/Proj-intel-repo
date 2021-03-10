@@ -52,7 +52,7 @@ def get_neighbourhood(S):
 def find_best(LNgbh, L_tabu):
     e = 10e9
     S = None
-    for Sp in in LNgbh:
+    for Sp in LNgbh:
         if Sp not in L_tabu:
             ep = Cost(Sp)
             if ep < e :
@@ -72,7 +72,7 @@ def tabu_greedy(S0,IterMax,tabu_size):
     """#S0: initial solution
     #IterMax: max nb of iteration
     # tabu_size: length of Tabu list for "Tabu List" method"""
-    print(f"[TG] STARTED OPTIMISATION : itermax:{IterMax}, T0:{T0}, la:{la}")
+    print(f"[TG] STARTED OPTIMISATION : itermax:{IterMax}, tabu_size:{tabu_size}")
     Sb = S0
     eb = Cost(Sb)
     iter = 0
