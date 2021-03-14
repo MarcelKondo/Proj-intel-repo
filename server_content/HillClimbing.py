@@ -2,7 +2,7 @@ import os
 import subprocess 
 import math
 import random as rd
-#import numpy as np
+import numpy as np
 
 import automated_compiling as autcom
 
@@ -19,8 +19,7 @@ def rand_multiple(fac, a, b):
 
 def generateS0():
  # rd.seed(Me+1000*(1+SeedInc))
-  # S0 = np.empty(NbDim,dtype=np.int) 
-  S0 = [None] * NbDim
+  S0 = np.empty(NbDim,dtype=np.int)
   for i in range(NbDim):
     if(i == 0 or i == 5  or i == 6 or i == 7 ):
         S0[i] = rand_multiple(16, lmin[i], lmax[i]+1)
@@ -40,12 +39,14 @@ def Neighborhood(S, param_indices):
             S1[i] += 16
         if S1[i] <= lmax[i]:
             LNgbh.append(S1)
+            print(LNgbh)
         
         S2 = S.copy()
         if(i == 0 or i == 5 or i == 6 or i == 7):
             S1[i] -= 16
         if S2[i] >= lmin[i]:
             LNgbh.append(S2)
+            print(LNgbh)
     
     return LNgbh
 
@@ -63,11 +64,12 @@ def HillClimbing(S0,IterMax,param_list,cost_type):  #T0, la, ltl unused in HC
     #local search
     S = Sb
     LNgbh = Neighborhood(S, param_list)
-    LNgbh = Neighborhood(S, param_list)
+    print(LNgbh)
     while iter < IterMax and len(LNgbh): #BetterSolFound:
         k = rd.randrange(len(LNgbh))
         Sk = LNgbh.pop(k)
-        ek = autcom.Cost(Sb, cost_type = "flops")
+        print("New parameters" + str(Sk))
+        ek = autcom.Cost(Sk, cost_type = "flops")
         if ek < eb:
             Sb = Sk
             eb = ek
