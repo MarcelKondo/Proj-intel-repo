@@ -2,7 +2,7 @@ import os
 import subprocess 
 import math
 import random as rd
-import numpy as np
+#import numpy as np
 
 import automated_compiling as autcom
 
@@ -19,7 +19,8 @@ def rand_multiple(fac, a, b):
 
 def generateS0():
  # rd.seed(Me+1000*(1+SeedInc))
-  S0 = np.empty(NbDim,dtype=np.int)
+  # S0 = np.empty(NbDim,dtype=np.int) 
+  S0 = [None] * NbDim
   for i in range(NbDim):
     if(i == 0 or i == 5  or i == 6 or i == 7 ):
         S0[i] = rand_multiple(16, lmin[i], lmax[i]+1)
