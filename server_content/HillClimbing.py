@@ -37,13 +37,17 @@ def Neighborhood(S, param_indices):
         S1 = S.copy()
         if(i == 0 or i == 5 or i == 6 or i == 7):
             S1[i] += 16
+        else:
+            S1[i] += 4
         if S1[i] <= lmax[i]:
             LNgbh.append(S1)
             print(LNgbh)
         
         S2 = S.copy()
         if(i == 0 or i == 5 or i == 6 or i == 7):
-            S1[i] -= 16
+            S2[i] -= 16
+        else:
+            S2[i] -= 4
         if S2[i] >= lmin[i]:
             LNgbh.append(S2)
             print(LNgbh)
