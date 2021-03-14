@@ -41,7 +41,6 @@ def Neighborhood(S, param_indices):
             S1[i] += 4
         if S1[i] <= lmax[i]:
             LNgbh.append(S1)
-            print(LNgbh)
         
         S2 = S.copy()
         if(i == 0 or i == 5 or i == 6 or i == 7):
@@ -50,7 +49,6 @@ def Neighborhood(S, param_indices):
             S2[i] -= 4
         if S2[i] >= lmin[i]:
             LNgbh.append(S2)
-            print(LNgbh)
     
     return LNgbh
 
@@ -70,9 +68,10 @@ def HillClimbing(S0,IterMax,param_list,cost_type):  #T0, la, ltl unused in HC
     LNgbh = Neighborhood(S, param_list)
     print(LNgbh)
     while iter < IterMax and len(LNgbh): #BetterSolFound:
+        print("Iter: " + iter + "\n")
         k = rd.randrange(len(LNgbh))
         Sk = LNgbh.pop(k)
-        print("New parameters" + str(Sk))
+        print("New parameters " + str(Sk) + "\n")
         ek = autcom.Cost(Sk, cost_type = "flops")
         if ek < eb:
             Sb = Sk

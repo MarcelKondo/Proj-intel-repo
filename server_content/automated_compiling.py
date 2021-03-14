@@ -26,9 +26,6 @@ def define_exec_param(n1 = 256, n2 = 256, n3 = 256, nb_threads = 4, nb_it = 100,
     flops = find_number(res_str_lines[-2])
     thrpt = find_number(res_str_lines[-3])
     time  = find_number(res_str_lines[-4])
-    print(flops)
-    print(thrpt)
-    print(time)
     return [flops, thrpt, time]
 
 def define_copiler_settings(opLevel, simdType):
@@ -54,8 +51,5 @@ def Cost(param, cost_type = "flops"):
 
 
 
-param = [256, 256 ,256, 4, 100, 32 ,32, 32, "sse"]
 define_copiler_settings(opLevel = 3, simdType = "sse")
-e = Cost(param, cost_type="flops")
-print("e: " + str(e))
-print("execution finished")
+
