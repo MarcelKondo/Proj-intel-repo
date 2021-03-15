@@ -2,10 +2,11 @@ from mpi4py import MPI
 import parallel_tabu
 from server_content.automated_compiling import define_copiler_settings
 
+
+define_copiler_settings(opLevel=3, simdType="avx512")
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me = comm.Get_rank()
-define_copiler_settings(opLevel=3, simdType="avx512")
 
 S0 = {
     'n1' : 256,
