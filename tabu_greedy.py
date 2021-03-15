@@ -10,7 +10,7 @@ from numpy.core.arrayprint import SubArrayFormat
 from server_content.automated_compiling import find_number, define_exec_param, define_copiler_settings, Cost
 
 param_space = {
-    'n1' : [256, 500, 16],
+    'n1' : [256, 500, 0],
     'n2' : [256, 500, 1],
     'n3' : [256, 500, 1],
     'nb_threads' : [4, 10, 1],
