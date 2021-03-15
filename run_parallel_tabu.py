@@ -27,7 +27,7 @@ def main(argv):
     IterMax = ''
     tabu_size = ''
     try:
-        opts, args = getopt.getopt(argv,"hi:o:",["iter_max=","tabu_size="])
+        opts, args = getopt.getopt(argv,'abc:d:')
         print('opts',opts)
         print('args',args)
     except getopt.GetoptError:
