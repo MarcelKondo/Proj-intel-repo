@@ -28,8 +28,8 @@ def main(argv):
     tabu_size = ''
     try:
         opts, args = getopt.getopt(argv,"hi:o:",["iter_max=","tabu_size="])
-        print(opts)
-        print(args)
+        print('opts',opts)
+        print('args',args)
     except getopt.GetoptError:
         print('run_parallel_tabu.py -itm <IterMax> -ts <tabu_size>')
         sys.exit(2)
@@ -39,10 +39,10 @@ def main(argv):
             sys.exit()
         elif opt in ("-itm", "--iter_max"):
             IterMax = arg
-            print(arg)
+            print('IterMax',arg)
         elif opt in ("-ts", "--tabu_size"):
             tabu_size = arg
-            print(arg)
+            print('tabu_size',arg)
     eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,int(IterMax),int(tabu_size), NbP, Me)
     print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
 
