@@ -105,7 +105,7 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
     while iter < IterMax and NewBetterS:
         S,e = find_best(LNgbh, L_tabu, NbP, Me) 
         if e > eb:
-            print("Eb GLOBAL TROUVÉ"
+            print("Eb GLOBAL TROUVÉ")
             Sb = S
             eb = e
             L_tabu = fifo_add(Sb, L_tabu, tabu_size)
