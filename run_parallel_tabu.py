@@ -19,7 +19,7 @@ S0 = {
     'tblock3' : 32,
     'simdType' : "avx512"
 }
-IterMax = 5
+IterMax = input("Nb IterMax?")
 tabu_size = 2
 eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me)
 print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
