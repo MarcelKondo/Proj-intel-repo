@@ -33,7 +33,7 @@ def fcost(S):
     
     print(subprocess_return[len(subprocess_return)-14:len(subprocess_return)-8])
     print(subprocess_return)
-    cost= float(subprocess_return[len(subprocess_return)-14:len(subprocess_return)-8])
+    cost= -float(subprocess_return[len(subprocess_return)-14:len(subprocess_return)-8])
 
     return (cost)
 
@@ -46,6 +46,7 @@ def fcostlist(liste):
 
 
 def neighborhood(S,r):
+    print("computing neighborhood...")
     x= S[0]
     y= S[1]
     z= S[2]
@@ -64,6 +65,7 @@ def neighborhood(S,r):
     return L
 
 def greedy(Sbest,Ebest,L,kmax,NewbetterS,r,Me,NbP):
+    Listebest=[]
     k=0
     n = len(L)
     q = n//NbP
@@ -75,9 +77,14 @@ def greedy(Sbest,Ebest,L,kmax,NewbetterS,r,Me,NbP):
         liste_p= [j+i for i in range(q)]
 
     while (k<kmax and NewbetterS):
-        print("iteration n° {}, q = {}, Me={}  ".format(k,q,Me) + 40*"==")
+        print(len(L))
+        print("iteration n° {}, NbP = {}, q = {}, Me={}  ".format(k,NbP,q,Me) + 40*"==")
         TabE= np.zeros(len(liste_p))
+        print(liste_p)
         for i in liste_p :
+           print("i=",i) 
+           print("i-j = ", i-j)
+           print("L[i]= ", L[i])
            TabE[i-j]= fcost(L[i])
         jp=0
         for i in range(len(liste_p)):
@@ -85,25 +92,26 @@ def greedy(Sbest,Ebest,L,kmax,NewbetterS,r,Me,NbP):
                 jp=i
         E= TabE[jp]
         print("j = {} and jp = {}".format(j,jp))
-        j=j+jp
+        jbest=j+jp
         print(E)
-        response = comm.allreduce(E, MPI.MINLOC)
-        print("response", response)
-        E= response[0]    
-        rank= response[1]
-        print(E, rank)
+        Mi=[E,Me]
+        a,b = comm.allreduce(Mi, MPI.MINLOC)
+        print("new E = {}, rank = {}, Ebest={}".format(a,b,Ebest))
+        E= a
+        rank = b
         if E<Ebest:
-            j=comm.bcast(j,root= rank)
-            S = L[j]
+            jbest=comm.bcast(jbest,root= rank)
+            S = L[jbest]
             Sbest=S
             Ebest=E
+            Listebest.append(Ebest)
             L= neighborhood(Sbest,r)
             print("New Ebest found")
 
         else: 
-            NewbetterS= False
+            NewbetterS= True
         k=k+1
-
+    print(Listebest)
     return(Sbest,Ebest)
 
 L= neighborhood(Sbest,r)
