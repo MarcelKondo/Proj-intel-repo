@@ -110,8 +110,9 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
         #print("BONJOUR")
         S,e = find_best(LNgbh, L_tabu, NbP, Me)
         #print("BONJOUR bis")
-        print(S)
-        print(e)
+        print("S",S)
+        print("e",e)
+        print('eb',eb)
         if e > eb:
             Sb = S
             eb = e
