@@ -20,6 +20,6 @@ S0 = {
     'simdType' : "avx512"
 }
 IterMax = 5
-tabu_size = input("Tabu size?")
+tabu_size = 4
 eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me)
 print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
