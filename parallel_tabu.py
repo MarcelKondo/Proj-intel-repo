@@ -81,7 +81,7 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
                 S = Sp
                 e = ep
     print("me e",Me,e)
-    mi= [e,Me]
+    mi= [e,100]
     comm.allreduce(mi,op=MPI.MINLOC)
     print("me e",Me,e)
     print(mi)
