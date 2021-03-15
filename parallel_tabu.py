@@ -87,6 +87,7 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
     print(mi)
     #rank=mi[1]
     #e= mi[0]
+    print("BROADCAST")
     S= comm.bcast(S, root=rank)
     return S, e
 
