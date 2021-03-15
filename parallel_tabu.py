@@ -117,7 +117,7 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
             eb = e
             L_tabu = fifo_add(Sb, L_tabu, tabu_size)
             LNgbh = get_neighbourhood(Sb)
-            pint(LNgbh)
+            print(LNgbh)
         else:
             NewBetterS = False
         iter += 1
