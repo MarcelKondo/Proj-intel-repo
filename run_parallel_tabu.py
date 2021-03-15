@@ -1,5 +1,7 @@
 from mpi4py import MPI
 import parallel_tabu
+import sys, getopt
+
 from server_content.automated_compiling import define_copiler_settings
 
 
@@ -19,7 +21,28 @@ S0 = {
     'tblock3' : 32,
     'simdType' : "avx512"
 }
-IterMax = input("Nb IterMax?")
-tabu_size = input("Tabu Size?")
-eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me)
-print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
+
+
+def main(argv):
+   IterMax = ''
+   tabu_size = ''
+   try:
+      opts, args = getopt.getopt(argv,"hi:o:",["iter_max=","tabu_size="])
+   except getopt.GetoptError:
+      print('run_parallel_tabu.py -itm <IterMax> -ts <tabu_size>')
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print('run_parallel_tabu.py -itm <IterMax> -ts <tabu_size>')
+         sys.exit()
+      elif opt in ("-itm", "--iter_max"):
+         IterMax = arg
+      elif opt in ("-ts", "--tabu_size"):
+         tabu_size = arg
+   eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me)
+   print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
+
+
