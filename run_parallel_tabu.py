@@ -24,25 +24,27 @@ S0 = {
 
 
 def main(argv):
-   IterMax = ''
-   tabu_size = ''
-   try:
-      opts, args = getopt.getopt(argv,"hi:o:",["iter_max=","tabu_size="])
-   except getopt.GetoptError:
-      print('run_parallel_tabu.py -itm <IterMax> -ts <tabu_size>')
-      sys.exit(2)
-   for opt, arg in opts:
-      if opt == '-h':
-         print('run_parallel_tabu.py -itm <IterMax> -ts <tabu_size>')
-         sys.exit()
-      elif opt in ("-itm", "--iter_max"):
-         IterMax = arg
-         print(arg)
-      elif opt in ("-ts", "--tabu_size"):
-         tabu_size = arg
-         print(arg)
-   eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,int(IterMax),int(tabu_size), NbP, Me)
-   print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
+    IterMax = ''
+    tabu_size = ''
+    try:
+        opts, args = getopt.getopt(argv,"hi:o:",["iter_max=","tabu_size="])
+        print(opts)
+        print(args)
+    except getopt.GetoptError:
+        print('run_parallel_tabu.py -itm <IterMax> -ts <tabu_size>')
+    sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print('run_parallel_tabu.py -itm <IterMax> -ts <tabu_size>')
+            sys.exit()
+        elif opt in ("-itm", "--iter_max"):
+            IterMax = arg
+            print(arg)
+        elif opt in ("-ts", "--tabu_size"):
+            tabu_size = arg
+            print(arg)
+    eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,int(IterMax),int(tabu_size), NbP, Me)
+    print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
 
 if __name__ == "__main__":
    print('ARGS', sys.argv[1:])
