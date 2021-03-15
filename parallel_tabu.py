@@ -44,22 +44,17 @@ def get_neighbourhood(S):
                 S2[param] = param_space[param][p_idx - 1]
                 LNgbh.append(S2)
         else:
-            S1 = S.copy()
-            S1[param] += param_space[param][2]
-            if S1[param] < param_space[param][1]:
-                LNgbh.append(S1)
-            S2 = S.copy()
-            S2[param] -= param_space[param][2]
-            if S2[param] > 0:
-                LNgbh.append(S2)
-            S3 = S.copy() 
-            S3[param] -= 2*param_space[param][2]
-            if S3[param] > 0:
-                LNgbh.append(S3)
-            S4 = S.copy() 
-            S4[param] += 2*param_space[param][2]
-            if S4[param] < param_space[param][1]:
-                LNgbh.append(S4)
+            for k in range(1,5):
+                Skp = S.copy()
+                Skm = S.copy()
+
+                Skp[param] += k*param_space[param][2]
+                if Skp[param] < param_space[param][1]:
+                    LNgbh.append(Skp)
+
+                Skm[param] -= k*param_space[param][2]
+                if Skm[param] > 0:
+                    LNgbh.append(Skm)
     return LNgbh
 
 def fifo_add(Sb, L_tabu, tabu_size):
