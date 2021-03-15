@@ -16,5 +16,5 @@ S0 = {
 }
 IterMax = 5
 tabu_size = 2
-eb, Sb, iters = parallel_tabu.parallel_tabu(S0,IterMax,tabu_size, NbP, Me)
+eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me)
 print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
