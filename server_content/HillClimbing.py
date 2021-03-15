@@ -11,6 +11,9 @@ size = 256
 lmin = [32, 32, 32, 1, 100, 16, 16, 16]
 lmax = [272, 272, 272, 8, 100, 80, 80, 80]
 
+def GetNbDim():
+  return(NbDim)
+
 def rand_multiple(fac, a, b):
     """Returns a random multiple of fac between a and b."""
     min_multi = math.ceil(float(a) / fac)
@@ -59,6 +62,8 @@ def HillClimbing(S0,IterMax,param_list,cost_type):  #T0, la, ltl unused in HC
     #la: T = T*la: temperature evolution law for "simulated annealing"
     #ltl: length of Tabu list for "Tabu List" method
     #simIdx: version of the simulator (cost function)
+
+
     Sb = S0
     eb = autcom.Cost(Sb, cost_type = "flops")
     iter = 0
