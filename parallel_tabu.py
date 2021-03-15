@@ -86,7 +86,7 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
     S= comm.bcast(S, root=rank)
     return S, e
 
-def parallel_tabu_greedy(S0,IterMax,tabu_size):  
+def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):  
     """#S0: initial solution
     #IterMax: max nb of iteration
     # tabu_size: length of Tabu list for "Tabu List" method"""
