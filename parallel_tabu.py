@@ -81,8 +81,10 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
                 S = Sp
                 e = ep
     print("me e",Me,e)
-    comm.allreduce([e],op=MPI.MINLOC)
+    mi= [e,Me]
+    comm.allreduce(mi,op=MPI.MINLOC)
     print("me e",Me,e)
+    print(mi)
     #rank=rep[1]
     #e= rep[0]
     #S= comm.bcast(S, root=rank)
