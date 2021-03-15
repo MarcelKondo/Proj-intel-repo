@@ -32,7 +32,7 @@ def main(argv):
         print(args)
     except getopt.GetoptError:
         print('run_parallel_tabu.py -itm <IterMax> -ts <tabu_size>')
-    sys.exit(2)
+        sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
             print('run_parallel_tabu.py -itm <IterMax> -ts <tabu_size>')
