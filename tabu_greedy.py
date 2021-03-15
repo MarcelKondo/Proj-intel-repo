@@ -18,7 +18,7 @@ param_space = {
     'tblock1' : [32, 32, 0],
     'tblock2' : [32, 32, 0],
     'tblock3' : [32, 32, 0],
-    'simdType' : ["sse"]
+    'simdType' : ["avx512"]
 }
 
 def get_neighbourhood(S):
