@@ -83,14 +83,14 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
     for Sp in liste_p:
         if Sp not in L_tabu:
             ep = Cost(Sp)
-            print('ep',ep)
+            #print('ep',ep)
             if ep > e :
                 S = Sp
                 e = ep
-    print("me e",Me,e)
+    #print("me e",Me,e)
     mi= [e,Me]
     e,rank = comm.allreduce(mi,op=MPI.MAXLOC)
-    print("BROADCAST")
+    #print("BROADCAST")
     S= comm.bcast(S, root=rank)
     return S, e
 
@@ -113,12 +113,12 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
     while iter < IterMax and NewBetterS:
         S,e = find_best(LNgbh, L_tabu, NbP, Me) 
         if e > eb:
-            print("Eb GLOBAL TROUVÉ")
+            #print("Eb GLOBAL TROUVÉ")
             Sb = S
             eb = e
             L_tabu = fifo_add(Sb, L_tabu, tabu_size)
             LNgbh = get_neighbourhood(Sb)
-            print(len(LNgbh))
+            #print(len(LNgbh))
         else:
             NewBetterS = False
         iter += 1
