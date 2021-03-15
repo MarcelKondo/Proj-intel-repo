@@ -37,8 +37,10 @@ def main(argv):
          sys.exit()
       elif opt in ("-itm", "--iter_max"):
          IterMax = arg
+         print(IterMax)
       elif opt in ("-ts", "--tabu_size"):
          tabu_size = arg
+         print(tabu_size)
    eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,int(IterMax),int(tabu_size), NbP, Me)
    print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
 
