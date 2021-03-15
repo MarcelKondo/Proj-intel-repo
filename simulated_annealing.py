@@ -67,6 +67,8 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
     e = eb
     LNgbh = get_neighbourhood(S)
     while iter < IterMax:
+        if iter%10 == 0:
+            print(f"Iteration #{iter}")
         k = rd.randrange(len(LNgbh))
         Sp = LNgbh[k]
         ep = Cost(Sp)

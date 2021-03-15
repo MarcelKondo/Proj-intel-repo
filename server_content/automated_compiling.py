@@ -18,16 +18,16 @@ def define_exec_param(n1 = 256, n2 = 256, n3 = 256, nb_threads = 4, nb_it = 100,
                          " " + str(nb_threads) + " " + str(nb_it) + " " + str(tblock1) + " " + str(tblock2) + " " + str(tblock3), shell=True,
                          stdout=subprocess.PIPE)
     res_str = str(res.stdout,'utf-8')
-    print(res_str)
+    #print(res_str)
 
     res_str_lines = res_str.split('\n')
     
     flops = find_number(res_str_lines[-2])
     thrpt = find_number(res_str_lines[-3])
     time  = find_number(res_str_lines[-4])
-    print(flops)
-    print(thrpt)
-    print(time)
+    #print(flops)
+    #print(thrpt)
+    #print(time)
     return [flops, thrpt, time]
 
 def define_copiler_settings(opLevel, simdType):
