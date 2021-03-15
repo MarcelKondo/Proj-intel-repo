@@ -77,6 +77,7 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
     for Sp in liste_p:
         if Sp not in L_tabu:
             ep = Cost(Sp)
+            print('ep',ep)
             if ep > e :
                 S = Sp
                 e = ep
