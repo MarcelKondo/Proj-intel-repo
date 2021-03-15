@@ -1,7 +1,7 @@
 
 import sys 
 import argparse
-import tools
+#import tools
 import time
 import numpy as np
 
@@ -58,8 +58,19 @@ comm.Gather(Iter,IterTab,root=0)
 #Print results
 if Me == 0:
   nd = HC.GetNbDim()
-  tools.printResults(EbTab,SbTab,S0Tab,IterTab,nd,Me,NbP)
-
+  #tools.printResults(EbTab,SbTab,S0Tab,IterTab,nd,Me,NbP)
+  EbTab.resize(NbP)
+  SbTab.resize(NbP, nd)
+  S0Tab.resize(NbP, nd)
+  IterTab.resize(NbP, nd)
+  print("Energies")
+  print(EbTab)
+  print("Optimal parameters")
+  print(SbTab)
+  print("Initial parameters")
+  print(S0Tab)
+  print("Iterations")
+  print(IterTab)
 #Process 0 prints a "good bye msg"
 comm.barrier()
 time.sleep(1)
