@@ -43,6 +43,7 @@ def main(argv):
    print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
 
 if __name__ == "__main__":
+   print('ARGS', sys.argv[1:])
    main(sys.argv[1:])
 
 
