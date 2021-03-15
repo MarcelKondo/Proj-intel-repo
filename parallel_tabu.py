@@ -80,10 +80,12 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
             if ep > e :
                 S = Sp
                 e = ep
-    rep= comm.allreduce(e,op=MPI.MINLOC)
-    rank=rep[1]
-    e= rep[0]
-    S= comm.bcast(S, root=rank)
+    print("me e",Me,e)
+    comm.allreduce(e,op=MPI.MINLOC)
+    print("me e",Me,e)
+    #rank=rep[1]
+    #e= rep[0]
+    #S= comm.bcast(S, root=rank)
     return S, e
 
 def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):  
