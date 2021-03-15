@@ -1,6 +1,6 @@
 from mpi4py import MPI
 import parallel_tabu
-import sys, getopt
+import sys, getopt, argparse
 
 from server_content.automated_compiling import define_copiler_settings
 
@@ -23,31 +23,18 @@ S0 = {
 }
 
 
-def main(argv):
-    IterMax = ''
-    tabu_size = ''
-    try:
-        opts, args = getopt.getopt(argv,'abc:d:')
-        print('opts',opts)
-        print('args',args)
-    except getopt.GetoptError:
-        print('run_parallel_tabu.py -itm <IterMax> -ts <tabu_size>')
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-h':
-            print('run_parallel_tabu.py -itm <IterMax> -ts <tabu_size>')
-            sys.exit()
-        elif opt in ("-itm", "--iter_max"):
-            IterMax = arg
-            print('IterMax',arg)
-        elif opt in ("-ts", "--tabu_size"):
-            tabu_size = arg
-            print('tabu_size',arg)
-    eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,int(IterMax),int(tabu_size), NbP, Me)
-    print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
+def parse():
+    parser = argparse.ArgumentParser('Greedy Parallel Tabu')
+    parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
+    parser.add_argument('-ts', '--tabu_size', type=int, metavar='',required=True,help='tabu_size')
+    args = parser.parse_args()
+    return args
+
 
 if __name__ == "__main__":
-   print('ARGS', sys.argv[1:])
-   main(sys.argv[1:])
+    #print('ARGS', sys.argv[1:])
+    args = parse()
+    eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,args.iter_max,args.tabu_size, NbP, Me)
+    print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
 
 
