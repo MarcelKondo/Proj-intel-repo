@@ -105,21 +105,16 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
     L_tabu = [Sb]
 
     while iter < IterMax and NewBetterS:
-        #print("BONJOUR")
-        S,e = find_best(LNgbh, L_tabu, NbP, Me)
-        #print("BONJOUR bis")
-        print("S",S)
-        print("e",e)
-        print('eb',eb)
+        S,e = find_best(LNgbh, L_tabu, NbP, Me) 
         if e > eb:
             Sb = S
             eb = e
             L_tabu = fifo_add(Sb, L_tabu, tabu_size)
             LNgbh = get_neighbourhood(Sb)
-            print("LNgbh",LNgbh)
         else:
             NewBetterS = False
         iter += 1
+        print(20*"=","NEW ITERATION",20*"=")
     print("[TG] END")
     
     return eb,Sb,iter
