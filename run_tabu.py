@@ -1,4 +1,7 @@
 import tabu_greedy
+from server_content.automated_compiling import define_copiler_settings
+
+define_copiler_settings(opLevel=3, simdType="avx512")
 
 S0 = {
     'n1' : 256,
@@ -14,5 +17,4 @@ S0 = {
 IterMax = 5
 tabu_size = 2
 eb, Sb, iters = tabu_greedy.tabu_greedy(S0,IterMax,tabu_size)
-
 print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
