@@ -14,7 +14,17 @@ S0 = {
     'tblock3' : 32,
     'simdType' : "avx512"
 }
-IterMax = 5
-tabu_size = 2
-eb, Sb, iters = tabu_greedy.tabu_greedy(S0,IterMax,tabu_size)
-print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
+
+def parse():
+    parser = argparse.ArgumentParser('Greedy Parallel Tabu')
+    parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
+    parser.add_argument('-ts', '--tabu_size', type=int, metavar='',required=True,help='tabu_size')
+    args = parser.parse_args()
+    return args
+
+
+if __name__ == "__main__":
+    #print('ARGS', sys.argv[1:])
+    args = parse()
+    eb, Sb, iters = tabu_greedy.tabu_greedy(S0,args.iter_max,args.tabu_size)
+    print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
