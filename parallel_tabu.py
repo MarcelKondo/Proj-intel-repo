@@ -9,7 +9,7 @@ from mpi4py import MPI
 
 from numpy.core.arrayprint import SubArrayFormat
 
-from server_content.automated_compiling import find_number, define_exec_param, define_copiler_settings, Cost
+from server_content.automated_compiling_tabu import find_number, define_exec_param, define_copiler_settings, Cost
 
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
