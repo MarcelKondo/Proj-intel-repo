@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+  
+>>>>>>> Marcel
 
 import os
 import subprocess
@@ -51,5 +55,9 @@ def Cost(param, cost_type = "flops"):
 
 
 
+<<<<<<< HEAD
 define_copiler_settings(opLevel = 3, simdType = "avx512")
 
+=======
+define_copiler_settings(opLevel = 3, simdType = "avx512")
+>>>>>>> Marcel
