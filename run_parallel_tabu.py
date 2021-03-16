@@ -2,7 +2,7 @@ from mpi4py import MPI
 import parallel_tabu
 import sys, getopt, argparse
 
-from server_content.automated_compiling import define_copiler_settings
+from server_content.automated_compiling_tabu import define_copiler_settings
 
 
 define_copiler_settings(opLevel=3, simdType="avx512")
