@@ -56,12 +56,6 @@ def get_neighbourhood(S):
                 if Skm[param] > 0:
                     LNgbh.append(Skm)
     return LNgbh
-
-def fifo_add(Sb, L_tabu, tabu_size):
-    if len(L_tabu)==tabu_size:
-        L_tabu.pop(0)
-    L_tabu.append(Sb)
-    return L_tabu
  
   
 def find_best(LNgbh, NbP, Me): #à paralléliser
