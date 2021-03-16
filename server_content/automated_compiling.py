@@ -1,3 +1,5 @@
+  
+
 import os
 import subprocess
 #import pandas as pd
@@ -41,7 +43,7 @@ def Cost(param, cost_type = "flops"):
     '''This function calculates only the cost using the exec parameters,
        none of the compilator parameters are treated in this case. '''
     list_values = define_exec_param(*param)
-    
+
     if(cost_type == "flops"):
         e = list_values[0]
     else:
