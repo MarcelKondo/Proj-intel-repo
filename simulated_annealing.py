@@ -15,36 +15,63 @@ param_space = {
     'nb_it' : [10, 20, 1],
     'tblock1' : [32, 50, 1],
     'tblock2' : [32, 50, 1],
-    'tblock3' : [32, 50, 1],
+    'tblock3' : [32, 50, 1]
+}
+
+param_space_categorical = {
     'simdType' : ["sse"]
 }
+
+def GetNbDim():
+    return len(param_space) + len(param_space_categorical)
+
+def generateS0(seed):
+    rd.seed(seed)
+    S0 = {}
+    for param in param_space.keys():
+        lmin = param_space[param][0]
+        lmax = param_space[param][1]
+        delta = param_space[param][2]
+        grid_size = int((lmax-lmin)/delta)
+        pos = rd.randint(0,grid_size-1)
+        val = lmin + pos * delta
+        S0[param] = val
+        assert val % delta == 0, f"Random S0 value not in grid - S0[{param}] = {val}"
+
+    for param in param_space_categorical.keys():
+        param_vals = param_space_categorical[param]
+        grid_size = len(param_vals)
+        pos = rd.randint(0, grid_size-1)
+        S0[param] = param_vals[pos]
+
+    return S0
 
 def get_neighbourhood(S):
     LNgbh = []
   
     for param in param_space.keys():
-        if param == 'simdType':
-            p_idx = param_space[param].index(S[param])
-            S1 = S.copy()
-            if p_idx + 1 < len(param_space[param]):
-                S1[param] = param_space[param][p_idx + 1]
-                LNgbh.append(S1)
-            
-            S2 = S.copy()
-            if p_idx - 1 >= 0:
-                S2[param] = param_space[param][p_idx - 1]
-                LNgbh.append(S2)
-        else:
-            S1 = S.copy()
-            S1[param] += param_space[param][2]
-            if S1[param] < param_space[param][1]:
-                LNgbh.append(S1)
-            
-            S2 = S.copy()
-            S2[param] -= 1
-            if S2[param] >= param_space[param][0]:
-                LNgbh.append(S2)
+        S1 = S.copy()
+        S1[param] += param_space[param][2]
+        if S1[param] < param_space[param][1]:
+            LNgbh.append(S1)
+        
+        S2 = S.copy()
+        S2[param] -= 1
+        if S2[param] >= param_space[param][0]:
+            LNgbh.append(S2)
     
+    for param in param_space_categorical.keys():
+        p_idx = param_space_categorical[param].index(S[param]) #we'll take the order of the list to define the neighbourhood
+        S1 = S.copy()
+        if p_idx + 1 < len(param_space[param]):
+            S1[param] = param_space[param][p_idx + 1]
+            LNgbh.append(S1)
+        
+        S2 = S.copy()
+        if p_idx - 1 >= 0:
+            S2[param] = param_space[param][p_idx - 1]
+            LNgbh.append(S2)
+
     return LNgbh
 
 
