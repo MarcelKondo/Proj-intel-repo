@@ -88,7 +88,7 @@ def find_best(LNgbh, NbP, Me): #à paralléliser
     S= comm.bcast(S, root=rank)
     return S, e
 
-def parallel_tabu_greedy(S0,IterMax,NbP, Me):  
+def parallel_greedy(S0,IterMax,NbP, Me):  
    
     Sb = S0
     #print("so",S0)
