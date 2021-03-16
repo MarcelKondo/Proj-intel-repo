@@ -1,5 +1,5 @@
 import tabu_greedy
-from server_content.automated_compiling import define_copiler_settings
+from server_content.automated_compiling_tabu import define_copiler_settings
 
 define_copiler_settings(opLevel=3, simdType="avx512")
 
