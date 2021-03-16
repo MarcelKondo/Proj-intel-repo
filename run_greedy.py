@@ -35,5 +35,5 @@ def parse():
 if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
-    eb, Sb, iters = parallel_tabu.parallel_tabu_greedy(S0,args.iter_max, NbP, Me)
+    eb, Sb, iters = deploy_greedy_v2.parallel_greedy(S0,args.iter_max, NbP, Me)
     print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
