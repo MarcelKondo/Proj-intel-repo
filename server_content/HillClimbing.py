@@ -77,7 +77,7 @@ def HillClimbing(S0,IterMax,param_list,cost_type):  #T0, la, ltl unused in HC
         Sk = LNgbh.pop(k)
         print("New parameters " + str(Sk) + "\n")
         ek = autcom.Cost(Sk, cost_type = "flops")
-        if ek < eb:
+        if ek > eb:
             Sb = Sk
             eb = ek
             LNgbh = Neighborhood(Sb, param_list)
@@ -85,3 +85,4 @@ def HillClimbing(S0,IterMax,param_list,cost_type):  #T0, la, ltl unused in HC
     
     #return best Energy, best Solution, and nb of iter
     return eb,Sb,iter
+
