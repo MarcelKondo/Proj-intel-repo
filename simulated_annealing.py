@@ -63,13 +63,13 @@ def get_neighbourhood(S):
     for param in param_space_categorical.keys():
         p_idx = param_space_categorical[param].index(S[param]) #we'll take the order of the list to define the neighbourhood
         S1 = S.copy()
-        if p_idx + 1 < len(param_space[param]):
-            S1[param] = param_space[param][p_idx + 1]
+        if p_idx + 1 < len(param_space_categorical[param]):
+            S1[param] = param_space_categorical[param][p_idx + 1]
             LNgbh.append(S1)
         
         S2 = S.copy()
         if p_idx - 1 >= 0:
-            S2[param] = param_space[param][p_idx - 1]
+            S2[param] = param_space_categorical[param][p_idx - 1]
             LNgbh.append(S2)
 
     return LNgbh
