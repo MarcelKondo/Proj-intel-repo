@@ -51,11 +51,11 @@ GR_eb, GR_sb, GR_iter = GR.parallel_greedy(S0, S0['nb_it'], NbP, Me)
 #Printing results
 print(20*"Hill Climbing"*20)
 print("Best energy: " + str(HC_eb) + " Best Solution: " + str(HC_sb))
-print("Iter: " + HC_iter)
+print("Iter: " + str(HC_iter))
 
 print(20*"Parallel Greedy"*20)
 print("Best energy: " + str(GR_eb) + " Best Solution: " + str(GR_sb))
-print("Iter: " + GR_iter)
+print("Iter: " + str(GR_iter))
 
 
 

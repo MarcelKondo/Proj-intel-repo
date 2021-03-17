@@ -61,5 +61,4 @@ def get_neighbourhood(S):
         if p_idx - 1 >= 0:
             S2[param] = param_space_categorical[param][p_idx - 1]
             LNgbh.append(S2)
-    print(LNgbh)
     return LNgbh
