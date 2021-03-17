@@ -1,5 +1,7 @@
 from mpi4py import MPI
 import deploy_greedy_v2
+import parallel_tabu
+
 import sys, getopt, argparse
 
 from server_content.automated_compiling_tabu import define_copiler_settings
