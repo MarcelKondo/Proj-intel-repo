@@ -56,3 +56,11 @@ if __name__ == "__main__":
 
     #run annealing
     print(20*"=","ANNEALING",20*"=")
+    
+    Lmethod= [[eb, Sb, iters],[ebtab, Sbtab, iterstab]]
+    if eb>ebtab:
+        print("greedy simple is better")
+        print("eb",eb,"Sb",Sb,"iters", iters)
+    else:
+        print("greedy tabu is better")
+        print("ebtab",ebtab,"Sbtab",Sbtab,"iterstab", iterstab)
