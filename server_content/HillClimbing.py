@@ -86,3 +86,4 @@ def HillClimbing(S0,IterMax,param_list,cost_type):  #T0, la, ltl unused in HC
     #return best Energy, best Solution, and nb of iter
     return eb,Sb,iter
 
+

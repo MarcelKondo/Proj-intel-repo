@@ -9,6 +9,13 @@ args = sys.argv[1:]
 args = [int(i) for i in args]
 if(nb_args != 0):
     S0[0:nb_args] = args
-res = HC.HillClimbing(S0, 20, [5, 6, 7], "flops")
-print(res)
+eb,sb,iter = HC.HillClimbing(S0, 10, [5, 6, 7], "flops")
+print("\n")
+print("========================= Best Parameters ======================")
+print("HillClimbing")
+print("\n")
+print("Best Energy " + str(eb))
+print("Initial solution " + str(S0))
+print("Best solution " + str(sb))
+
 print("Finished")
