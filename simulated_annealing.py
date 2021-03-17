@@ -25,8 +25,8 @@ param_space_categorical = {
 def GetNbDim():
     return len(param_space) + len(param_space_categorical)
 
-def generateS0(seed):
-    rd.seed(seed)
+def generateS0():
+    #rd.seed(seed)
     S0 = {}
     for param in param_space.keys():
         lmin = param_space[param][0]
