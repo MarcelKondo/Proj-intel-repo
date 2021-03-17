@@ -12,8 +12,8 @@ comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me  = comm.Get_rank()
 
-T0 = 100
-IterMax = 5
+T0 = 80
+IterMax = 10
 la = 0.8
 
 
