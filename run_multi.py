@@ -58,9 +58,9 @@ if __name__ == "__main__":
     print(f"Best score: {ebtab}, Solution: {str(Sbtab)}, Iters: {iterstab}")
 
     #run annealing
-    print(20*"=","ANNEALING",20*"=")
-    cmd = 'mpirun -np 4 -map-by ppr:2:socket -bind-to socket python3 run_simul_annealing_mpi.py'
-    os.system(cmd)
+    #print(20*"=","ANNEALING",20*"=")
+    #cmd = 'mpirun -np 4 -map-by ppr:2:socket -bind-to socket python3 run_simul_annealing_mpi.py'
+    #os.system(cmd)
     
     
     Lmethod= [[eb, Sb, iters],[ebtab, Sbtab, iterstab]]
