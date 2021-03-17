@@ -10,14 +10,14 @@ import general_config as GC
 
 
 
-param_list = ['n1','n2','n3'] #parse CLI
+param_list = ['tblock1','tblock2','tblock3'] #parse CLI
 
 S0 = {
     'n1' : 256,
     'n2' : 256,
     'n3' : 256,
     'nb_threads' : 4,
-    'nb_it' : 10,
+    'nb_it' : 50,
     'tblock1' : 32,
     'tblock2' : 32,
     'tblock3' : 32,
