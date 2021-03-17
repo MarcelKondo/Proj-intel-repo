@@ -19,7 +19,7 @@ param_space = {
 }
 
 param_space_categorical = {
-    'simdType' : ["sse"]
+    #'simdType' : ["sse"]
 }
 
 def GetNbDim():

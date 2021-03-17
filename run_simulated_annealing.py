@@ -8,8 +8,8 @@ S0 = {
     'nb_it' : 10,
     'tblock1' : 32,
     'tblock2' : 32,
-    'tblock3' : 32,
-    'simdType' : "avx512"
+    'tblock3' : 32
+    #'simdType' : "avx512"
 }
 T0 = 100
 IterMax = 5
