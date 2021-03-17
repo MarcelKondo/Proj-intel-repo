@@ -1,4 +1,4 @@
-    from mpi4py import MPI
+from mpi4py import MPI
 import os
 import deploy_greedy_v3
 import parallel_tabu
