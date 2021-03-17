@@ -47,7 +47,7 @@ if __name__ == "__main__":
     
     #run greedy
     print(20*"=","GREEDY",20*"=")
-    eb, Sb, iters = deploy_greedy_v2.parallel_greedy(S0,args.iter_max, NbP, Me)
+    eb, Sb, iters = deploy_greedy_v3.parallel_greedy(S0,args.iter_max, NbP, Me)
     print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
     
     #run tabu_greedy
