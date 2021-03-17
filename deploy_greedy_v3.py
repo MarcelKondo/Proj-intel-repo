@@ -23,8 +23,8 @@ param_space = {
     'nb_threads' : [4, 10, 0],
     'nb_it' : [10, 20, 0],
     'tblock1' : [32, 32, 16],
-    'tblock2' : [32, 32, 4],
-    'tblock3' : [32, 32, 4],
+    'tblock2' : [32, 32, 16],
+    'tblock3' : [32, 32, 16],
     'simdType' : ["avx512"]
 }
 
