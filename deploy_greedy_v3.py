@@ -6,7 +6,7 @@ import math
 import random as rd
 from mpi4py import MPI
 
-
+import general_config as GC
 from numpy.core.arrayprint import SubArrayFormat
 
 from server_content.automated_compiling_tabu import find_number, define_exec_param, define_copiler_settings, Cost
@@ -92,7 +92,7 @@ def parallel_greedy(S0,IterMax,NbP, Me):
 
     S = Sb
     e = eb
-    LNgbh = get_neighbourhood(S)
+    LNgbh = GC.get_neighbourhood(S)
 
     while iter < IterMax and NewBetterS:
         S,e = find_best(LNgbh, NbP, Me) 
@@ -100,7 +100,7 @@ def parallel_greedy(S0,IterMax,NbP, Me):
             #print("Eb GLOBAL TROUVÉ")
             Sb = S
             eb = e
-            LNgbh = get_neighbourhood(Sb)
+            LNgbh = GC.get_neighbourhood(Sb)
             #print(len(LNgbh))
         else:
             NewBetterS = False

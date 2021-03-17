@@ -7,7 +7,19 @@ import random as rd
 
 import HillClimbing as HC
 import general_config as GC
+import deploy_greedy_v3 as GR
 
+from server_content.automated_compiling_tabu import define_copiler_settings
+
+define_copiler_settings(opLevel=3, simdType="avx512")
+comm = MPI.COMM_WORLD
+NbP = comm.Get_size()
+Me = comm.Get_rank()
+
+#Process 0 prints a "hello msg"
+comm.barrier()
+if Me == 0:
+    print("PE: ", Me, "/",NbP,": all processes started")
 
 
 param_list = ['tblock1','tblock2','tblock3'] #parse CLI
@@ -26,7 +38,21 @@ S0 = {
 #Define the used parameters
 GC.define_usedParameters(param_list)
 
-HCresult = HC.HillClimbing(S0, S0['nb_it'], "flops")
+#HillClimbing
+HC_eb, HC_sb, HC_iter = HC.HillClimbing(S0, S0['nb_it'], "flops")
 
-print(HCresult)
+#Greedy
+GR_eb, GR_sb, GR_iter = GR.parallel_greedy(S0, S0['nb_it'], NbP, Me)
+
+
+#Printing results
+print(20*"Hill Climbing"*20)
+print("Best energy: " + str(HC_eb) + " Best Solution: " + str(HC_sb))
+print("Iter: " + HC_iter)
+
+print(20*"Parallel Greedy"*20)
+print("Best energy: " + str(GR_eb) + " Best Solution: " + str(GR_sb))
+print("Iter: " + GR_iter)
+
+
 
