@@ -7,9 +7,33 @@ import numpy as np
 import automated_compiling_tabu as autcom
 
 NbDim = 8                       # 5 elts in a solution (n1,n2,n3,nb_t,nb_it,tblk1,tblk2,tblk3) (opt and simdType not used yet)
-size = 256                            
-lmin = [32, 32, 32, 1, 100, 16, 16, 16]
-lmax = [272, 272, 272, 8, 100, 80, 80, 80]
+size = 256  
+
+#lmin = [32, 32, 32, 1, 100, 16, 16, 16]
+lmin = {
+    'n1' : 32,
+    'n2' : 32,
+    'n3' : 32,
+    'nb_threads' : 1,
+    'nb_it' : 100,
+    'tblock1' : 16,
+    'tblock2' : 16,
+    'tblock3' : 16,
+    'simdType' : "avx512"
+}
+
+#lmax = [272, 272, 272, 8, 100, 80, 80, 80]
+lmax = {
+    'n1' : 273,
+    'n2' : 273,
+    'n3' : 273,
+    'nb_threads' : 8,
+    'nb_it' : 100,
+    'tblock1' : 80,
+    'tblock2' : 80,
+    'tblock3' : 80,
+    'simdType' : "avx512"
+}
 
 def GetNbDim():
   return(NbDim)
@@ -24,7 +48,7 @@ def generateS0():
  # rd.seed(Me+1000*(1+SeedInc))
   S0 = np.empty(NbDim,dtype=np.int)
   for i in range(NbDim):
-    if(i == 0 or i == 5  or i == 6 or i == 7 ):
+    if(i == 'n1' or i == 'tblock1'  or i == 'tblock2' or i == 'tblock3' ):
         S0[i] = rand_multiple(16, lmin[i], lmax[i]+1)
     elif (i == 4):
         S0[i] = 100
@@ -46,7 +70,7 @@ def Neighborhood(S, param_indices):
             LNgbh.append(S1)
         
         S2 = S.copy()
-        if(i == 0 or i == 5 or i == 6 or i == 7):
+        if(i == 'n1' or i == 'tblock1' or i == 'tblock2' or i == 'tblock3'):
             S2[i] -= 16
         else:
             S2[i] -= 4

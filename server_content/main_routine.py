@@ -21,7 +21,7 @@ S0 = {
 #args = [int(i) for i in args]
 #if(nb_args != 0):
 #    S0[0:nb_args] = args
-eb,sb,iter = HC.HillClimbing(S0, 10, [5, 6, 7], "flops")
+eb,sb,iter = HC.HillClimbing(S0, 10, ['n1', 'n2', 'n3'], "flops")
 print("\n")
 print("========================= Best Parameters ======================")
 print("HillClimbing")
