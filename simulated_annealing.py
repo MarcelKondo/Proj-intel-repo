@@ -88,7 +88,7 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
     #simIdx: version of the simulator (cost function)
     print(f"[SMA] STARTED OPTIMISATION : itermax:{IterMax}, T0:{T0}, la:{la}")
     Sb = S0
-    eb = Cost(Sb.values())
+    eb = Cost(Sb)
     iter = 0
     
     T = T0
@@ -100,7 +100,7 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
             print(f"Iteration #{iter}")
         k = rd.randrange(len(LNgbh))
         Sp = LNgbh[k]
-        ep = Cost(Sp.values())
+        ep = Cost(Sp)
         if ep > e or rd.random() < np.exp(-(ep - e)/T):
             S = Sp
             e = ep
