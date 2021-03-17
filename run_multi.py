@@ -39,20 +39,20 @@ if __name__ == "__main__":
     
     
     #run hill climbing
-    print(20*=,"HILL CLIMBING",20*=)
+    print(20*"=","HILL CLIMBING",20*"=")
     
     
     #run greedy
-    print(20*=,"GREEDY",20*=)
+    print(20*"=","GREEDY",20*"=")
     eb, Sb, iters = deploy_greedy_v2.parallel_greedy(S0,args.iter_max, NbP, Me)
     print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
     
     #run tabu_greedy
-    print(20*=,"TABU",20*=)
+    print(20*"=","TABU",20*"=")
     #print('ARGS', sys.argv[1:])
     args = parse()
     ebtab, Sbtab, iterstab = parallel_tabu.parallel_tabu_greedy(S0,args.iter_max,args.tabu_size, NbP, Me)
     print(f"Best score: {ebtab}, Solution: {str(Sbtab)}, Iters: {iterstab}")
 
     #run annealing
-    print(20*=,"ANNEALING",20*=)
+    print(20*"=","ANNEALING",20*"=")
