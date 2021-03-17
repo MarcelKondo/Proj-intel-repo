@@ -1,7 +1,7 @@
 from mpi4py import MPI
 import deploy_greedy_v2
 import parallel_tabu
-
+import mpi_HillClimbing
 import sys, getopt, argparse
 
 from server_content.automated_compiling_tabu import define_copiler_settings
@@ -40,7 +40,7 @@ if __name__ == "__main__":
     
     #run hill climbing
     print(20*"=","HILL CLIMBING",20*"=")
-    
+    ebhill, Sbhill,itershill= mpi_HillClimbing.HillClimbing(S0,args.iter_max,param_list,cost_type):
     
     #run greedy
     print(20*"=","GREEDY",20*"=")
