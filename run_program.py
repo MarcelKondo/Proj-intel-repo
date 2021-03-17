@@ -65,7 +65,7 @@ HC_sb_a = np.fromiter(HC_sb.values(), dtype = int)
 comm.Gather(HC_sb_a,SbTab,root=0)
 
 S0_a = np.fromiter(S0.values(), dtype = int)
-comm.Gather(S0,S0Tab,root=0)
+comm.Gather(S0_a,S0Tab,root=0)
 
 HC_iter = np.array([HC_iter],dtype=int)
 comm.Gather(HC_iter,IterTab,root=0)
@@ -85,10 +85,10 @@ GR_eb = np.array([GR_eb],dtype=np.float64)
 comm.Gather(GR_eb,EbTab,root=0)
 
 GR_sb_a = np.fromiter(GR_sb.values(), dtype = int)
-comm.Gather(GR_sb,SbTab,root=0)
+comm.Gather(GR_sb_a,SbTab,root=0)
 
 S0_a = np.fromiter(S0.values(), dtype = int)
-comm.Gather(S0,S0Tab,root=0)
+comm.Gather(S0_a,S0Tab,root=0)
 
 GR_iter = np.array([GR_iter],dtype=int)
 comm.Gather(GR_iter,IterTab,root=0)
