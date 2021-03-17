@@ -22,7 +22,8 @@ if Me == 0:
 
 #Each process runs a local search method from a random starting point
 S0 = HC.generateS0()
-eb, Sb,iter = HC.HillClimbing(S0, 50, [0,1,2], "flops")
+S0[0:5] = [256, 256, 256, 4, 10]
+eb, Sb,iter = HC.HillClimbing(S0, 10, [5,6,7], "flops")
 
 #Process 0 (root) gathers results (Eb, Sb), Starting points (S0) and iter nb (Iter)
 # - Allocate real numpy arrays only on 0 (root) process
@@ -75,4 +76,17 @@ if Me == 0:
 comm.barrier()
 time.sleep(1)
 if Me == 0:
-  print("PE: ", Me, "/",NbP," bye!")
+    best_E = np.amax(EbTab)
+    best_E_arg = np.argmax(EbTab)
+
+    best_S0 = S0Tab[best_E_arg]
+    best_Sb = SbTab[best_E_arg]
+    print("\n")
+    print("========================= Best Parameters ======================")
+    print("Parallel HillClimbing")
+    print("\n")
+    
+    print("Best Energy " + str(best_E))
+    print("Initial solution " + str(best_S0))
+    print("Optimal solution " + str(best_Sb))
+    print("PE: ", Me, "/",NbP," bye!")
