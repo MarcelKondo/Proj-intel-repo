@@ -5,6 +5,9 @@ import numpy as np
 import math
 import random as rd
 
+import mpi4py
+from mpi4py import MPI
+
 import HillClimbing as HC
 import general_config as GC
 import deploy_greedy_v3 as GR
