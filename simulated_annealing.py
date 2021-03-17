@@ -8,14 +8,14 @@ import random as rd
 from server_content.automated_compiling import find_number, define_exec_param, define_copiler_settings, Cost
 
 param_space = {
-    'n1' : [256, 500, 16],
-    'n2' : [256, 500, 1],
-    'n3' : [256, 500, 1],
-    'nb_threads' : [4, 10, 1],
-    'nb_it' : [10, 20, 1],
-    'tblock1' : [32, 50, 1],
-    'tblock2' : [32, 50, 1],
-    'tblock3' : [32, 50, 1]
+    'n1' : [256, 257, 16],
+    'n2' : [256, 257, 1],
+    'n3' : [256, 257, 1],
+    'nb_threads' : [4, 5, 1],
+    'nb_it' : [10, 11, 1],
+    'tblock1' : [10, 100, 1],
+    'tblock2' : [10, 100, 1],
+    'tblock3' : [10, 100, 1]
 }
 
 param_space_categorical = {
