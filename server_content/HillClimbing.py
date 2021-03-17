@@ -4,7 +4,7 @@ import math
 import random as rd
 import numpy as np
 
-import automated_compiling as autcom
+import automated_compiling_tabu as autcom
 
 NbDim = 8                       # 5 elts in a solution (n1,n2,n3,nb_t,nb_it,tblk1,tblk2,tblk3) (opt and simdType not used yet)
 size = 256                            
@@ -38,7 +38,7 @@ def Neighborhood(S, param_indices):
   
     for i in param_indices:
         S1 = S.copy()
-        if(i == 0 or i == 5 or i == 6 or i == 7):
+        if(i == 'n1' or i == 'tblock1' or i == 'tblock2' or i == 'tblock3'):
             S1[i] += 16
         else:
             S1[i] += 4
