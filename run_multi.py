@@ -1,6 +1,6 @@
     from mpi4py import MPI
 import os
-import deploy_greedy_v2
+import deploy_greedy_v3
 import parallel_tabu
 import mpi_HillClimbing
 import run_simul_annealing_mpi
