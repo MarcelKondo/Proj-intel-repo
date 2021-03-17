@@ -5,7 +5,7 @@ S0 = {
     'n2' : 256,
     'n3' : 256,
     'nb_threads' : 4,
-    'nb_it' : 100,
+    'nb_it' : 10,
     'tblock1' : 32,
     'tblock2' : 32,
     'tblock3' : 32,
