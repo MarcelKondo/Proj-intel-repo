@@ -50,6 +50,8 @@ else :
 Eb = np.array([eb],dtype=np.float64)
 comm.Gather(Eb,EbTab,root=0)
 
+if Me == 0:
+  print(np.array(Sb.values()))
 comm.Gather(np.array(Sb.values()),SbTab,root=0)
 comm.Gather(np.array(S0.values()),S0Tab,root=0)
 
