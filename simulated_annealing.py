@@ -56,7 +56,7 @@ def get_neighbourhood(S):
             LNgbh.append(S1)
         
         S2 = S.copy()
-        S2[param] -= 1
+        S2[param] -= param_space[param][2]
         if S2[param] >= param_space[param][0]:
             LNgbh.append(S2)
     
