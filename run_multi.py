@@ -28,7 +28,7 @@ S0 = {
 def parse():
     parser = argparse.ArgumentParser('Greedy Parallel')
     parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
-    
+    parser.add_argument('-ts', '--tabu_size', type=int, metavar='',required=True,help='tabu_size')
     args = parser.parse_args()
     return args
 
