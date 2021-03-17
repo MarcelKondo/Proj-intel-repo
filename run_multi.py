@@ -65,8 +65,12 @@ if __name__ == "__main__":
     
     Lmethod= [[eb, Sb, iters],[ebtab, Sbtab, iterstab]]
     if eb>ebtab:
-        print("greedy simple is better")
+        print("Greedy simple is better")
         print("eb",eb,"Sb",Sb,"iters", iters)
+        print("greedy tabu result")
+        print("ebtab",ebtab,"Sbtab",Sbtab,"iterstab", iterstab)
     else:
         print("greedy tabu is better")
         print("ebtab",ebtab,"Sbtab",Sbtab,"iterstab", iterstab)
+        print("Greedy simple result")
+        print("eb",eb,"Sb",Sb,"iters", iters)
