@@ -17,14 +17,14 @@ Me = comm.Get_rank()
 
 
 param_space = {
-    'n1' : [256, 500, 16],
-    'n2' : [256, 500, 4],
-    'n3' : [256, 500, 4],
+    'n1' : [256, 500, 0],
+    'n2' : [256, 500, 0],
+    'n3' : [256, 500, 0],
     'nb_threads' : [4, 10, 0],
     'nb_it' : [10, 20, 0],
-    'tblock1' : [32, 32, 0],
-    'tblock2' : [32, 32, 0],
-    'tblock3' : [32, 32, 0],
+    'tblock1' : [16, 128, 16],
+    'tblock2' : [16, 128, 4],
+    'tblock3' : [16, 128, 4],
     'simdType' : ["avx512"]
 }
 
@@ -106,6 +106,6 @@ def parallel_greedy(S0,IterMax,NbP, Me):
             NewBetterS = False
         iter += 1
         print(20*"=","NEW ITERATION",20*"=")
-    print("[TG] END")
+    print("[G] END")
     
     return eb,Sb,iter

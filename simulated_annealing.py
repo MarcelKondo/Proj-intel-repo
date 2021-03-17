@@ -8,31 +8,33 @@ import random as rd
 from server_content.automated_compiling import find_number, define_exec_param, define_copiler_settings, Cost
 
 param_space = {
-    'n1' : [256, 500, 16],
-    'n2' : [256, 500, 1],
-    'n3' : [256, 500, 1],
-    'nb_threads' : [4, 10, 1],
-    'nb_it' : [10, 20, 1],
-    'tblock1' : [32, 50, 1],
-    'tblock2' : [32, 50, 1],
-    'tblock3' : [32, 50, 1]
+    'n1' : [256, 257, 16],
+    'n2' : [256, 257, 1],
+    'n3' : [256, 257, 1],
+    'nb_threads' : [4, 5, 1],
+    'nb_it' : [10, 11, 1],
+    'tblock1' : [16, 97, 16],
+    'tblock2' : [10, 100, 1],
+    'tblock3' : [10, 100, 1]
 }
 
 param_space_categorical = {
-    'simdType' : ["sse"]
+    #'simdType' : ["sse"]
 }
 
 def GetNbDim():
     return len(param_space) + len(param_space_categorical)
 
-def generateS0(seed):
-    rd.seed(seed)
+def generateS0():
+    #rd.seed(seed)
     S0 = {}
     for param in param_space.keys():
         lmin = param_space[param][0]
         lmax = param_space[param][1]
         delta = param_space[param][2]
         grid_size = int((lmax-lmin)/delta)
+        if grid_size ==  0 :
+            grid_size = 1 #case where gridsize is 0
         pos = rd.randint(0,grid_size-1)
         val = lmin + pos * delta
         S0[param] = val
@@ -56,7 +58,7 @@ def get_neighbourhood(S):
             LNgbh.append(S1)
         
         S2 = S.copy()
-        S2[param] -= 1
+        S2[param] -= param_space[param][2]
         if S2[param] >= param_space[param][0]:
             LNgbh.append(S2)
     
@@ -86,7 +88,7 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
     #simIdx: version of the simulator (cost function)
     print(f"[SMA] STARTED OPTIMISATION : itermax:{IterMax}, T0:{T0}, la:{la}")
     Sb = S0
-    eb = Cost(Sb)
+    eb = Cost(Sb.values())
     iter = 0
     
     T = T0
@@ -98,7 +100,7 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
             print(f"Iteration #{iter}")
         k = rd.randrange(len(LNgbh))
         Sp = LNgbh[k]
-        ep = Cost(Sp)
+        ep = Cost(Sp.values())
         if ep > e or rd.random() < np.exp(-(ep - e)/T):
             S = Sp
             e = ep
