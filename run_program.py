@@ -71,12 +71,21 @@ HC_iter = np.array([HC_iter],dtype=int)
 comm.Gather(HC_iter,IterTab,root=0)
 
 if Me == 0:
+    EbTab.resize(NbP)
+    SbTab.resize(NbP, nd)
+    S0Tab.resize(NbP, nd)
+    IterTab.resize(NbP, nd)
+    
     HC_best_E = np.amax(EbTab)
     HC_best_E_arg = np.argmax(EbTab)
 
     HC_best_S0 = S0Tab[HC_best_E_arg]
     HC_best_Sb = SbTab[HC_best_E_arg]
-
+    
+    EbTab = np.zeros(NbP*1,dtype=np.float64)
+    SbTab = np.zeros(NbP*nd,dtype=int)
+    S0Tab = np.zeros(NbP*nd,dtype=int)
+    IterTab = np.zeros(NbP*1,dtype=int)
 
 #Greedy
 GR_eb, GR_sb, GR_iter = GR.parallel_greedy(S0, S0['nb_it'], NbP, Me)
@@ -94,13 +103,21 @@ GR_iter = np.array([GR_iter],dtype=int)
 comm.Gather(GR_iter,IterTab,root=0)
 
 if Me == 0:
+    EbTab.resize(NbP)
+    SbTab.resize(NbP, nd)
+    S0Tab.resize(NbP, nd)
+    IterTab.resize(NbP, nd)
+
     GR_best_E = np.amax(EbTab)
     GR_best_E_arg = np.argmax(EbTab)
 
     GR_best_S0 = S0Tab[GR_best_E_arg]
     GR_best_Sb = SbTab[GR_best_E_arg]
 
-
+    EbTab = np.zeros(NbP*1,dtype=np.float64)
+    SbTab = np.zeros(NbP*nd,dtype=int)
+    S0Tab = np.zeros(NbP*nd,dtype=int)
+    IterTab = np.zeros(NbP*1,dtype=int)
 #Printing results
 if Me == 0:
     print(20*"=" + "Hill Climbing" + 20*"=")
