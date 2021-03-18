@@ -31,6 +31,8 @@ def generateS0():
         lmin = param_space[param][0]
         lmax = param_space[param][1]
         delta = param_space[param][2]
+        if delta == 0:
+            continue
         grid_size = int((lmax-lmin)/delta)
         if grid_size ==  0 :
             grid_size = 1 #case where gridsize is 0
@@ -46,7 +48,7 @@ def generateS0():
         S0[param] = param_vals[pos]
 
     return S0
-    
+
 def define_usedParameters(param_list):
     '''Define parameters that will vary'''
     param_keys = list(param_space.keys())
