@@ -96,7 +96,7 @@ def HillClimbing(S0,IterMax,cost_type):  #T0, la, ltl unused in HC
     #local search
     S = Sb
     #LNgbh = Neighborhood(S, param_list)
-    LNgbh = GC.get_neighbourhood(S)
+    LNgbh = GC.nghbrhd_other(S)
     while iter < IterMax and len(LNgbh): #BetterSolFound:
         print("Iter: " + str(iter) + "\n")
         k = rd.randrange(len(LNgbh))
@@ -107,7 +107,7 @@ def HillClimbing(S0,IterMax,cost_type):  #T0, la, ltl unused in HC
             Sb = Sk
             eb = ek
             #LNgbh = Neighborhood(Sb, param_list)
-            LNgbh = GC.get_neighbourhood(Sb)
+            LNgbh = GC.nghbrhd_other(Sb)
         iter += 1
     
     #return best Energy, best Solution, and nb of iter
