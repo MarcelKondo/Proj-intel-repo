@@ -6,7 +6,7 @@ import parallel_tabu
 #import run_simul_annealing_mpi
 import sys, getopt, argparse
 import HillClimbing as HC
-
+import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
 
 
@@ -24,6 +24,7 @@ S0 = {
     'tblock1' : 32,
     'tblock2' : 32,
     'tblock3' : 32,
+    'simdType' : 'avx512'
 }
 
 
@@ -36,6 +37,8 @@ def parse():
 
 
 if __name__ == "__main__":
+    param_list = ['n1','n2','n3']
+    GC.define_usedParameters(param_list)
     #print('ARGS', sys.argv[1:])
     args = parse()
     #run hill climbing
