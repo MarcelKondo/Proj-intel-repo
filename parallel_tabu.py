@@ -17,17 +17,6 @@ NbP = comm.Get_size()
 Me = comm.Get_rank()
 
 
-param_space = {
-    'n1' : [256, 1024, 16],
-    'n2' : [256, 1024, 16],
-    'n3' : [256, 1024, 16],
-    'nb_threads' : [4, 10, 0],
-    'nb_it' : [10, 20, 0],
-    'tblock1' : [32, 128, 16],
-    'tblock2' : [32, 128, 4],
-    'tblock3' : [32, 128, 4],
-    'simdType' : ["avx512"]
-}
 
 
 def get_neighbourhood(S):
