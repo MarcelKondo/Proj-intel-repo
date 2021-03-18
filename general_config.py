@@ -4,7 +4,7 @@ import time
 import numpy as np
 import math
 import random as rd
-from itertools import combination
+from itertools import combinations
 
 param_space = {
     'n1' : [32, 300, 16],
