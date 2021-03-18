@@ -25,7 +25,7 @@ if Me == 0:
     print("PE: ", Me, "/",NbP,": all processes started")
 
 
-param_list = ['tblock1','tblock2','tblock3'] #parse CLI
+param_list = ['n1','n1','n1'] #parse CLI
 
 S0 = {
     'n1' : 256,
@@ -44,7 +44,7 @@ GC.define_usedParameters(param_list)
 #Process 0 (root) gathers results (Eb, Sb), Starting points (S0) and iter nb (Iter)
 # - Allocate real numpy arrays only on 0 (root) process
 if Me == 0:        
-  nd = HC.GetNbDim()
+  nd = GC.GetNbDim()
   EbTab = np.zeros(NbP*1,dtype=np.float64)
   SbTab = np.zeros(NbP*nd,dtype=int)
   S0Tab = np.zeros(NbP*nd,dtype=int)
