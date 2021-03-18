@@ -56,36 +56,37 @@ else :
   IterTab = None
 
 #HillClimbing
-HC_eb, HC_sb, HC_iter = HC.HillClimbing(S0, S0['nb_it'], "flops")
-
-HC_eb = np.array([HC_eb],dtype=np.float64)
-comm.Gather(HC_eb,EbTab,root=0)
-
-HC_sb_a = np.fromiter(HC_sb.values(), dtype = int)
-comm.Gather(HC_sb_a,SbTab,root=0)
-
-S0_a = np.fromiter(S0.values(), dtype = int)
-comm.Gather(S0_a,S0Tab,root=0)
-
-HC_iter = np.array([HC_iter],dtype=int)
-comm.Gather(HC_iter,IterTab,root=0)
-
 if Me == 0:
-    EbTab.resize(NbP)
-    SbTab.resize(NbP, nd)
-    S0Tab.resize(NbP, nd)
-    IterTab.resize(NbP, nd)
-    
-    HC_best_E = np.amax(EbTab)
-    HC_best_E_arg = np.argmax(EbTab)
+    HC_eb, HC_sb, HC_iter = HC.HillClimbing(S0, S0['nb_it'], "flops")
 
-    HC_best_S0 = S0Tab[HC_best_E_arg]
-    HC_best_Sb = SbTab[HC_best_E_arg]
+#HC_eb = np.array([HC_eb],dtype=np.float64)
+#comm.Gather(HC_eb,EbTab,root=0)
+
+#HC_sb_a = np.fromiter(HC_sb.values(), dtype = int)
+#comm.Gather(HC_sb_a,SbTab,root=0)
+
+#S0_a = np.fromiter(S0.values(), dtype = int)
+#comm.Gather(S0_a,S0Tab,root=0)
+
+#HC_iter = np.array([HC_iter],dtype=int)
+#comm.Gather(HC_iter,IterTab,root=0)
+
+#if Me == 0:
+    #EbTab.resize(NbP)
+    #SbTab.resize(NbP, nd)
+    #S0Tab.resize(NbP, nd)
+    #IterTab.resize(NbP, nd)
     
-    EbTab = np.zeros(NbP*1,dtype=np.float64)
-    SbTab = np.zeros(NbP*nd,dtype=int)
-    S0Tab = np.zeros(NbP*nd,dtype=int)
-    IterTab = np.zeros(NbP*1,dtype=int)
+    #HC_best_E = np.amax(EbTab)
+    #HC_best_E_arg = np.argmax(EbTab)
+
+    #HC_best_S0 = S0Tab[HC_best_E_arg]
+    #HC_best_Sb = SbTab[HC_best_E_arg]
+    
+    #EbTab = np.zeros(NbP*1,dtype=np.float64)
+    #SbTab = np.zeros(NbP*nd,dtype=int)
+    #S0Tab = np.zeros(NbP*nd,dtype=int)
+    #IterTab = np.zeros(NbP*1,dtype=int)
 
 #Greedy
 GR_eb, GR_sb, GR_iter = GR.parallel_greedy(S0, S0['nb_it'], NbP, Me)
@@ -121,7 +122,7 @@ if Me == 0:
 #Printing results
 if Me == 0:
     print(20*"=" + "Hill Climbing" + 20*"=")
-    print("Best energy: " + str(HC_best_E) + " Best Solution: " + str(HC_best_Sb))
+    print("Best energy: " + str(HC_eb) + " Best Solution: " + str(HC_sb))
     print("Iter: " + str(HC_iter))
 
     print(20*"="+ "Parallel Greedy" + 20*"=")
