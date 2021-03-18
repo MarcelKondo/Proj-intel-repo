@@ -92,7 +92,7 @@ def parallel_greedy(S0,IterMax,NbP, Me):
 
     S = Sb
     e = eb
-    LNgbh = GC.get_neighbourhood(S)
+    LNgbh = GC.nghbrhd_other(S)
 
     while iter < IterMax and NewBetterS:
         S,e = find_best(LNgbh, NbP, Me) 
@@ -100,7 +100,7 @@ def parallel_greedy(S0,IterMax,NbP, Me):
             #print("Eb GLOBAL TROUVÉ")
             Sb = S
             eb = e
-            LNgbh = GC.get_neighbourhood(Sb)
+            LNgbh = GC.nghbrhd_other(Sb)
             #print(len(LNgbh))
         else:
             NewBetterS = False
