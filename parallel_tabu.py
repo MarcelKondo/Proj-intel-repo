@@ -1,6 +1,6 @@
 import os
 import sys
-import itertools
+from itertools import combinations
 import time
 import numpy as np
 import math
