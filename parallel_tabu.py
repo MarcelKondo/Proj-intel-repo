@@ -1,5 +1,6 @@
 import os
 import sys
+import itertools
 import time
 import numpy as np
 import math
@@ -22,11 +23,12 @@ param_space = {
     'n3' : [256, 500, 16],
     'nb_threads' : [4, 10, 0],
     'nb_it' : [10, 20, 0],
-    'tblock1' : [32, 32, 16],
-    'tblock2' : [32, 32, 4],
-    'tblock3' : [32, 32, 4],
+    'tblock1' : [32, 128, 16],
+    'tblock2' : [32, 128, 4],
+    'tblock3' : [32, 128, 4],
     'simdType' : ["avx512"]
 }
+
 
 def get_neighbourhood(S):
     LNgbh = []
@@ -50,20 +52,21 @@ def get_neighbourhood(S):
 def nghbrhd_other(S):
     LNgbh =[]
     keys = ['n1','n2','n3','tblock1','tblock2','tblock3']
-    for k in range(5):
-        for i in range(1,3):
-            params = rd.sample(keys,i)
-            S_p = S.copy()
-            S_n = S.copy()
+    triplets = list(combinations(keys,3))  #toutes combinaisons de triplets possibles
+    for _ in range(5):
+        liste_params = rd.sample(triplets,6) # on n'en garde que 6 pour chaque itération
+        for params in liste_params:
+            S_new = S.copy()
             for param in params:
-                if param == 'simdType':
-                    None
-                else:
-                    S_p[param] += param_space[param][2]
-                    S_n[param] -= param_space[param][2]
-            LNgbh.append(S_p)
-            LNgbh.append(S_n)
+                rd_bool = bool(rd.getrandbits(1)) #random boolean
+                k = rd.randint(1,4)
+                if S_new[param]+k*param_space[param][2] < param_space[param][1] and S_new[param] - k*param_space[param][2] >0:
+                    S_new[param] += k*param_space[param][2]*rd_bool
+                    S_new[param] -= k*param_space[param][2]*(1-rd_bool)
+
+            LNgbh.append(S_new)
     return LNgbh
+               
                      
 
 
@@ -112,7 +115,8 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
 
     S = Sb
     e = eb
-    LNgbh = GC.get_neighbourhood(S)
+    #LNgbh = GC.get_neighbourhood(S)
+    LNgbh = nghbrhd_other(S)
     L_tabu = [Sb]
 
     while iter < IterMax and NewBetterS:
@@ -122,7 +126,8 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
             Sb = S
             eb = e
             L_tabu = fifo_add(Sb, L_tabu, tabu_size)
-            LNgbh = GC.get_neighbourhood(Sb)
+            #LNgbh = GC.get_neighbourhood(Sb)
+            LNgbh = nghbrhd_other(Sb)
             #print(len(LNgbh))
         else:
             NewBetterS = False
