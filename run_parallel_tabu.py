@@ -11,9 +11,9 @@ NbP = comm.Get_size()
 Me = comm.Get_rank()
 
 S0 = {
-    'n1' : 256,
-    'n2' : 256,
-    'n3' : 256,
+    'n1' : 512,
+    'n2' : 512,
+    'n3' : 512,
     'nb_threads' : 4,
     'nb_it' : 10,
     'tblock1' : 32,
