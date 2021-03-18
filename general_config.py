@@ -32,10 +32,11 @@ def generateS0():
         lmax = param_space[param][1]
         delta = param_space[param][2]
         if delta == 0:
-            continue
-        grid_size = int((lmax-lmin)/delta)
-        if grid_size ==  0 :
-            grid_size = 1 #case where gridsize is 0
+            grid_size = 1
+        else:
+            grid_size = int((lmax-lmin)/delta)
+       # if grid_size ==  0 :
+       #     grid_size = 1 #case where gridsize is 0
         pos = rd.randint(0,grid_size-1)
         val = lmin + pos * delta
         S0[param] = val
