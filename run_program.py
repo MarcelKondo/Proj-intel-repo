@@ -96,11 +96,11 @@ PHC_eb = np.array([PHC_eb],dtype=np.float64)
 comm.Gather(PHC_eb,EbTab,root=0)
 
 PHC_sb_a = np.fromiter(PHC_sb.values(), dtype = int)
-comm.Gather(Sb,SbTab,root=0)
+comm.Gather(PHC_sb_a,SbTab,root=0)
 
 S0_a = np.fromiter(S0.values(), dtype = int)
 comm.Gather(S0_a,S0Tab,root=0)
-comm.Gather(S0,S0Tab,root=0)
+
 
 PHC_iter = np.array([PHC_iter],dtype=int)
 comm.Gather(PHC_iter,IterTab,root=0)
@@ -122,6 +122,7 @@ if Me == 0:
     S0Tab = np.zeros(NbP*nd,dtype=int)
     IterTab = np.zeros(NbP*1,dtype=int)
 
+comm.barrier()
 #Greedy
 GR_eb, GR_sb, GR_iter = GR.parallel_greedy(S0, S0['nb_it'], NbP, Me)
 
@@ -154,6 +155,7 @@ if Me == 0:
     S0Tab = np.zeros(NbP*nd,dtype=int)
     IterTab = np.zeros(NbP*1,dtype=int)
 #Printing results
+comm.barrier()
 if Me == 0:
     print(20*"=" + "Hill Climbing" + 20*"=")
     print("Best energy: " + str(HC_eb) + " Best Solution: " + str(HC_sb))
