@@ -4,7 +4,7 @@ import time
 import numpy as np
 import math
 import random as rd
-
+from itertools import combination
 
 param_space = {
     'n1' : [32, 300, 16],
@@ -89,3 +89,22 @@ def get_neighbourhood(S):
             S2[param] = param_space_categorical[param][p_idx - 1]
             LNgbh.append(S2)
     return LNgbh
+
+def nghbrhd_other(S):
+    LNgbh =[]
+    keys = ['n1','n2','n3','tblock1','tblock2','tblock3']
+    triplets = list(combinations(keys,3))  #toutes combinaisons de triplets possibles
+    for _ in range(5):
+        liste_params = rd.sample(triplets,6) # on n'en garde que 6 pour chaque itération
+        for params in liste_params:
+            S_new = S.copy()
+            for param in params:
+                rd_bool = bool(rd.getrandbits(1)) #random boolean
+                k = rd.randint(1,10)
+                if S_new[param]+k*param_space[param][2] < param_space[param][1] and S_new[param] - k*param_space[param][2] >0:
+                    S_new[param] += k*param_space[param][2]*rd_bool
+                    S_new[param] -= k*param_space[param][2]*(1-rd_bool)
+
+            LNgbh.append(S_new)
+    return LNgbh
+               
