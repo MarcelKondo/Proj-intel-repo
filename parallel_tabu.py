@@ -18,9 +18,9 @@ Me = comm.Get_rank()
 
 
 param_space = {
-    'n1' : [256, 500, 16],
-    'n2' : [256, 500, 16],
-    'n3' : [256, 500, 16],
+    'n1' : [256, 1024, 16],
+    'n2' : [256, 1024, 16],
+    'n3' : [256, 1024, 16],
     'nb_threads' : [4, 10, 0],
     'nb_it' : [10, 20, 0],
     'tblock1' : [32, 128, 16],
@@ -59,7 +59,7 @@ def nghbrhd_other(S):
             S_new = S.copy()
             for param in params:
                 rd_bool = bool(rd.getrandbits(1)) #random boolean
-                k = rd.randint(1,4)
+                k = rd.randint(1,10)
                 if S_new[param]+k*param_space[param][2] < param_space[param][1] and S_new[param] - k*param_space[param][2] >0:
                     S_new[param] += k*param_space[param][2]*rd_bool
                     S_new[param] -= k*param_space[param][2]*(1-rd_bool)
