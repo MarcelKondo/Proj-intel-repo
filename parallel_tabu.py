@@ -30,19 +30,9 @@ param_space = {
 
 def get_neighbourhood(S):
     LNgbh = []
-  
     for param in param_space.keys():
         if param == 'simdType':
-            p_idx = param_space[param].index(S[param])
-            S1 = S.copy()
-            if p_idx + 1 < len(param_space[param]):
-                S1[param] = param_space[param][p_idx + 1]
-                LNgbh.append(S1)
-            
-            S2 = S.copy()
-            if p_idx - 1 >= 0:
-                S2[param] = param_space[param][p_idx - 1]
-                LNgbh.append(S2)
+            None
         else:
             for k in range(1,5):
                 Skp = S.copy()
@@ -56,6 +46,26 @@ def get_neighbourhood(S):
                 if Skm[param] > 0:
                     LNgbh.append(Skm)
     return LNgbh
+
+def nghbrhd_other(S):
+    LNgbh =[]
+    keys = ['n1','n2','n3','tblock1','tblock2','tblock3']
+    for k in range(5):
+        for i in range(1,3):
+            params = rd.sample(keys,i)
+            S_p = S.copy()
+            S_n = S.copy()
+            for param in params:
+                if param == 'simdType':
+                    None
+                else:
+                    S_p[param] += param_space[param][2]
+                    S_n[param] -= param_space[param][2]
+            LNgbh.append(S_p)
+            LNgbh.append(S_n)
+    return LNgbh
+                     
+
 
 def fifo_add(Sb, L_tabu, tabu_size):
     if len(L_tabu)==tabu_size:
