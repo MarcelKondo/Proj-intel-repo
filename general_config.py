@@ -24,6 +24,29 @@ param_space_categorical = {
 def GetNbDim():
     return len(param_space) + len(param_space_categorical)
 
+def generateS0():
+    #rd.seed(seed)
+    S0 = {}
+    for param in param_space.keys():
+        lmin = param_space[param][0]
+        lmax = param_space[param][1]
+        delta = param_space[param][2]
+        grid_size = int((lmax-lmin)/delta)
+        if grid_size ==  0 :
+            grid_size = 1 #case where gridsize is 0
+        pos = rd.randint(0,grid_size-1)
+        val = lmin + pos * delta
+        S0[param] = val
+        assert val % delta == 0, f"Random S0 value not in grid - S0[{param}] = {val}"
+
+    for param in param_space_categorical.keys():
+        param_vals = param_space_categorical[param]
+        grid_size = len(param_vals)
+        pos = rd.randint(0, grid_size-1)
+        S0[param] = param_vals[pos]
+
+    return S0
+    
 def define_usedParameters(param_list):
     '''Define parameters that will vary'''
     param_keys = list(param_space.keys())

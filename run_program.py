@@ -88,6 +88,40 @@ if Me == 0:
     #S0Tab = np.zeros(NbP*nd,dtype=int)
     #IterTab = np.zeros(NbP*1,dtype=int)
 
+#Parallel Hill Climbing
+S0 = GC.generateS0()
+PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, S0['nb_it'], "flops")
+
+PHC_eb = np.array([PHC_eb],dtype=np.float64)
+comm.Gather(PHC_eb,EbTab,root=0)
+
+PHC_sb_a = np.fromiter(PHC_sb.values(), dtype = int)
+comm.Gather(Sb,SbTab,root=0)
+
+S0_a = np.fromiter(S0.values(), dtype = int)
+comm.Gather(S0_a,S0Tab,root=0)
+comm.Gather(S0,S0Tab,root=0)
+
+PHC_iter = np.array([PHC_iter],dtype=int)
+comm.Gather(PHC_iter,IterTab,root=0)
+
+if Me == 0:
+    EbTab.resize(NbP)
+    SbTab.resize(NbP, nd)
+    S0Tab.resize(NbP, nd)
+    IterTab.resize(NbP, nd)
+
+    PHC_best_E = np.amax(EbTab)
+    PHC_best_E_arg = np.argmax(EbTab)
+
+    PHC_best_S0 = S0Tab[PHC_best_E_arg]
+    PHC_best_Sb = SbTab[PHC_best_E_arg]
+
+    EbTab = np.zeros(NbP*1,dtype=np.float64)
+    SbTab = np.zeros(NbP*nd,dtype=int)
+    S0Tab = np.zeros(NbP*nd,dtype=int)
+    IterTab = np.zeros(NbP*1,dtype=int)
+
 #Greedy
 GR_eb, GR_sb, GR_iter = GR.parallel_greedy(S0, S0['nb_it'], NbP, Me)
 
@@ -125,6 +159,10 @@ if Me == 0:
     print("Best energy: " + str(HC_eb) + " Best Solution: " + str(HC_sb))
     print("Iter: " + str(HC_iter))
 
+    print(20*"=" + "Parallel HC" + 20*"=")
+    print("Best energy: " + str(PHC_best_E) + " Best Solution: " + str(PHC_best_Sb))
+    print("Iter: " + str(PHC_iter))
+    
     print(20*"="+ "Parallel Greedy" + 20*"=")
     print("Best energy: " + str(GR_best_E) + " Best Solution: " + str(GR_best_Sb))
     print("Iter: " + str(GR_iter))
