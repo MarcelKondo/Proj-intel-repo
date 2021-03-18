@@ -40,7 +40,8 @@ def generateS0():
         pos = rd.randint(0,grid_size-1)
         val = lmin + pos * delta
         S0[param] = val
-        assert val % delta == 0, f"Random S0 value not in grid - S0[{param}] = {val}"
+        if delta != 0:
+            assert val % delta == 0, f"Random S0 value not in grid - S0[{param}] = {val}"
 
     for param in param_space_categorical.keys():
         param_vals = param_space_categorical[param]
