@@ -1,11 +1,12 @@
 # Méthodes employées
-Run ``mpirun -np 4  -map-by ppr:2:socket -bind-to socket python3 local_methods.py -S0 <array_S0> -method <Method> -pl <param_list> -itm <IterMax> -ts <tabu_size>`` \n
-Optional parameters: \n
-`-method` if `None` execute all methods \n
-`-S0` if 'None' generate random S0
-\n
-\n
-Usage example:
+Run ``mpirun -np 4  -map-by ppr:2:socket -bind-to socket python3 local_methods.py -S0 <array_S0> -method <Method> -pl <param_list> -itm <IterMax> -ts <tabu_size>`` <br/>
+Optional parameters:   <br/>
+`-method` if `None` execute all methods <br/>
+`-S0` if 'None' generate random S0 <br/>
+<br/>
+<br/>
+Usage example: <br/>
+
 
 ## Greedy parallèle
 
