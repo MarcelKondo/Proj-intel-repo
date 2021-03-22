@@ -19,8 +19,18 @@ Me = comm.Get_rank()
 
 comm.barrier()
 if Me == 0:
-  print("PE: ", Me, "/",NbP,": all processes started")
-
+    print("PE: ", Me, "/",NbP,": all processes started")   
+    nd = HC.GetNbDim()
+    EbTab = np.zeros(NbP*1,dtype=np.float64)
+    SbTab = np.zeros(NbP*nd,dtype=int)
+    S0Tab = np.zeros(NbP*nd,dtype=int)
+    IterTab = np.zeros(NbP*1,dtype=int)
+else:
+    EbTab   = None     
+    SbTab   = None
+    S0Tab   = None
+    IterTab = None
+        
 S0 = {
     'n1' : 256,
     'n2' : 256,
@@ -100,18 +110,7 @@ if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
     GC.define_usedParameters(args.param_list)
-    if Me == 0:        
-            nd = HC.GetNbDim()
-            EbTab = np.zeros(NbP*1,dtype=np.float64)
-            SbTab = np.zeros(NbP*nd,dtype=int)
-            S0Tab = np.zeros(NbP*nd,dtype=int)
-            IterTab = np.zeros(NbP*1,dtype=int)
-    else:
-            EbTab   = None     
-            SbTab   = None
-            S0Tab   = None
-            IterTab = None
-        
+
     if(args.method == "HC"):
         #Execute only HillClimbing
         print(f"Executing only {args.method}")
@@ -129,7 +128,7 @@ if __name__ == "__main__":
         PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
         
         EbTab, SbTab, IterTab = treatData(PHC_eb, PHC_sb, PHC_iter)
-        
+
         if Me == 0:
             PHC_eb_O, PHC_sb_O = findBest(EbTab, SbTab, IterTab)
             print(20*"="," PARALLEL HILL CLIMBING",20*"=")
