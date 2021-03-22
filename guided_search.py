@@ -1,25 +1,21 @@
 import os
 import sys
+from itertools import combinations
 import time
 import numpy as np
 import math
 import random as rd
+from mpi4py import MPI
 
+from run_guided_search import param_space
+import general_config as GC
 from numpy.core.arrayprint import SubArrayFormat
 
 from server_content.automated_compiling_tabu import find_number, define_exec_param, define_copiler_settings, Cost
 
-param_space = {
-    'n1' : [256, 500, 0],
-    'n2' : [256, 500, 1],
-    'n3' : [256, 500, 1],
-    'nb_threads' : [4, 10, 1],
-    'nb_it' : [10, 20, 1],
-    'tblock1' : [32, 32, 0],
-    'tblock2' : [32, 32, 0],
-    'tblock3' : [32, 32, 0],
-    'simdType' : ["avx512"]
-}
+comm = MPI.COMM_WORLD
+NbP = comm.Get_size()
+Me = comm.Get_rank()
 
 def get_neighbourhood(S):
     LNgbh = []
@@ -40,16 +36,35 @@ def get_neighbourhood(S):
                     LNgbh.append(Skm)
     
     return LNgbh
-  
+
+
+def nghbrhd_other(S):
+    LNgbh =[]
+    keys = ['n1','n2','n3','tblock1','tblock2','tblock3']
+    triplets = list(combinations(keys,3))  #toutes combinaisons de triplets possibles
+    for _ in range(5):
+        liste_params = rd.sample(triplets,6) # on n'en garde que 6 pour chaque itération
+        for params in liste_params:
+            S_new = S.copy()
+            for param in params:
+                rd_bool = bool(rd.getrandbits(1)) #random boolean
+                k = rd.randint(1,10)
+                if S_new[param]+k*param_space[param][2] < param_space[param][1] and S_new[param] - k*param_space[param][2] >0:
+                    S_new[param] += k*param_space[param][2]*rd_bool
+                    S_new[param] -= k*param_space[param][2]*(1-rd_bool)
+
+            LNgbh.append(S_new)
+    return LNgbh 
+
 def guided_cost(S,Sb,LNgbh):#,Levol):
   LNloc= get_neighbourhood(S)
   e = Cost(S)
   lda = 0.5
   for X in LNloc:
     if X in LNgbh:
-      e+=lda*0.5#le poids
+      e+=-lda*0.5#le poids
     elif X ==Sb:
-      e+=lda*0.6#le poids central est un petit plus important
+      e+=-lda*0.6#le poids central est un petit plus important
     
   return e
 
@@ -59,7 +74,7 @@ def fifo_add(Sb, L_tabu, tabu_size):
     L_tabu.append(Sb)
     return L_tabu
 
-def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
+def find_best(LNgbh, L_tabu, NbP, Me,Sb): #à paralléliser
     e = 0
     S = None
     n = len(LNgbh)
@@ -105,7 +120,7 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
     L_tabu = [Sb]
 
     while iter < IterMax and NewBetterS:
-        S,e = find_best(LNgbh, L_tabu, NbP, Me) 
+        S,e = find_best(LNgbh, L_tabu, NbP, Me,Sb) 
         if e > eb:
             #print("Eb GLOBAL TROUVÉ")
             Sb = S
