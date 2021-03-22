@@ -126,32 +126,25 @@ if __name__ == "__main__":
         
 
         PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
-        #eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
+
         PHC_eb = np.array([PHC_eb],dtype=np.float64)
         comm.Gather(PHC_eb,EbTab,root=0)
+
         PHC_sb_a = np.fromiter(PHC_sb.values(), dtype = int)
         comm.Gather(PHC_sb_a,SbTab,root=0)
+
         S0_a = np.fromiter(S0.values(), dtype = int)
         comm.Gather(S0_a,S0Tab,root=0)
+        
         PHC_iter = np.array([PHC_iter],dtype=int)
         comm.Gather(PHC_iter,IterTab,root=0)
         #Print results
         if Me == 0:
             nd = GC.GetNbDim()
-            #tools.printResults(EbTab,SbTab,S0Tab,IterTab,nd,Me,NbP)
             EbTab.resize(NbP)
             SbTab.resize(NbP, nd)
             S0Tab.resize(NbP, nd)
             IterTab.resize(NbP, nd)
-            print("Energies")
-            print(EbTab)
-            print("Optimal parameters")
-            print(SbTab)
-            print("Initial parameters")
-            print(S0Tab)
-            print("Iterations")
-            print(IterTab)
-        #Process 0 prints a "good bye msg"
         comm.barrier()
         time.sleep(1)
         if Me == 0:
