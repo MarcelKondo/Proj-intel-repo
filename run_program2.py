@@ -65,7 +65,7 @@ def parse():
     args = parser.parse_args()
     return args
 
-def treatData(eb, sb, iter):
+def gatherData(eb, sb, iter):
     eb = np.array([eb],dtype=np.float64)
     comm.Gather(eb,EbTab,root=0)
 
@@ -74,27 +74,25 @@ def treatData(eb, sb, iter):
 
     iter = np.array([iter],dtype=int)
     comm.Gather(iter,IterTab,root=0)
+    return
+    
 
-    if Me == 0:
-        nd = GC.GetNbDim()
-        #tools.printResults(EbTab,SbTab,S0Tab,IterTab,nd,Me,NbP)
-        EbTab.resize(NbP)
-        SbTab.resize(NbP, nd)
-        S0Tab.resize(NbP, nd)
-        IterTab.resize(NbP, nd)
-        print("Energies")
-        print(EbTab)
-        print("Optimal parameters")
-        print(SbTab)
-        print("Initial parameters")
-        print(IterTab)
-        #Process 0 prints a "good bye msg"
-        comm.barrier()
-        time.sleep(1)
-    else:
-        EbTab = None
-        SbTab = None
-        IterTab = None
+def treatData(EbTab, SbTab, IterTab):
+    nd = GC.GetNbDim()
+    #tools.printResults(EbTab,SbTab,S0Tab,IterTab,nd,Me,NbP)
+    EbTab.resize(NbP)
+    SbTab.resize(NbP, nd)
+    #S0Tab.resize(NbP, nd)
+    IterTab.resize(NbP, nd)
+    print("Energies")
+    print(EbTab)
+    print("Optimal parameters")
+    print(SbTab)
+    print("Initial parameters")
+    print(IterTab)
+    #Process 0 prints a "good bye msg"
+    comm.barrier()
+    time.sleep(1)
     return EbTab, SbTab, IterTab
 
 def findBest(EbTab, SbTab, IterTab):
@@ -127,9 +125,11 @@ if __name__ == "__main__":
         
         PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
         
-        EbTab, SbTab, IterTab = treatData(PHC_eb, PHC_sb, PHC_iter)
+        
+        gatherData(PHC_eb, PHC_sb, PHC_iter)
 
         if Me == 0:
+            EbTab, SbTab, IterTab = treatData(PHC_eb, PHC_sb, PHC_iter)
             PHC_eb_O, PHC_sb_O = findBest(EbTab, SbTab, IterTab)
             print(20*"="," PARALLEL HILL CLIMBING",20*"=")
             print(f"Best energy: {PHC_eb_O} Best Solution: {PHC_sb_O}")
