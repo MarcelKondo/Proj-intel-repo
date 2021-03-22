@@ -85,7 +85,7 @@ if __name__ == "__main__":
             SbTab   = None
             S0Tab   = None
             IterTab = None
-        
+        PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
         eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
         PHC_eb = np.array([PHC_eb],dtype=np.float64)
         comm.Gather(PHC_eb,EbTab,root=0)
