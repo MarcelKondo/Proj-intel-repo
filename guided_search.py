@@ -63,9 +63,9 @@ def guided_cost(S,Sb,LNgbh):#,Levol):
   lda = 0.5
   for X in LNloc:
     if X in LNgbh:
-      e+=lda*0.5#le poids
+      e+=-lda*0.5#le poids
     elif X ==Sb:
-      e+=lda*0.6#le poids central est un petit plus important
+      e+=-lda*0.6#le poids central est un petit plus important
     
   return e
 
