@@ -98,9 +98,9 @@ exploring_param = ['n1', 'n2', 'n3', 'tblock1', 'tblock2', 'tblock3']
   
 def run_VNS_greedy(S0, IterMax, NbP, Me, exploring_param):
     tot_iter = 0
-    S0 = S0
+    S = S0
     for param in exploring_param:
-        e,S,iter = parallel_greedy_VNS(S0, IterMax, NbP, Me, param)  #Recherche de la meilleure solution locale pour le seul paramètre variable "param"
+        e,S,iter = parallel_greedy_VNS(S, IterMax, NbP, Me, param)  #Recherche de la meilleure solution locale pour le seul paramètre variable "param"
         #Récupère dans S le neighbordhood localement optimal où seulement param a changé.
         print("optimisation selon {0} donne une vitesse de {1} en {2} itérations. Nouvelle valeur optimale de {0} = {3}".format(param,e,iter,S[param]) 
         tot_iter += iter
