@@ -75,7 +75,7 @@ def fifo_add(Sb, L_tabu, tabu_size):
     L_tabu.append(Sb)
     return L_tabu
 
-def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
+def find_best(LNgbh, L_tabu, NbP, Me,Sb): #à paralléliser
     e = 0
     S = None
     n = len(LNgbh)
@@ -121,7 +121,7 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
     L_tabu = [Sb]
 
     while iter < IterMax and NewBetterS:
-        S,e = find_best(LNgbh, L_tabu, NbP, Me) 
+        S,e = find_best(LNgbh, L_tabu, NbP, Me,Sb) 
         if e > eb:
             #print("Eb GLOBAL TROUVÉ")
             Sb = S
