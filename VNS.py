@@ -111,7 +111,7 @@ def run_VNS_greedy(S0, IterMax, nb_tour, NbP, Me, exploring_param):          #ex
             print(20*"__", "optimisation selon {0} donne une vitesse de {1} en {2} itérations. Nouvelle valeur optimale de {0} = {3}".format(param,e,iter,S[param])) 
             tot_iter += iter
         tour+=1
-        print(20*"__", "end of turn {} : {},{}".format(tour,e,S0))
+        print(20*"__", "end of turn {}/{} : {},{}".format(tour,nb_tour,e,S0))
     return e,S,tot_iter      
     
    
