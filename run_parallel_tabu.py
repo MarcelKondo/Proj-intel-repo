@@ -1,7 +1,7 @@
 from mpi4py import MPI
 import parallel_tabu
 import sys, getopt, argparse
-
+import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
 
 
@@ -10,17 +10,7 @@ comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me = comm.Get_rank()
 
-S0 = {
-    'n1' : 384,
-    'n2' : 384,
-    'n3' : 384,
-    'nb_threads' : 4,
-    'nb_it' : 10,
-    'tblock1' : 32,
-    'tblock2' : 32,
-    'tblock3' : 32,
-    'simdType' : "avx512"
-}
+S0 = GC.generateS0()
 
 
 param_space = {
