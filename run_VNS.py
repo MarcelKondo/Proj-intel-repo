@@ -22,6 +22,7 @@ S0 = {
     'simdType' : "avx512"
 }
 
+exploring_param = ['n1', 'n2', 'n3', 'tblock1', 'tblock2', 'tblock3']
 
 def parse():
     parser = argparse.ArgumentParser('Greedy VNS')
