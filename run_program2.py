@@ -20,16 +20,7 @@ Me = comm.Get_rank()
 comm.barrier()
 if Me == 0:
     print("PE: ", Me, "/",NbP,": all processes started")   
-    nd = HC.GetNbDim()
-    EbTab = np.zeros(NbP*1,dtype=np.float64)
-    SbTab = np.zeros(NbP*nd,dtype=int)
-    S0Tab = np.zeros(NbP*nd,dtype=int)
-    IterTab = np.zeros(NbP*1,dtype=int)
-else:
-    EbTab   = None     
-    SbTab   = None
-    S0Tab   = None
-    IterTab = None
+    
         
 S0 = {
     'n1' : 256,
@@ -108,7 +99,17 @@ if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
     GC.define_usedParameters(args.param_list)
-
+    if (Me == 0):
+        nd = HC.GetNbDim()
+        EbTab = np.zeros(NbP*1,dtype=np.float64)
+        SbTab = np.zeros(NbP*nd,dtype=int)
+        S0Tab = np.zeros(NbP*nd,dtype=int)
+        IterTab = np.zeros(NbP*1,dtype=int)
+    else:
+        EbTab   = None     
+        SbTab   = None
+        S0Tab   = None
+        IterTab = None
     if(args.method == "HC"):
         #Execute only HillClimbing
         print(f"Executing only {args.method}")
@@ -125,14 +126,36 @@ if __name__ == "__main__":
         
         PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
         
+        eb = np.array([PHC_eb],dtype=np.float64)
+        comm.Gather(eb,EbTab,root=0)
+
+        sb_a = np.fromiter(PHC_sb.values(), dtype = int)
+        comm.Gather(sb_a,SbTab,root=0)
+
+        iter = np.array([PHC_iter],dtype=int)
+        comm.Gather(iter,IterTab,root=0)
         
-        gatherData(PHC_eb, PHC_sb, PHC_iter)
+        #gatherData(PHC_eb, PHC_sb, PHC_iter)
 
         if Me == 0:
-            treatData()
-            PHC_eb_O, PHC_sb_O = findBest(EbTab, SbTab, IterTab)
+            #treatData()
+            nd = HC.GetNbDim()
+            #tools.printResults(EbTab,SbTab,S0Tab,IterTab,nd,Me,NbP)
+            EbTab.resize(NbP)
+            SbTab.resize(NbP, nd)
+            S0Tab.resize(NbP, nd)
+            IterTab.resize(NbP, nd)
+
+        comm.barrier()
+        time.sleep(1)
+        IF Me == 0:
+            best_E = np.amax(EbTab)
+            best_E_arg = np.argmax(EbTab)
+
+            best_S0 = S0Tab[best_E_arg]
+            best_Sb = SbTab[best_E_arg]
             print(20*"="," PARALLEL HILL CLIMBING",20*"=")
-            print(f"Best energy: {PHC_eb_O} Best Solution: {PHC_sb_O}")
+            print(f"Best energy: {best_E} Best Solution: {best_S0}")
             print('\n')
 
 
