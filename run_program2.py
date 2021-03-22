@@ -89,13 +89,6 @@ def findBest(EbTab, SbTab, IterTab):
         best_E = np.amax(EbTab)
         best_E_arg = np.argmax(EbTab)
         best_Sb = SbTab[best_E_arg]
-        print("\n")
-        print("========================= Best Parameters ======================")
-        print("Parallel HillClimbing")
-        print("\n")
-
-        print("Best Energy " + str(best_E))
-        print("Optimal solution " + str(best_Sb))
         return best_E, best_Sb
     return 
 
@@ -104,7 +97,18 @@ if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
     GC.define_usedParameters(args.param_list)
-
+    if Me == 0:        
+            nd = HC.GetNbDim()
+            EbTab = np.zeros(NbP*1,dtype=np.float64)
+            SbTab = np.zeros(NbP*nd,dtype=int)
+            S0Tab = np.zeros(NbP*nd,dtype=int)
+            IterTab = np.zeros(NbP*1,dtype=int)
+        else:
+            EbTab   = None     
+            SbTab   = None
+            S0Tab   = None
+            IterTab = None
+        
     if(args.method == "HC"):
         #Execute only HillClimbing
         print(f"Executing only {args.method}")
@@ -118,32 +122,29 @@ if __name__ == "__main__":
     elif(args.method == "PHC"):
         #Execute only Parallel_HC
         print(f"Executing only {args.method}")
-        if Me == 0:        
-            nd = HC.GetNbDim()
-            EbTab = np.zeros(NbP*1,dtype=np.float64)
-            SbTab = np.zeros(NbP*nd,dtype=int)
-            S0Tab = np.zeros(NbP*nd,dtype=int)
-            IterTab = np.zeros(NbP*1,dtype=int)
-        else:
-            EbTab   = None     
-            SbTab   = None
-            S0Tab   = None
-            IterTab = None
+        
         PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
         
         EbTab, SbTab, IterTab = treatData(PHC_eb, PHC_sb, PHC_iter)
 
         PHC_eb_O, PHC_sb_O = findBest(EbTab, SbTab, IterTab)
 
+        print(20*"="," PARALLEL HILL CLIMBING",20*"=")
+        print(f"Best energy: {PHC_eb_O} Best Solution: {PHC_sb_O}")
+        print('\n')
+
     elif (args.method == "GR"):
         #Execute only Greedy
         print(f"Executing only {args.method}")
-        eb, Sb, iters = deploy_greedy_v3.parallel_greedy(S0,args.iter_max, NbP, Me)
-        print("\n")
-        print("========================= Best Parameters ======================")
-        print("Greedy")
-        print("\n")
-        print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
+        GR_eb, GR_sb, GR_iter = deploy_greedy_v3.parallel_greedy(S0,args.iter_max, NbP, Me)
+
+        EbTab, SbTab, IterTab = treatData(GR_eb, GR_sb, GR_iter)
+
+        GR_eb_O, GR_sb_O = findBest(EbTab, SbTab, IterTab)
+
+        print(20*"="," GREEDY",20*"=")
+        print(f"Best energy: {GR_eb_O} Best Solution: {GR_sb_O}")
+        print('\n')
     
     elif (args.method == "TGR"):
         #Execute only Tabu Greedy
