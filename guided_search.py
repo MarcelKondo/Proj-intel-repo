@@ -59,7 +59,7 @@ def guided_cost(S,Sb,LNgbh):#,Levol):
     elif X ==Sb:
       e+=lda*0.6#le poids central est un petit plus important
     
-    return e
+  return e
 
 
 
