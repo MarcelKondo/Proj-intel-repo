@@ -131,10 +131,25 @@ if __name__ == "__main__":
         #Greedy
         best_E_GR, best_S0_GR, best_Sb_GR = main_greedy.execute(S0, args)
 
+        #Tabu Greedy
+        best_E_TGR, best_S0_TGR, best_Sb_TGR = main_tabu_greedy.execute(S0, args)
+
         if Me == 0:
-            print(20*"=","HILL CLIMBING",20*"=")
-            print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
-            print('\n')
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Hill Climbing")
+            print("\n")
+            print("Best Energy " + str(eb_HC))
+            print("Initial solution " + str(S0))
+            print("Optimal solution " + str(Sb_HC))
+
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Parallel HillClimbing")
+            print("\n")
+            print("Best Energy " + str(best_E_PHC))
+            print("Initial solution " + str(best_S0_PHC))
+            print("Optimal solution " + str(best_Sb_PHC))
 
             print("\n")
             print("========================= Best Parameters ======================")
@@ -143,13 +158,14 @@ if __name__ == "__main__":
             print("Initial Solution " + str(best_S0_GR))
             print("Optimal solution " + str(best_Sb_GR))
             print("\n")
+
             print("\n")
             print("========================= Best Parameters ======================")
-            print("Parallel HillClimbing")
+            print("Parallel Greedy")
+            print("Best Energy " + str(best_E_TGR))
+            print("Initial Solution " + str(best_S0_TGR))
+            print("Optimal solution " + str(best_Sb_TGR))
             print("\n")
-            print("Best Energy " + str(best_E_PHC))
-            print("Initial solution " + str(best_S0_PHC))
-            print("Optimal solution " + str(best_Sb_PHC))
 
 
 
