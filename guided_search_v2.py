@@ -125,8 +125,8 @@ def ChoosePenaltyFeatures(p,c):
   index_max = s.index(max(s))
   p[index_max]+=1
   return p
-                 
-  def Guided(S0,IterMax,NbP, Me,IterMaxG):
+
+def Guided(S0,IterMax,NbP, Me,IterMaxG):
                  listparam= ['n1','n1','n1','tblock1','tblock2','tblock3']
                  penalties=[0]*len(listparam)
                  lba=0.2#à tester
