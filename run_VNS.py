@@ -1,5 +1,5 @@
 from mpi4py import MPI
-import run_VNS_greedy
+from VNS import run_VNS_greedy
 import sys, getopt, argparse
 
 from server_content.automated_compiling_tabu import define_copiler_settings
