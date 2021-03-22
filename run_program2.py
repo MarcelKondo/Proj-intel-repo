@@ -56,43 +56,43 @@ def parse():
     args = parser.parse_args()
     return args
 
-def gatherData(eb, sb, iter):
-    eb = np.array([eb],dtype=np.float64)
-    comm.Gather(eb,EbTab,root=0)
+# def gatherData(eb, sb, iter):
+#     eb = np.array([eb],dtype=np.float64)
+#     comm.Gather(eb,EbTab,root=0)
 
-    sb_a = np.fromiter(sb.values(), dtype = int)
-    comm.Gather(sb_a,SbTab,root=0)
+#     sb_a = np.fromiter(sb.values(), dtype = int)
+#     comm.Gather(sb_a,SbTab,root=0)
 
-    iter = np.array([iter],dtype=int)
-    comm.Gather(iter,IterTab,root=0)
-    return
+#     iter = np.array([iter],dtype=int)
+#     comm.Gather(iter,IterTab,root=0)
+#     return
     
 
-def treatData():
-    nd = GC.GetNbDim()
-    #tools.printResults(EbTab,SbTab,S0Tab,IterTab,nd,Me,NbP)
-    EbTab.resize(NbP)
-    SbTab.resize(NbP, nd)
-    #S0Tab.resize(NbP, nd)
-    IterTab.resize(NbP, nd)
-    print("Energies")
-    print(EbTab)
-    print("Optimal parameters")
-    print(SbTab)
-    print("Initial parameters")
-    print(IterTab)
-    #Process 0 prints a "good bye msg"
-    comm.barrier()
-    time.sleep(1)
-    return 
+# def treatData():
+#     nd = GC.GetNbDim()
+#     #tools.printResults(EbTab,SbTab,S0Tab,IterTab,nd,Me,NbP)
+#     EbTab.resize(NbP)
+#     SbTab.resize(NbP, nd)
+#     #S0Tab.resize(NbP, nd)
+#     IterTab.resize(NbP, nd)
+#     print("Energies")
+#     print(EbTab)
+#     print("Optimal parameters")
+#     print(SbTab)
+#     print("Initial parameters")
+#     print(IterTab)
+#     #Process 0 prints a "good bye msg"
+#     comm.barrier()
+#     time.sleep(1)
+#     return 
 
-def findBest(EbTab, SbTab, IterTab):
-    if Me == 0:
-        best_E = np.amax(EbTab)
-        best_E_arg = np.argmax(EbTab)
-        best_Sb = SbTab[best_E_arg]
-        return best_E, best_Sb
-    return None,None
+# def findBest(EbTab, SbTab, IterTab):
+#     if Me == 0:
+#         best_E = np.amax(EbTab)
+#         best_E_arg = np.argmax(EbTab)
+#         best_Sb = SbTab[best_E_arg]
+#         return best_E, best_Sb
+#     return None,None
 
 if __name__ == "__main__":
     
@@ -100,7 +100,7 @@ if __name__ == "__main__":
     args = parse()
     GC.define_usedParameters(args.param_list)
     if (Me == 0):
-        nd = HC.GetNbDim()
+        nd = GC.GetNbDim()
         EbTab = np.zeros(NbP*1,dtype=np.float64)
         SbTab = np.zeros(NbP*nd,dtype=int)
         S0Tab = np.zeros(NbP*nd,dtype=int)
@@ -139,7 +139,7 @@ if __name__ == "__main__":
 
         if Me == 0:
             #treatData()
-            nd = HC.GetNbDim()
+            nd = GC.GetNbDim()
             #tools.printResults(EbTab,SbTab,S0Tab,IterTab,nd,Me,NbP)
             EbTab.resize(NbP)
             SbTab.resize(NbP, nd)
