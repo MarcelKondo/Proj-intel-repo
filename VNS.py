@@ -46,7 +46,7 @@ def get_neighbourhood(S, param):
     return LNgbh
                
   
-def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
+def find_best(LNgbh, NbP, Me): #à paralléliser
     e = 0
     S = None
     n = len(LNgbh)
@@ -58,12 +58,11 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
     else:
       liste_p = [LNgbh[i+j] for i in range(q)]
     for Sp in liste_p:
-        if Sp not in L_tabu:
-            ep = Cost(Sp)
-            #print('ep',ep)
-            if ep > e :
-                S = Sp
-                e = ep
+        ep = Cost(Sp)
+        #print('ep',ep)
+        if ep > e :
+            S = Sp
+            e = ep
     #print("me e",Me,e)
     mi= [e,Me]
     e,rank = comm.allreduce(mi,op=MPI.MAXLOC)
