@@ -186,9 +186,6 @@ if __name__ == "__main__":
 
         GR_sb_a = np.fromiter(GR_sb.values(), dtype = int)
         comm.Gather(GR_sb_a,SbTab,root=0)
-
-        GR_a = np.fromiter(S0.values(), dtype = int)
-        comm.Gather(S0_a,S0Tab,root=0)
         
         GR_iter = np.array([GR_iter],dtype=int)
         comm.Gather(GR_iter,IterTab,root=0)
@@ -197,22 +194,18 @@ if __name__ == "__main__":
             nd = GC.GetNbDim()
             EbTab.resize(NbP)
             SbTab.resize(NbP, nd)
-            S0Tab.resize(NbP, nd)
             IterTab.resize(NbP, nd)
         comm.barrier()
         time.sleep(1)
         if Me == 0:
             best_E = np.amax(EbTab)
             best_E_arg = np.argmax(EbTab)
-            best_S0 = S0Tab[best_E_arg]
-            best_Sb = SbTab[best_E_arg]
             print("\n")
             print("========================= Best Parameters ======================")
             print("Parallel Greedy")
             print("\n")
             
             print("Best Energy " + str(best_E))
-            print("Initial solution " + str(best_S0))
             print("Optimal solution " + str(best_Sb))
             print("PE: ", Me, "/",NbP," bye!")
 
