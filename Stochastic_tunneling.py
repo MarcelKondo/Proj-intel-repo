@@ -45,7 +45,7 @@ def generateS0():
         grid_size = len(param_vals)
         pos = rd.randint(0, grid_size-1)
         S0[param] = param_vals[pos]
-
+    print(S0)
     return S0
 
 def get_neighbourhood(S):
