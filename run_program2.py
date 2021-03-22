@@ -214,8 +214,49 @@ if __name__ == "__main__":
     elif (args.method == "TGR"):
         #Execute only Tabu Greedy
         print(f"Executing only {args.method}")
-        ebtab, Sbtab, iterstab = parallel_tabu.parallel_tabu_greedy(S0,args.iter_max,args.tabu_size, NbP, Me)
-        print(f"Best score: {ebtab}, Solution: {str(Sbtab)}, Iters: {iterstab}")
+        if (Me == 0):
+            nd = GC.GetNbDim()
+            EbTab = np.zeros(NbP*1,dtype=np.float64)
+            SbTab = np.zeros(NbP*nd,dtype=int)
+            S0Tab = np.zeros(NbP*nd,dtype=int)
+            IterTab = np.zeros(NbP*1,dtype=int)
+        else:
+            EbTab   = None     
+            SbTab   = None
+            S0Tab   = None
+            IterTab = None
+
+        TGR_eb, TGR_sb, TGR_iter = parallel_tabu.parallel_tabu_greedy(S0,args.iter_max,args.tabu_size, NbP, Me)
+
+        TGR_eb = np.array([TGR_eb],dtype=np.float64)
+        comm.Gather(TGR_eb,EbTab,root=0)
+
+        TGR_sb_a = np.fromiter(TGR_sb.values(), dtype = int)
+        comm.Gather(TGR_sb_a,SbTab,root=0)
+        
+        TGR_iter = np.array([TGR_iter],dtype=int)
+        comm.Gather(TGR_iter,IterTab,root=0)
+        #Print results
+        if Me == 0:
+            nd = GC.GetNbDim()
+            EbTab.resize(NbP)
+            SbTab.resize(NbP, nd)
+            IterTab.resize(NbP, nd)
+        comm.barrier()
+        time.sleep(1)
+        if Me == 0:
+            best_E = np.amax(EbTab)
+            best_E_arg = np.argmax(EbTab)
+            best_Sb = SbTab[best_E_arg]
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Tabu Greedy")
+            print("\n")
+            
+            print("Best Energy " + str(best_E))
+            print("Optimal solution " + str(best_Sb))
+            print("PE: ", Me, "/",NbP," bye!")
+
 
 
     # #run hill climbing
