@@ -65,7 +65,7 @@ def fcost(S,penalties, Sb, eb,listparam,lba):
     fcost+=penalties[i]*prox*c[i] 
   return(fcost)
 
-def find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb) : #à paralléliser
+def find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb,eb) : #à paralléliser
     e = 0
     S = None
     n = len(LNgbh)
@@ -103,7 +103,7 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,c, listparam,lba):
     LNgbh = GC.nghbrhd_other(S)
 
     while iter < IterMax and NewBetterS:
-        S,e = find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb) 
+        S,e = find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb,eb) 
         if e > eb:
             #print("Eb GLOBAL TROUVÉ")
             Sb = S
