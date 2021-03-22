@@ -200,6 +200,7 @@ if __name__ == "__main__":
         if Me == 0:
             best_E = np.amax(EbTab)
             best_E_arg = np.argmax(EbTab)
+            best_Sb = SbTab[best_E_arg]
             print("\n")
             print("========================= Best Parameters ======================")
             print("Parallel Greedy")
