@@ -45,18 +45,27 @@ def get_neighbourhood(S):
                     LNgbh.append(Skm)
     return LNgbh
  
-
-def fcost(S,penalties,c,listparam,lba):
+def ComputeC(S,fcost,Sb,eb,listparam):
+                 c=[]
+                 for param in listparam:
+                    Sloc=Sb.copy()
+                    Sloc[param]=S[param]#Sb ou on ne change qu'un param comme il l'est dans S
+                    c.append(fcost-eb)
+                 return c
+            
+def fcost(S,penalties, Sb, eb,listparam,lba):
   
   fcost=Cost(S)
   w=1 #pour l'instant
-  #suppose que l'ordre des penalties est le meme que celui de listeparam
+  c= ComputeC(S,fcost,Sb,eb,listparam)
+    
+    #suppose que l'ordre des penalties est le meme que celui de listeparam
   for i in range(len(listparam):
     prox= abs(S[param[i]]-Sb[param[i]])
     fcost+=penalties[i]*prox*c[i] 
   return(fcost)
 
-def find_best(LNgbh, NbP, Me): #à paralléliser
+def find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb) : #à paralléliser
     e = 0
     S = None
     n = len(LNgbh)
@@ -68,7 +77,7 @@ def find_best(LNgbh, NbP, Me): #à paralléliser
     else:
       liste_p = [LNgbh[i+j] for i in range(q)]
     for Sp in liste_p:
-       ep = fcost(Sp,penalties,c,listparam,lba)
+       ep = fcost(Sp,penalties, Sb, eb,listparam,lba)
             #print('ep',ep)
        if ep > e :
           S = Sp
@@ -80,11 +89,11 @@ def find_best(LNgbh, NbP, Me): #à paralléliser
     S= comm.bcast(S, root=rank)
     return S, e
 
-def parallel_greedy(S0,IterMax,NbP, Me,penalties,c,listparam,lba):  
+def parallel_greedy(S0,IterMax,NbP, Me,penalties,listparam,lba):  
    
     Sb = S0
     #print("so",S0)
-    eb = fcost(Sb)
+    eb = fcost(Sb,penalties, Sb, eb,listparam,lba)
     iter = 0
     NewBetterS = True
 
@@ -93,7 +102,7 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,c,listparam,lba):
     LNgbh = GC.nghbrhd_other(S)
 
     while iter < IterMax and NewBetterS:
-        S,e = find_best(LNgbh, NbP, Me,penalties,c,listparam,lba) 
+        S,e = find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb) 
         if e > eb:
             #print("Eb GLOBAL TROUVÉ")
             Sb = S
@@ -107,15 +116,6 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,c,listparam,lba):
     print("[G] END")
     
     return eb,Sb,iter
-  
-  def ComputeC(S,Sb,eb,listparam):
-                 c=[]
-                 for param in listparam:
-                    Sloc=Sb.copy()
-                    Sloc[param]=S[param]#Sb ou on ne change qu'un param comme il l'est dans S
-                    c.append(Cost(Sloc)-eb)
-                 return c
-                 
                  
                  
   def Guided(S0,IterMax,NbP, Me,IterMaxG):
@@ -136,7 +136,7 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,c,listparam,lba):
                       
                       c= ComputeC(S,Sb)
                  
-                      e,S,iter= parallel_greedy(Sb,IterMax,NbP, Me,penalties,c,listparam,lba)
+                      e,S,iter= parallel_greedy(Sb,IterMax,NbP, Me,penalties,listparam,lba)
                       costS = Cost(S)
                       
                       if costS>eb:
