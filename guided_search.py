@@ -68,7 +68,7 @@ def find_best(LNgbh, L_tabu):
     S = None
     for Sp in LNgbh:
         if Sp not in L_tabu:
-            ep = guided_cost(Sp)
+            ep = guided_cost(Sp,Sb,LNgbh)
             if ep > e :
                 S = Sp
                 e = ep
