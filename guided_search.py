@@ -52,7 +52,7 @@ def get_neighbourhood(S):
 def guided_cost(S,Sb,LNgbh):#,Levol):
   LNloc= get_neighbourhood(S)
   e = Cost(S)
-  lambda=0.5
+  lambda = 0.5
   for X in LNloc:
     if X in LNgbh:
       e+=lambda*0.5#le poids
