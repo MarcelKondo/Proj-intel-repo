@@ -7,6 +7,7 @@ import math
 import random as rd
 from mpi4py import MPI
 
+from run_guided_search import param_space
 import general_config as GC
 from numpy.core.arrayprint import SubArrayFormat
 
@@ -15,8 +16,6 @@ from server_content.automated_compiling_tabu import find_number, define_exec_par
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me = comm.Get_rank()
-
-
 
 def get_neighbourhood(S):
     LNgbh = []
