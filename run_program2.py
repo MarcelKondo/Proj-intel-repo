@@ -8,7 +8,8 @@ import parallel_tabu
 #import run_simul_annealing_mpi
 import sys, getopt, argparse
 import HillClimbing as HC
-import parallel_HC as mpi_HC
+import main_parallel_HC as main_HC
+import main_greedy as main_greedy
 import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
 
@@ -57,43 +58,6 @@ def parse():
     args = parser.parse_args()
     return args
 
-# def gatherData(eb, sb, iter):
-#     eb = np.array([eb],dtype=np.float64)
-#     comm.Gather(eb,EbTab,root=0)
-
-#     sb_a = np.fromiter(sb.values(), dtype = int)
-#     comm.Gather(sb_a,SbTab,root=0)
-
-#     iter = np.array([iter],dtype=int)
-#     comm.Gather(iter,IterTab,root=0)
-#     return
-    
-
-# def treatData():
-#     nd = GC.GetNbDim()
-#     #tools.printResults(EbTab,SbTab,S0Tab,IterTab,nd,Me,NbP)
-#     EbTab.resize(NbP)
-#     SbTab.resize(NbP, nd)
-#     #S0Tab.resize(NbP, nd)
-#     IterTab.resize(NbP, nd)
-#     print("Energies")
-#     print(EbTab)
-#     print("Optimal parameters")
-#     print(SbTab)
-#     print("Initial parameters")
-#     print(IterTab)
-#     #Process 0 prints a "good bye msg"
-#     comm.barrier()
-#     time.sleep(1)
-#     return 
-
-# def findBest(EbTab, SbTab, IterTab):
-#     if Me == 0:
-#         best_E = np.amax(EbTab)
-#         best_E_arg = np.argmax(EbTab)
-#         best_Sb = SbTab[best_E_arg]
-#         return best_E, best_Sb
-#     return None,None
 
 if __name__ == "__main__":
     
@@ -114,60 +78,28 @@ if __name__ == "__main__":
     elif(args.method == "PHC"):
         #Execute only Parallel_HC
         print(f"Executing only {args.method}")
-        best_E, best_S0, best_Sb = mpi_HC.execute(S0,args)
-        print("REEEAL")
+        best_E, best_S0, best_Sb = main_HC.execute(S0,args)
+
+        print("\n")
+        print("========================= Best Parameters ======================")
+        print("Parallel HillClimbing")
+        print("\n")
         print("Best Energy " + str(best_E))
-        print("Initial solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
-
-
 
 
     elif (args.method == "GR"):
         #Execute only Greedy
         print(f"Executing only {args.method}")
-        if (Me == 0):
-            nd = GC.GetNbDim()
-            EbTab = np.zeros(NbP*1,dtype=np.float64)
-            SbTab = np.zeros(NbP*nd,dtype=int)
-            S0Tab = np.zeros(NbP*nd,dtype=int)
-            IterTab = np.zeros(NbP*1,dtype=int)
-        else:
-            EbTab   = None     
-            SbTab   = None
-            S0Tab   = None
-            IterTab = None
 
-        GR_eb, GR_sb, GR_iter = deploy_greedy_v3.parallel_greedy(S0,args.iter_max, NbP, Me)
-
-        GR_eb = np.array([GR_eb],dtype=np.float64)
-        comm.Gather(GR_eb,EbTab,root=0)
-
-        GR_sb_a = np.fromiter(GR_sb.values(), dtype = int)
-        comm.Gather(GR_sb_a,SbTab,root=0)
-        
-        GR_iter = np.array([GR_iter],dtype=int)
-        comm.Gather(GR_iter,IterTab,root=0)
-        #Print results
-        if Me == 0:
-            nd = GC.GetNbDim()
-            EbTab.resize(NbP)
-            SbTab.resize(NbP, nd)
-            IterTab.resize(NbP, nd)
-        comm.barrier()
-        time.sleep(1)
-        if Me == 0:
-            best_E = np.amax(EbTab)
-            best_E_arg = np.argmax(EbTab)
-            best_Sb = SbTab[best_E_arg]
-            print("\n")
-            print("========================= Best Parameters ======================")
-            print("Parallel Greedy")
-            print("\n")
-            
-            print("Best Energy " + str(best_E))
-            print("Optimal solution " + str(best_Sb))
-            print("PE: ", Me, "/",NbP," bye!")
+        best_E, best_S0, best_Sb = main_greedy.execute(S0, args)
+        print("\n")
+        print("========================= Best Parameters ======================")
+        print("Parallel Greedy")
+        print("Best Energy " + str(best_E))
+        print("Initial Solution " + str(best_S0))
+        print("Optimal solution " + str(best_Sb))
+        print("\n")
 
     
     elif (args.method == "TGR"):

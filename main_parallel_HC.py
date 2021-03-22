@@ -11,7 +11,6 @@ import HillClimbing as HC
 import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
 
-define_copiler_settings(opLevel=3, simdType="avx512")
 
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
@@ -62,14 +61,5 @@ def execute(S0, args):
         best_E_arg = np.argmax(EbTab)
         best_S0 = S0Tab[best_E_arg]
         best_Sb = SbTab[best_E_arg]
-        print("\n")
-        print("========================= Best Parameters ======================")
-        print("Parallel HillClimbing")
-        print("\n")
-                
-        print("Best Energy " + str(best_E))
-        print("Initial solution " + str(best_S0))
-        print("Optimal solution " + str(best_Sb))
-        print("PE: ", Me, "/",NbP," bye!")
 
     return best_E,best_S0, best_Sb
