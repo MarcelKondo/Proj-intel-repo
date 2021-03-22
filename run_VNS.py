@@ -27,7 +27,7 @@ exploring_param = ['n1', 'n2', 'n3', 'tblock1', 'tblock2', 'tblock3']
 def parse():
     parser = argparse.ArgumentParser('Greedy VNS')
     parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
-    parser.add_argument('-param', '--exploring_param', type=int, metavar='',required=True,help='exploring_param')
+#     parser.add_argument('-param', '--exploring_param', type=int, metavar='',required=True,help='exploring_param')
     args = parser.parse_args()
     return args
 
@@ -35,6 +35,6 @@ def parse():
 if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
-    eb, Sb, tot_iter = run_VNS_greedy(S0, IterMax, NbP, Me, exploring_param)
+    eb, Sb, tot_iter = run_VNS_greedy(S0, args.iter_max, NbP, Me, exploring_param)
     print(f"Best score: {eb}, Solution: {str(Sb)}, total_Iters: {tot_iter}")
              
