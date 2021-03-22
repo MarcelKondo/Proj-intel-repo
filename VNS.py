@@ -104,14 +104,14 @@ def run_VNS_greedy(S0, IterMax, nb_tour, NbP, Me, exploring_param):          #ex
     tot_iter = 0
     tour = 0
     S = S0
-    while tour < nb_tour:
-        for param in exploring_param:
-            e,S,iter = parallel_greedy_VNS(S, IterMax, NbP, Me, param)  #Recherche de la meilleure solution locale pour le seul paramètre variable "param"
-                                                                        #Récupère dans S le neighbordhood localement optimal où seulement param a changé.
-            print(20*"__", "optimisation selon {0} donne une vitesse de {1} en {2} itérations. Nouvelle valeur optimale de {0} = {3}".format(param,e,iter,S[param])) 
-            tot_iter += iter
-        tour+=1
-        print(20*"__", "end of turn {}/{} : {},{}".format(tour,nb_tour,e,S0))
+#     while tour < nb_tour:
+    for param in exploring_param:
+        e,S,iter = parallel_greedy_VNS(S, IterMax, NbP, Me, param)  #Recherche de la meilleure solution locale pour le seul paramètre variable "param"
+                                                                    #Récupère dans S le neighbordhood localement optimal où seulement param a changé.
+        print(20*"__", "optimisation selon {0} donne une vitesse de {1} en {2} itérations. Nouvelle valeur optimale de {0} = {3}".format(param,e,iter,S[param])) 
+        tot_iter += iter
+#         tour+=1
+    print(20*"__", "end of turn {}/{} : {},{}".format(tour,nb_tour,e,S0))
     return e,S,tot_iter      
     
    
