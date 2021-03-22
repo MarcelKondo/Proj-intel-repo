@@ -4,8 +4,6 @@ import time
 import os
 import deploy_greedy_v3
 import parallel_tabu
-#import mpi_HillClimbing
-#import run_simul_annealing_mpi
 import sys, getopt, argparse
 import HillClimbing as HC
 import main_parallel_HC as main_HC
@@ -62,7 +60,6 @@ def parse():
 
 if __name__ == "__main__":
     
-    #print('ARGS', sys.argv[1:])
     args = parse()
     GC.define_usedParameters(args.param_list)
     if(args.S0 == None):
