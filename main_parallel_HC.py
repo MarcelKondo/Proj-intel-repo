@@ -61,5 +61,8 @@ def execute(S0, args):
         best_E_arg = np.argmax(EbTab)
         best_S0 = S0Tab[best_E_arg]
         best_Sb = SbTab[best_E_arg]
-
+    else:
+        best_E = None
+        best_S0 = None
+        best_Sb = None
     return best_E,best_S0, best_Sb

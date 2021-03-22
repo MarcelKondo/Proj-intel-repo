@@ -59,8 +59,9 @@ def execute(S0, args):
         best_E_arg = np.argmax(EbTab)
         best_Sb = SbTab[best_E_arg]
     
-        
-        print("Best Energy " + str(best_E))
-        print("Optimal solution " + str(best_Sb))
-        print("PE: ", Me, "/",NbP," bye!")
+    
+    else:
+        best_E = None
+        best_S0 = None
+        best_Sb = None
     return best_E,best_Sb, best_Sb
