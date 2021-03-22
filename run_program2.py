@@ -99,17 +99,17 @@ if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
     GC.define_usedParameters(args.param_list)
-    # if (Me == 0):
-    #     nd = GC.GetNbDim()
-    #     EbTab = np.zeros(NbP*1,dtype=np.float64)
-    #     SbTab = np.zeros(NbP*nd,dtype=int)
-    #     S0Tab = np.zeros(NbP*nd,dtype=int)
-    #     IterTab = np.zeros(NbP*1,dtype=int)
-    # else:
-    #     EbTab   = None     
-    #     SbTab   = None
-    #     S0Tab   = None
-    #     IterTab = None
+    if (Me == 0):
+        nd = GC.GetNbDim()
+        EbTab = np.zeros(NbP*1,dtype=np.float64)
+        SbTab = np.zeros(NbP*nd,dtype=int)
+        S0Tab = np.zeros(NbP*nd,dtype=int)
+        IterTab = np.zeros(NbP*1,dtype=int)
+    else:
+        EbTab   = None     
+        SbTab   = None
+        S0Tab   = None
+        IterTab = None
     if(args.method == "HC"):
         #Execute only HillClimbing
         print(f"Executing only {args.method}")
@@ -123,17 +123,7 @@ if __name__ == "__main__":
     elif(args.method == "PHC"):
         #Execute only Parallel_HC
         print(f"Executing only {args.method}")
-        if Me == 0:        
-            nd = HC.GetNbDim()
-            EbTab = np.zeros(NbP*1,dtype=np.float64)
-            SbTab = np.zeros(NbP*nd,dtype=int)
-            S0Tab = np.zeros(NbP*nd,dtype=int)
-            IterTab = np.zeros(NbP*1,dtype=int)
-        else:
-            EbTab   = None     
-            SbTab   = None
-            S0Tab   = None
-            IterTab = None
+        
 
         PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
         #eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
