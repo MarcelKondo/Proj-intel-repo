@@ -88,7 +88,7 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
 
 
 
-def tabu_greedy(S0,IterMax,tabu_size):  
+def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):  
     """#S0: initial solution
     #IterMax: max nb of iteration
     # tabu_size: length of Tabu list for "Tabu List" method"""
@@ -101,23 +101,22 @@ def tabu_greedy(S0,IterMax,tabu_size):
 
     S = Sb
     e = eb
-    LNgbh = get_neighbourhood(S)
+    LNgbh = GC.nghbrhd_other(S)
     L_tabu = [Sb]
 
     while iter < IterMax and NewBetterS:
-        #print("BONJOUR")
-        S,e = find_best(LNgbh, L_tabu)
-        #print("BONJOUR bis")
-        print(S)
-        print(e)
+        S,e = find_best(LNgbh, L_tabu, NbP, Me) 
         if e > eb:
+            #print("Eb GLOBAL TROUVÉ")
             Sb = S
             eb = e
             L_tabu = fifo_add(Sb, L_tabu, tabu_size)
-            LNgbh = get_neighbourhood(Sb)
+            LNgbh = GC.nghbrhd_other(Sb)
+            #print(len(LNgbh))
         else:
             NewBetterS = False
         iter += 1
+        print(20*"=","NEW ITERATION",20*"=")
     print("[TG] END")
     
     return eb,Sb,iter
