@@ -103,7 +103,7 @@ if __name__ == "__main__":
             SbTab = np.zeros(NbP*nd,dtype=int)
             S0Tab = np.zeros(NbP*nd,dtype=int)
             IterTab = np.zeros(NbP*1,dtype=int)
-        else:
+    else:
             EbTab   = None     
             SbTab   = None
             S0Tab   = None
