@@ -108,6 +108,16 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,c,listparam,lba):
     
     return eb,Sb,iter
   
+  def ComputeC(S,Sb,eb,listparam):
+                 c=[]
+                 for param in listparam:
+                    Sloc=Sb.copy()
+                    Sloc[param]=S[param]#Sb ou on ne change qu'un param comme il l'est dans S
+                    c.append(Cost(Sloc)-eb)
+                 return c
+                 
+                 
+                 
   def Guided(S0,IterMax,NbP, Me,IterMaxG):
                  listparam= ['n1','n1','n1','tblock1','tblock2','tblock3']
                  penalties=[0]*len(listparam)
@@ -123,6 +133,8 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,c,listparam,lba):
                       f= ChoosePenal..........
                       for .....
                       .....
+                      
+                      c= ComputeC(S,Sb)
                  
                       e,S,iter= parallel_greedy(Sb,IterMax,NbP, Me,penalties,c,listparam,lba)
                       costS = Cost(S)
