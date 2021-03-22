@@ -57,15 +57,18 @@ def nghbrhd_other(S):
     return LNgbh 
 
 def guided_cost(S,Sb,LNgbh):#,Levol):
-  LNloc= get_neighbourhood(S)
+  LNloc= nghbrhd_other(S)#get_neighbourhood(S)
   e = Cost(S)
   lda = 0.1
+  s= 0
   for X in LNloc:
     if X in LNgbh:
+      s+=lda*0.5
       e+=-lda*0.5#le poids
     elif X ==Sb:
-      e+=-lda*0.6#le poids central est un petit plus important
-    
+      e+=-lda*0.6
+      s+=lda*0.5#le poids central est un petit plus important
+  print("sssssss",s)
   return e
 
 def fifo_add(Sb, L_tabu, tabu_size):
