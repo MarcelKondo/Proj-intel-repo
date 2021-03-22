@@ -95,40 +95,7 @@ def parse():
 #     return None,None
 
 def result():
-    PHC_eb = np.array([PHC_eb],dtype=np.float64)
-    comm.Gather(PHC_eb,EbTab,root=0)
-
-    PHC_sb_a = np.fromiter(PHC_sb.values(), dtype = int)
-    comm.Gather(PHC_sb_a,SbTab,root=0)
-
-    S0_a = np.fromiter(S0.values(), dtype = int)
-    comm.Gather(S0_a,S0Tab,root=0)
-        
-    PHC_iter = np.array([PHC_iter],dtype=int)
-    comm.Gather(PHC_iter,IterTab,root=0)
-    #Print results
-    if Me == 0:
-        nd = GC.GetNbDim()
-        EbTab.resize(NbP)
-        SbTab.resize(NbP, nd)
-        S0Tab.resize(NbP, nd)
-        IterTab.resize(NbP, nd)
-    comm.barrier()
-    time.sleep(1)
-    if Me == 0:
-        best_E = np.amax(EbTab)
-        best_E_arg = np.argmax(EbTab)
-        best_S0 = S0Tab[best_E_arg]
-        best_Sb = SbTab[best_E_arg]
-        print("\n")
-        print("========================= Best Parameters ======================")
-        print("Parallel HillClimbing")
-        print("\n")
-            
-        print("Best Energy " + str(best_E))
-        print("Initial solution " + str(best_S0))
-        print("Optimal solution " + str(best_Sb))
-        print("PE: ", Me, "/",NbP," bye!")
+    
 if __name__ == "__main__":
     
     #print('ARGS', sys.argv[1:])
@@ -163,7 +130,40 @@ if __name__ == "__main__":
         PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
 
         result()
+        PHC_eb = np.array([PHC_eb],dtype=np.float64)
+        comm.Gather(PHC_eb,EbTab,root=0)
+
+        PHC_sb_a = np.fromiter(PHC_sb.values(), dtype = int)
+        comm.Gather(PHC_sb_a,SbTab,root=0)
+
+        S0_a = np.fromiter(S0.values(), dtype = int)
+        comm.Gather(S0_a,S0Tab,root=0)
         
+        PHC_iter = np.array([PHC_iter],dtype=int)
+        comm.Gather(PHC_iter,IterTab,root=0)
+        #Print results
+        if Me == 0:
+            nd = GC.GetNbDim()
+            EbTab.resize(NbP)
+            SbTab.resize(NbP, nd)
+            S0Tab.resize(NbP, nd)
+            IterTab.resize(NbP, nd)
+        comm.barrier()
+        time.sleep(1)
+        if Me == 0:
+            best_E = np.amax(EbTab)
+            best_E_arg = np.argmax(EbTab)
+            best_S0 = S0Tab[best_E_arg]
+            best_Sb = SbTab[best_E_arg]
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Parallel HillClimbing")
+            print("\n")
+            
+            print("Best Energy " + str(best_E))
+            print("Initial solution " + str(best_S0))
+            print("Optimal solution " + str(best_Sb))
+            print("PE: ", Me, "/",NbP," bye!")
 
 
 
