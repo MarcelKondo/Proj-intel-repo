@@ -138,9 +138,9 @@ if __name__ == "__main__":
         print(f"Executing only {args.method}")
         eb, Sb, iters = deploy_greedy_v3.parallel_greedy(S0,args.iter_max, NbP, Me)
         print("\n")
-            print("========================= Best Parameters ======================")
-            print("Greedy")
-            print("\n")
+        print("========================= Best Parameters ======================")
+        print("Greedy")
+        print("\n")
         print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
     
 
