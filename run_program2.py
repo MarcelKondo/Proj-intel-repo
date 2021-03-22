@@ -86,7 +86,6 @@ if __name__ == "__main__":
             S0Tab   = None
             IterTab = None
         PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
-        eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
         PHC_eb = np.array([PHC_eb],dtype=np.float64)
         comm.Gather(PHC_eb,EbTab,root=0)
 
@@ -134,8 +133,16 @@ if __name__ == "__main__":
             print("Initial solution " + str(best_S0))
             print("Optimal solution " + str(best_Sb))
             print("PE: ", Me, "/",NbP," bye!")
-
-       
+    elif (args.method == "GR"):
+        #Execute only Greedy
+        print(f"Executing only {args.method}")
+        eb, Sb, iters = deploy_greedy_v3.parallel_greedy(S0,args.iter_max, NbP, Me)
+        print("\n")
+            print("========================= Best Parameters ======================")
+            print("Greedy")
+            print("\n")
+        print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
+    
 
 
     # #run hill climbing
