@@ -138,19 +138,19 @@ if __name__ == "__main__":
 
             print("\n")
             print("========================= Best Parameters ======================")
+            print("Parallel Greedy")
+            print("Best Energy " + str(best_E_GR))
+            print("Initial Solution " + str(best_S0_GR))
+            print("Optimal solution " + str(best_Sb_GR))
+            print("\n")
+            print("\n")
+            print("========================= Best Parameters ======================")
             print("Parallel HillClimbing")
             print("\n")
             print("Best Energy " + str(best_E_PHC))
             print("Initial solution " + str(best_S0_PHC))
             print("Optimal solution " + str(best_Sb_PHC))
 
-            print("\n")
-            print("========================= Best Parameters ======================")
-            print("Parallel Greedy")
-            print("Best Energy " + str(best_E_GR))
-            print("Initial Solution " + str(best_S0_GR))
-            print("Optimal solution " + str(best_Sb_GR))
-            print("\n")
 
 
 
