@@ -59,7 +59,7 @@ def nghbrhd_other(S):
 def guided_cost(S,Sb,LNgbh):#,Levol):
   LNloc= get_neighbourhood(S)
   e = Cost(S)
-  lda = 0.5
+  lda = 0.1
   for X in LNloc:
     if X in LNgbh:
       e+=-lda*0.5#le poids
