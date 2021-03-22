@@ -8,6 +8,7 @@ import parallel_tabu
 #import run_simul_annealing_mpi
 import sys, getopt, argparse
 import HillClimbing as HC
+import parallel_HC as mpi_HC
 import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
 
@@ -113,54 +114,12 @@ if __name__ == "__main__":
     elif(args.method == "PHC"):
         #Execute only Parallel_HC
         print(f"Executing only {args.method}")
-        if (Me == 0):
-            nd = GC.GetNbDim()
-            EbTab = np.zeros(NbP*1,dtype=np.float64)
-            SbTab = np.zeros(NbP*nd,dtype=int)
-            S0Tab = np.zeros(NbP*nd,dtype=int)
-            IterTab = np.zeros(NbP*1,dtype=int)
-        else:
-            EbTab   = None     
-            SbTab   = None
-            S0Tab   = None
-            IterTab = None
+        best_E, best_S0, best_Sb = mpi_HC.execute(S0,args)
+        print("REEEAL")
+        print("Best Energy " + str(best_E))
+        print("Initial solution " + str(best_S0))
+        print("Optimal solution " + str(best_Sb))
 
-        PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
-
-        PHC_eb = np.array([PHC_eb],dtype=np.float64)
-        comm.Gather(PHC_eb,EbTab,root=0)
-
-        PHC_sb_a = np.fromiter(PHC_sb.values(), dtype = int)
-        comm.Gather(PHC_sb_a,SbTab,root=0)
-
-        S0_a = np.fromiter(S0.values(), dtype = int)
-        comm.Gather(S0_a,S0Tab,root=0)
-        
-        PHC_iter = np.array([PHC_iter],dtype=int)
-        comm.Gather(PHC_iter,IterTab,root=0)
-        #Print results
-        if Me == 0:
-            nd = GC.GetNbDim()
-            EbTab.resize(NbP)
-            SbTab.resize(NbP, nd)
-            S0Tab.resize(NbP, nd)
-            IterTab.resize(NbP, nd)
-        comm.barrier()
-        time.sleep(1)
-        if Me == 0:
-            best_E = np.amax(EbTab)
-            best_E_arg = np.argmax(EbTab)
-            best_S0 = S0Tab[best_E_arg]
-            best_Sb = SbTab[best_E_arg]
-            print("\n")
-            print("========================= Best Parameters ======================")
-            print("Parallel HillClimbing")
-            print("\n")
-            
-            print("Best Energy " + str(best_E))
-            print("Initial solution " + str(best_S0))
-            print("Optimal solution " + str(best_Sb))
-            print("PE: ", Me, "/",NbP," bye!")
 
 
 
