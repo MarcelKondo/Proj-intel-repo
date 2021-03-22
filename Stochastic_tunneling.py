@@ -91,7 +91,7 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
     Sb = S0
     eb = Cost(Sb)
     iter = 0
-    
+    feb=1
     T = T0
     S = Sb
     e = eb
@@ -103,16 +103,16 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
         k = rd.randrange(len(LNgbh))
         Sp = LNgbh[k]
         ep = Cost(Sp)
-        fep= math.exp(-gamma*(Cost(Sp)-eb)) 
+        fep= math.exp(-gamma*(ep-eb)) 
         if fep > fe or rd.random() < np.exp(-(fep - fe)/T):
             S = Sp
             e = ep
-            #fe = 1
+            fe = math.exp(-gamma*(e-eb))
             LNgbh = get_neighbourhood(S)
-            if (e > eb):
+            if (fe > feb):
                 Sb = S
                 eb = e
-                fe =1 
+                feb =1 
         T = la*T
         iter += 1
     print("[SMA] END")
