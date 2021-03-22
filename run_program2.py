@@ -77,7 +77,7 @@ def gatherData(eb, sb, iter):
     return
     
 
-def treatData(EbTab, SbTab, IterTab):
+def treatData():
     nd = GC.GetNbDim()
     #tools.printResults(EbTab,SbTab,S0Tab,IterTab,nd,Me,NbP)
     EbTab.resize(NbP)
@@ -93,7 +93,7 @@ def treatData(EbTab, SbTab, IterTab):
     #Process 0 prints a "good bye msg"
     comm.barrier()
     time.sleep(1)
-    return EbTab, SbTab, IterTab
+    return 
 
 def findBest(EbTab, SbTab, IterTab):
     if Me == 0:
@@ -129,7 +129,7 @@ if __name__ == "__main__":
         gatherData(PHC_eb, PHC_sb, PHC_iter)
 
         if Me == 0:
-            EbTab, SbTab, IterTab = treatData(EbTab, SbTab, IterTab)
+            treatData()
             PHC_eb_O, PHC_sb_O = findBest(EbTab, SbTab, IterTab)
             print(20*"="," PARALLEL HILL CLIMBING",20*"=")
             print(f"Best energy: {PHC_eb_O} Best Solution: {PHC_sb_O}")
