@@ -1,5 +1,5 @@
 from mpi4py import MPI
-import run_guided_search_v2
+import guided_search_v2
 import sys, getopt, argparse
 import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
@@ -37,5 +37,5 @@ def parse():
 if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
-    eb, Sb, iters = run_guided_search_v2.Guided(S0,args.iter_max, NbP, Me,args.iter_maxG)
+    eb, Sb, iters = guided_search_v2.Guided(S0,args.iter_max, NbP, Me,args.iter_maxG)
     print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
