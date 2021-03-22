@@ -148,7 +148,7 @@ if __name__ == "__main__":
 
         comm.barrier()
         time.sleep(1)
-        IF Me == 0:
+        if Me == 0:
             best_E = np.amax(EbTab)
             best_E_arg = np.argmax(EbTab)
 
