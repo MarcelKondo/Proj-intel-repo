@@ -65,7 +65,7 @@ if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
     GC.define_usedParameters(args.param_list)
-
+    S0 = GC.generateS0()
     if(args.method == "HC"):
         #Execute only HillClimbing
         print(f"Executing only {args.method}")
@@ -140,8 +140,8 @@ if __name__ == "__main__":
             print("Hill Climbing")
             print("\n")
             print("Best Energy " + str(eb_HC))
-            print("Initial solution " + str(**S0))
-            print("Optimal solution " + str(**Sb_HC))
+            print("Initial solution " + str(S0))
+            print("Optimal solution " + str(Sb_HC))
 
             print("\n")
             print("========================= Best Parameters ======================")
