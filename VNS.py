@@ -7,7 +7,6 @@ import math
 import random as rd
 from mpi4py import MPI
 
-import general_config as GC
 from numpy.core.arrayprint import SubArrayFormat
 
 from server_content.automated_compiling_tabu import find_number, define_exec_param, define_copiler_settings, Cost
