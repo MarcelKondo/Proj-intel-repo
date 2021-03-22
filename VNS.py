@@ -62,7 +62,7 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
     S= comm.bcast(S, root=rank)
     return S, e
 
-def parallel_greedy_VNS(S0,IterMax,tabu_size, NbP, Me, param):  
+def parallel_greedy_VNS(S0,IterMax, NbP, Me, param):  
     """#S0: initial solution
     #IterMax: max nb of iteration
     # tabu_size: length of Tabu list for "Tabu List" method"""
@@ -90,6 +90,23 @@ def parallel_greedy_VNS(S0,IterMax,tabu_size, NbP, Me, param):
             NewBetterS = False
         iter += 1
         print(20*"=","NEW ITERATION",20*"=")
-    print("[TG] END")
+    print("Greedy END")
     
     return eb,Sb,iter
+
+exploring_param = ['n1', 'n2', 'n3', 'tblock1', 'tblock2', 'tblock3']
+  
+def run_VNS_greedy(S0, IterMax, NbP, Me, exploring_param):
+    tot_iter = 0
+    for param in exploring_param:
+        e,S,iter = parallel_greedy_VNS(S0, IterMax, NbP, Me, param)  #Recherche de la meilleure solution locale pour le seul paramètre variable "param"
+        print("optimisation selon {0} donne une vitesse de {1} en {2} itérations. Nouvelle valeur optimale de {0} = {3}".format(param,e,iter,S[param])
+        S0 = S  #Récupère le neighbordhood localement optimal où seulement param a changé.
+        tot_iter += iter
+     print(20*"__", "VNS greedy terminé")
+     return e,S,tot_iter      
+              
+if __name__ == "__main__":
+    eb,Sb,tot_iter = run_VNS_greedy(S0, IterMax, NbP, Me, exploring_param)
+    print(f"Best score: {eb}, Solution: {str(Sb)}, total_Iters: {tot_iter}")
+             
