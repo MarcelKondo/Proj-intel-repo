@@ -116,46 +116,42 @@ if __name__ == "__main__":
         print("Initial Solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
         print("\n")
+    else:
+        #Execute all methods
+        print(f"Executing all methods")
+
+        #HillClimbing
+        if Me == 0:
+            eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
+        time.sleep(1)
+
+        #Parallel HillClimbing
+        best_E_PHC, best_S0_PHC, best_Sb_PHC = main_HC.execute(S0,args)
+
+        #Greedy
+        best_E_GR, best_S0_GR, best_Sb_GR = main_greedy.execute(S0, args)
+
+        if Me == 0:
+            print(20*"=","HILL CLIMBING",20*"=")
+            print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
+            print('\n')
+
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Parallel HillClimbing")
+            print("\n")
+            print("Best Energy " + str(best_E))
+            print("Initial solution " + str(best_S0))
+            print("Optimal solution " + str(best_Sb))
+
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Parallel Greedy")
+            print("Best Energy " + str(best_E))
+            print("Initial Solution " + str(best_S0))
+            print("Optimal solution " + str(best_Sb))
+            print("\n")
 
 
 
-    # #run hill climbing
-    # print(20*"=","HILL CLIMBING",20*"=")
-    # eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
-    # #ebhill, Sbhill,itershill= mpi_HillClimbing.HillClimbing(S0,args.iter_max,param_list,cost_type):
-    # #cmd = 'mpirun -np 4 -map-by ppr:2:socket -bind-to socket python3 run_parallel_tabu.py'
-    # #os.system(cmd)
-    
-    
-    # #run greedy
-    # print(20*"=","GREEDY",20*"=")
-    # eb, Sb, iters = deploy_greedy_v3.parallel_greedy(S0,args.iter_max, NbP, Me)
-    # print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
-    
-    # #run tabu_greedy
-    # print(20*"=","TABU",20*"=")
-    # #print('ARGS', sys.argv[1:])
-    # args = parse()
-    # ebtab, Sbtab, iterstab = parallel_tabu.parallel_tabu_greedy(S0,args.iter_max,args.tabu_size, NbP, Me)
-    # print(f"Best score: {ebtab}, Solution: {str(Sbtab)}, Iters: {iterstab}")
 
-    # #run annealing
-    # #print(20*"=","ANNEALING",20*"=")
-    # #cmd = 'mpirun -np 4 -map-by ppr:2:socket -bind-to socket python3 run_simul_annealing_mpi.py'
-    # #os.system(cmd)
-    
-    
-    # Lmethod= [[eb, Sb, iters],[ebtab, Sbtab, iterstab]]
-
-
-    # print(20*"=","GREEDY",20*"=")
-    # print("eb",eb,"Sb",Sb,"iters", iters)
-    # print('\n')
-
-    # print(20*"=","TABU",20*"=")
-    # print("ebtab",ebtab,"Sbtab",Sbtab,"iterstab", iterstab)
-    # print('\n')
-
-    # print(20*"=","HILL CLIMBING",20*"=")
-    # print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
-    # print('\n')
