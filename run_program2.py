@@ -90,7 +90,7 @@ def findBest(EbTab, SbTab, IterTab):
         best_E_arg = np.argmax(EbTab)
         best_Sb = SbTab[best_E_arg]
         return best_E, best_Sb
-    return 
+    return None,None
 
 if __name__ == "__main__":
     
