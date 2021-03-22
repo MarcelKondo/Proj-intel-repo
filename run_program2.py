@@ -143,6 +143,11 @@ if __name__ == "__main__":
         print("\n")
         print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
     
+    elif (args.method == "TGR"):
+        #Execute only Tabu Greedy
+        print(f"Executing only {args.method}")
+        ebtab, Sbtab, iterstab = parallel_tabu.parallel_tabu_greedy(S0,args.iter_max,args.tabu_size, NbP, Me)
+        print(f"Best score: {ebtab}, Solution: {str(Sbtab)}, Iters: {iterstab}")
 
 
     # #run hill climbing
