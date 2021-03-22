@@ -20,6 +20,12 @@ if __name__ == "__main__":
     print(f'tabu_size: {args.tabu_size}')
     print(f'method: {args.method}')
     print(f'S0: {args.S0}')
+    S0 = dict()
+    params = ['n1','n2','n3','nb_threads','nb_it','tblock1','tblock2','tblock3']
+    for i in range(len(args.S0)):
+        S0[params[i]] = args.S0[i]
     if(args.method == "HC"):
         print("HC")
+
+    print(S0)
     

@@ -51,7 +51,7 @@ param_space = {
 
 def parse():
     parser = argparse.ArgumentParser('Geral Config')
-    #parser.add_argument('-S0', '--S0',  )
+    parser.add_argument('-S0', '--S0', nargs='+', type=int)
     parser.add_argument('-method', '--method', metavar='', help="specify the method used (HC, PHC, GR, TGR, SA")
     parser.add_argument('-pl', '--param_list', nargs="+", help ="parameters to change")
     parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
@@ -65,7 +65,14 @@ if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
     GC.define_usedParameters(args.param_list)
-    S0 = GC.generateS0()
+    if(args.S0 == None):
+        S0 = GC.generateS0()
+    else:
+        params = ['n1','n2','n3','nb_threads','nb_it','tblock1','tblock2','tblock3']
+        for i in range(len(args.S0)):
+            S0[params[i]] = args.S0[i]
+
+            
     if(args.method == "HC"):
         #Execute only HillClimbing
         print(f"Executing only {args.method}")
