@@ -41,6 +41,9 @@ def execute(S0, args):
     TGR_eb = np.array([TGR_eb],dtype=np.float64)
     comm.Gather(TGR_eb,EbTab,root=0)
 
+    S0_a = np.fromiter(S0.values(), dtype = int)
+    comm.Gather(S0_a,S0Tab,root=0)
+    
     TGR_sb_a = np.fromiter(TGR_sb.values(), dtype = int)
     comm.Gather(TGR_sb_a,SbTab,root=0)
 
