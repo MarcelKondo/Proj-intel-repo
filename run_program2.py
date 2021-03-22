@@ -81,7 +81,10 @@ def treatData(eb, sb, iter):
         #Process 0 prints a "good bye msg"
         comm.barrier()
         time.sleep(1)
-    
+    else:
+        EbTab = None
+        SbTab = None
+        IterTab = None
     return EbTab, SbTab, IterTab
 
 def findBest(EbTab, SbTab, IterTab):
@@ -125,8 +128,9 @@ if __name__ == "__main__":
         
         PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
         
+        EbTab, SbTab, IterTab = treatData(PHC_eb, PHC_sb, PHC_iter)
+        
         if Me == 0:
-            EbTab, SbTab, IterTab = treatData(PHC_eb, PHC_sb, PHC_iter)
             PHC_eb_O, PHC_sb_O = findBest(EbTab, SbTab, IterTab)
             print(20*"="," PARALLEL HILL CLIMBING",20*"=")
             print(f"Best energy: {PHC_eb_O} Best Solution: {PHC_sb_O}")
