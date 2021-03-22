@@ -74,7 +74,6 @@ if __name__ == "__main__":
     elif(args.method == "PHC"):
         #Execute only Parallel_HC
         print(f"Executing only {args.method}")
-        
         if Me == 0:        
             nd = HC.GetNbDim()
             EbTab = np.zeros(NbP*1,dtype=np.float64)
@@ -86,16 +85,20 @@ if __name__ == "__main__":
             SbTab   = None
             S0Tab   = None
             IterTab = None
+        
+        eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
+        PHC_eb = np.array([PHC_eb],dtype=np.float64)
+        comm.Gather(PHC_eb,EbTab,root=0)
 
-        Eb = np.array([eb],dtype=np.float64)
-        comm.Gather(Eb,EbTab,root=0)
+        PHC_sb_a = np.fromiter(PHC_sb.values(), dtype = int)
+        comm.Gather(PHC_sb_a,SbTab,root=0)
 
-        comm.Gather(Sb,SbTab,root=0)
-        comm.Gather(S0,S0Tab,root=0)
+        S0_a = np.fromiter(S0.values(), dtype = int)
+        comm.Gather(S0_a,S0Tab,root=0)
 
-        Iter = np.array([iter],dtype=int)
-        comm.Gather(Iter,IterTab,root=0)
 
+        PHC_iter = np.array([PHC_iter],dtype=int)
+        comm.Gather(PHC_iter,IterTab,root=0)
 
         #Print results
         if Me == 0:
