@@ -129,7 +129,7 @@ if __name__ == "__main__":
         gatherData(PHC_eb, PHC_sb, PHC_iter)
 
         if Me == 0:
-            EbTab, SbTab, IterTab = treatData(PHC_eb, PHC_sb, PHC_iter)
+            EbTab, SbTab, IterTab = treatData(EbTab, SbTab, IterTab)
             PHC_eb_O, PHC_sb_O = findBest(EbTab, SbTab, IterTab)
             print(20*"="," PARALLEL HILL CLIMBING",20*"=")
             print(f"Best energy: {PHC_eb_O} Best Solution: {PHC_sb_O}")
