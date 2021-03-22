@@ -60,7 +60,7 @@ def fcost(S,penalties, Sb, eb,listparam,lba):
   c= ComputeC(S,fcost,Sb,eb,listparam)
     
     #suppose que l'ordre des penalties est le meme que celui de listeparam
-  for i in range(len(listparam):
+  for i in range(len(listparam)):
     prox= abs(S[param[i]]-Sb[param[i]])
     fcost+=penalties[i]*prox*c[i] 
   return(fcost)
