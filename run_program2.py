@@ -94,8 +94,6 @@ def parse():
 #         return best_E, best_Sb
 #     return None,None
 
-def result():
-    
 if __name__ == "__main__":
     
     #print('ARGS', sys.argv[1:])
@@ -129,7 +127,6 @@ if __name__ == "__main__":
 
         PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
 
-        result()
         PHC_eb = np.array([PHC_eb],dtype=np.float64)
         comm.Gather(PHC_eb,EbTab,root=0)
 
