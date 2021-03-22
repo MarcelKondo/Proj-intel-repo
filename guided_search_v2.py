@@ -117,6 +117,14 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,listparam,lba):
     
     return eb,Sb,iter
                  
+  
+def ChoosePenaltyFeatures(p,c):
+  s = len(p)*[0]
+  for i in range(len(p)):
+    s[i] = c[i]/(p[i]+1)
+  index_max = s.index(max(s))
+  p[index_max]+=1
+  return p
                  
   def Guided(S0,IterMax,NbP, Me,IterMaxG):
                  listparam= ['n1','n1','n1','tblock1','tblock2','tblock3']
@@ -130,12 +138,9 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,listparam,lba):
                  iterG=0
                  
                  while iterG < IterMaxG and NewBetterSG:
-                      f= ChoosePenal..........
-                      for .....
-                      .....
-                      
                       c= ComputeC(S,Sb)
-                 
+                      penalties= ChoosePenaltyFeatures(penalties,c)
+                      
                       e,S,iter= parallel_greedy(Sb,IterMax,NbP, Me,penalties,listparam,lba)
                       costS = Cost(S)
                       
