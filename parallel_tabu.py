@@ -64,7 +64,7 @@ def fifo_add(Sb, L_tabu, tabu_size):
     return L_tabu
  
   
-def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
+def find_best(LNgbh, L_tabu, NbP, Me,gamma,eb): #à paralléliser
     e = 0
     S = None
     n = len(LNgbh)
@@ -77,7 +77,7 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
       liste_p = [LNgbh[i+j] for i in range(q)]
     for Sp in liste_p:
         if Sp not in L_tabu:
-            ep = Cost(Sp)
+            ep =math.exp(-gamma*(Cost(Sp)-eb)) #1-(math.exp(-gamma*(Cost(Sp)-eb))) qd c'est un pb de maximisation
             #print('ep',ep)
             if ep > e :
                 S = Sp
@@ -89,7 +89,7 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
     S= comm.bcast(S, root=rank)
     return S, e
 
-def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):  
+def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me,gamma):  
     """#S0: initial solution
     #IterMax: max nb of iteration
     # tabu_size: length of Tabu list for "Tabu List" method"""
@@ -106,7 +106,7 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
     L_tabu = [Sb]
 
     while iter < IterMax and NewBetterS:
-        S,e = find_best(LNgbh, L_tabu, NbP, Me) 
+        S,e = find_best(LNgbh, L_tabu, NbP, Me,gamma,eb) 
         if e > eb:
             #print("Eb GLOBAL TROUVÉ")
             Sb = S
