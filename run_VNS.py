@@ -1,6 +1,7 @@
 from mpi4py import MPI
 from VNS import run_VNS_greedy
 import sys, getopt, argparse
+import random
 
 from server_content.automated_compiling_tabu import define_copiler_settings
 
@@ -11,12 +12,12 @@ NbP = comm.Get_size()
 Me = comm.Get_rank()
 
 S0 = {
-    'n1' : 256,
-    'n2' : 256,
-    'n3' : 256,
+    'n1' : random.randint(100,400),   #initialement 256
+    'n2' : random.randint(100,400),
+    'n3' : random.randint(100,400),
     'nb_threads' : 4,
     'nb_it' : 10,
-    'tblock1' : 32,
+    'tblock1' : 32,                   # initalement 32
     'tblock2' : 32,
     'tblock3' : 32,
     'simdType' : "avx512"
