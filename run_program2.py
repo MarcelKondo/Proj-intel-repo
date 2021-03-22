@@ -30,7 +30,7 @@ S0 = {
     'tblock1' : 32,
     'tblock2' : 32,
     'tblock3' : 32,
-    'simdType' : 'avx512'
+    #'simdType' : 'avx512'
 }
 
 param_space = {
@@ -42,7 +42,7 @@ param_space = {
     'tblock1' : [32, 128, 16],
     'tblock2' : [32, 128, 4],
     'tblock3' : [32, 128, 4],
-    'simdType' : ["avx512"]
+    #'simdType' : ["avx512"]
 }
 
 def parse():
