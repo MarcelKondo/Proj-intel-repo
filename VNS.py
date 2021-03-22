@@ -32,7 +32,7 @@ def get_neighbourhood(S, param):
     if param == 'simdType':
         None
     else:
-        for k in range(1,5):
+        for k in range(1,3):
             Skp = S.copy()
             Skm = S.copy()
 
@@ -70,22 +70,20 @@ def find_best(LNgbh, NbP, Me): #à paralléliser
     S= comm.bcast(S, root=rank)
     return S, e
 
-def parallel_greedy_VNS(S0,IterMax, NbP, Me, param):  
+def parallel_greedy_VNS(S0, IterMax, NbP, Me, param):  
     """#S0: initial solution
     #IterMax: max nb of iteration
-    # tabu_size: length of Tabu list for "Tabu List" method"""
+    # param: param of param_space that changes in the neighborhood during exploration"""
   
     Sb = S0
     #print("so",S0)
     eb = Cost(Sb)
     iter = 0
     NewBetterS = True
-
     S = Sb
     e = eb
     LNgbh = get_neighbourhood(S, param)
-
-
+    
     while iter < IterMax and NewBetterS:
         S,e = find_best(LNgbh,  NbP, Me) 
         if e > eb:
@@ -112,4 +110,5 @@ def run_VNS_greedy(S0, IterMax, NbP, Me, exploring_param):          #exploring_p
         tot_iter += iter
     print(20*"__", "VNS greedy terminé")
     return e,S,tot_iter      
-            
+    
+   
