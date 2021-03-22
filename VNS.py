@@ -93,9 +93,7 @@ def parallel_greedy_VNS(S0,IterMax, NbP, Me, param):
     
     return eb,Sb,iter
 
-exploring_param = ['n1', 'n2', 'n3', 'tblock1', 'tblock2', 'tblock3']
-  
-def run_VNS_greedy(S0, IterMax, NbP, Me, exploring_param):
+def run_VNS_greedy(S0, IterMax, NbP, Me, exploring_param):          #exploring_param = ['n1', 'n2', 'n3', 'tblock1', 'tblock2', 'tblock3']
     tot_iter = 0
     S0 = S0
     for param in exploring_param:
@@ -106,7 +104,3 @@ def run_VNS_greedy(S0, IterMax, NbP, Me, exploring_param):
     print(20*"__", "VNS greedy terminé")
     return e,S,tot_iter      
             
-if __name__ == "__main__":
-    eb,Sb,tot_iter = run_VNS_greedy(S0, IterMax, NbP, Me, exploring_param)
-    print(f"Best score: {eb}, Solution: {str(Sb)}, total_Iters: {tot_iter}")
-             
