@@ -140,8 +140,8 @@ if __name__ == "__main__":
             print("Hill Climbing")
             print("\n")
             print("Best Energy " + str(eb_HC))
-            print("Initial solution " + str(S0))
-            print("Optimal solution " + str(Sb_HC))
+            print("Initial solution " + str(**S0))
+            print("Optimal solution " + str(**Sb_HC))
 
             print("\n")
             print("========================= Best Parameters ======================")
