@@ -1,5 +1,5 @@
 from mpi4py import MPI
-import parallel_tabu
+import guided_search
 import sys, getopt, argparse
 import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
