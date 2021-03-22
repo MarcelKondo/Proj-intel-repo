@@ -87,7 +87,7 @@ def parallel_greedy_VNS(S0,IterMax, NbP, Me, param):
 
 
     while iter < IterMax and NewBetterS:
-        S,e = find_best(LNgbh, L_tabu, NbP, Me) 
+        S,e = find_best(LNgbh,  NbP, Me) 
         if e > eb:
             #print("Eb GLOBAL TROUVÉ")
             Sb = S
