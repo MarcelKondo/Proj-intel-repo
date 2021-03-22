@@ -93,6 +93,7 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,c, listparam,lba):
    
     Sb = S0
     #print("so",S0)
+    eb= Cost(Sb)
     eb = fcost(Sb,penalties, Sb, eb,listparam,lba)
     iter = 0
     NewBetterS = True
