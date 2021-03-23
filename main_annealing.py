@@ -40,7 +40,7 @@ else :
 def execute(S0, args):
 
 
-    eb, Sb,iter = SA.SimulatedAnnealing(S0, args.IterMax, T0, la)
+    eb, Sb,iter = SA.SimulatedAnnealing(S0, args.iter_max, T0, la)
 
     Eb = np.array([eb],dtype=np.float64)
     comm.Gather(Eb,EbTab,root=0)
