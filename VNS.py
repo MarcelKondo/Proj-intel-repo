@@ -32,7 +32,7 @@ def get_neighbourhood(S, param):
     if param == 'simdType':
         None
     else:
-        for k in range(1,3):
+        for k in range(1,2):
             Skp = S.copy()
             Skm = S.copy()
 
