@@ -7,9 +7,9 @@ import random as rd
 from itertools import combinations
 
 param_space = {
-    'n1' : [32, 300, 16],
-    'n2' : [32, 300, 4],
-    'n3' : [32, 300, 4],
+    'n1' : [160, 300, 16],
+    'n2' : [160, 300, 4],
+    'n3' : [160, 300, 4],
     'nb_threads' : [1, 8, 1],
     'nb_it' : [10, 50, 1],
     'tblock1' : [16, 80, 16],

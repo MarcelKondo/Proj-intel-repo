@@ -9,6 +9,7 @@ import HillClimbing as HC
 import main_parallel_HC as main_HC
 import main_greedy as main_greedy
 import main_tabu_greedy as main_tabu_greedy
+import main_annealing as main_SA
 import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
 
@@ -119,6 +120,19 @@ if __name__ == "__main__":
         print("\n")
         print("========================= Best Parameters ======================")
         print("Tabu Greedy")
+        print("Best Energy " + str(best_E))
+        print("Initial Solution " + str(best_S0))
+        print("Optimal solution " + str(best_Sb))
+        print("\n")
+    elif (args.method == "SA"):
+        #Execute only Tabu Greedy
+        print(f"Executing only {args.method}")
+
+        best_E, best_S0, best_Sb = main_SA.execute(S0, args)
+
+        print("\n")
+        print("========================= Best Parameters ======================")
+        print("Simulated Annealing")
         print("Best Energy " + str(best_E))
         print("Initial Solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
