@@ -12,14 +12,14 @@ NbP = comm.Get_size()
 Me = comm.Get_rank()
 
 S0 = {
-    'n1' : 320,                 #16*random.randint(7,25),   #initialement 256. Ici commence entre 102 et 400 
-    'n2' : 236,                 #4*random.randint(25,100),  # Entre 100 et 400
-    'n3' : 268,                 #4*random.randint(25,100),  # Entre 100 et 400
+    'n1' : 368,                 #16*random.randint(7,25),   #initialement 256. Ici commence entre 102 et 400 
+    'n2' : 228,                 #4*random.randint(25,100),  # Entre 100 et 400
+    'n3' : 292,                 #4*random.randint(25,100),  # Entre 100 et 400 
     'nb_threads' : 4,
     'nb_it' : 10,
-    'tblock1' : 48,                   # initalement 32
-    'tblock2' : 32,
-    'tblock3' : 30,
+    'tblock1' : 48,                   # initalement 32 
+    'tblock2' : 33,
+    'tblock3' : 28,
     'simdType' : "avx512"
 }
 
