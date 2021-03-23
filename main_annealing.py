@@ -17,6 +17,7 @@ comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me = comm.Get_rank()
 
+
 comm.barrier()
 
 T0 = 80
@@ -37,25 +38,29 @@ else :
     SbTab   = None
     S0Tab   = None
     IterTab = None
+
 def execute(S0, args):
 
 
-    eb, Sb,iter = SA.SimulatedAnnealing(S0, args.iter_max, T0, la)
+    PHC_eb, PHC_sb, PHC_iter = SA.SimulatedAnnealing(S0, args.iter_max, T0, la)
 
-    Eb = np.array([eb],dtype=np.float64)
-    comm.Gather(Eb,EbTab,root=0)
+    PHC_eb = np.array([PHC_eb],dtype=np.float64)
+    comm.Gather(PHC_eb,EbTab,root=0)
 
-    comm.Gather(np.array([x for x in Sb.values()]),SbTab,root=0)
-    comm.Gather(np.array([x for x in S0.values()]),S0Tab,root=0)
+    PHC_sb_a = np.fromiter(PHC_sb.values(), dtype = int)
+    comm.Gather(PHC_sb_a,SbTab,root=0)
 
-    Iter = np.array([iter],dtype=int)
-    comm.Gather(Iter,IterTab,root=0)
+    S0_a = np.fromiter(S0.values(), dtype = int)
+    comm.Gather(S0_a,S0Tab,root=0)
+            
+    PHC_iter = np.array([PHC_iter],dtype=int)
+    comm.Gather(PHC_iter,IterTab,root=0)
     #Print results
     if Me == 0:
         nd = GC.GetNbDim()
         EbTab.resize(NbP)
-        S0Tab.resize(NbP, nd)
         SbTab.resize(NbP, nd)
+        S0Tab.resize(NbP, nd)
         IterTab.resize(NbP, nd)
     comm.barrier()
     time.sleep(1)
@@ -64,8 +69,6 @@ def execute(S0, args):
         best_E_arg = np.argmax(EbTab)
         best_S0 = S0Tab[best_E_arg]
         best_Sb = SbTab[best_E_arg]
-    
-    
     else:
         best_E = None
         best_S0 = None
