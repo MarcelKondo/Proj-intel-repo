@@ -26,20 +26,21 @@ la = 0.8
 if Me == 0:
     print("PE: ", Me, "/",NbP,": all processes started")   
 
+if Me == 0:        
+    nd = GC.GetNbDim()
+    EbTab = np.zeros(NbP*1,dtype=np.float64)
+    SbTab = np.zeros(NbP*nd,dtype=int)
+    S0Tab = np.zeros(NbP*nd,dtype=int)
+    IterTab = np.zeros(NbP*1,dtype=int)
+else :
+    EbTab   = None     
+    SbTab   = None
+    S0Tab   = None
+    IterTab = None
 def execute(S0, args):
-    if Me == 0:        
-        nd = GC.GetNbDim()
-        EbTab = np.zeros(NbP*1,dtype=np.float64)
-        SbTab = np.zeros(NbP*nd,dtype=int)
-        S0Tab = np.zeros(NbP*nd,dtype=int)
-        IterTab = np.zeros(NbP*1,dtype=int)
-    else :
-        EbTab   = None     
-        SbTab   = None
-        S0Tab   = None
-        IterTab = None
 
-    eb, Sb,iter = SA.SimulatedAnnealing(S0, IterMax, T0, la)
+
+    eb, Sb,iter = SA.SimulatedAnnealing(S0, args.IterMax, T0, la)
 
     Eb = np.array([eb],dtype=np.float64)
     comm.Gather(Eb,EbTab,root=0)
