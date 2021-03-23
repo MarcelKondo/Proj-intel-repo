@@ -12,7 +12,7 @@ NbP = comm.Get_size()
 Me = comm.Get_rank()
 
 S0 = {
-    'n1' : 320,                 #16*random.randint(7,25),   #initialement 256. Ici commence entre 102 et 400 320, 'n2': 244, 'n3': 268
+    'n1' : 320,                 #16*random.randint(7,25),   #initialement 256. Ici commence entre 102 et 400 
     'n2' : 244,                 #4*random.randint(25,100),  # Entre 100 et 400
     'n3' : 268,                 #4*random.randint(25,100),  # Entre 100 et 400
     'nb_threads' : 4,
