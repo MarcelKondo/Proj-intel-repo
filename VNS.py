@@ -96,7 +96,7 @@ def parallel_greedy_VNS(S0, IterMax, NbP, Me, param):
             NewBetterS = False
         iter += 1
         print(20*"=","NEW ITERATION",20*"=")
-    print("Greedy END")
+#     print("Greedy END")
     
     return eb,Sb,iter
 
