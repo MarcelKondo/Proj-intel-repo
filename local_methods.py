@@ -14,7 +14,6 @@ import general_config as GC
 import simulated_annealing as SA
 from server_content.automated_compiling_tabu import define_copiler_settings
 
-
 define_copiler_settings(opLevel=3, simdType="avx512")
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
@@ -129,7 +128,7 @@ if __name__ == "__main__":
         #Execute only Tabu Greedy
         print(f"Executing only {args.method}")
 
-        #best_E, best_S0, best_Sb = main_SA.execute(S0, args)
+        best_E, best_S0, best_Sb = main_SA.execute(S0, args)
     if(Me == 0):
         print(20*"=","HILL CLIMBING",20*"=")
         eb_HC, Sb_HC, iters_HC = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)

@@ -16,6 +16,7 @@ comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me = comm.Get_rank()
 
+
 comm.barrier()
 
 if Me == 0:

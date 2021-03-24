@@ -41,9 +41,8 @@ else :
 
 def execute(S0, args):
 
-
+    
     PHC_eb, PHC_sb, PHC_iter = SA.SimulatedAnnealing(S0, args.iter_max, T0, la)
-
     PHC_eb = np.array([PHC_eb],dtype=np.float64)
     comm.Gather(PHC_eb,EbTab,root=0)
 
