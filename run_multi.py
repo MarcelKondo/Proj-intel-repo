@@ -15,14 +15,14 @@ NbP = comm.Get_size()
 Me = comm.Get_rank()
 
 S0 = {
-    'n1' : 256,
-    'n2' : 256,
-    'n3' : 256,
+    'n1' : 368,
+    'n2' : 228,
+    'n3' : 292,
     'nb_threads' : 4,
     'nb_it' : 10,
-    'tblock1' : 32,
-    'tblock2' : 32,
-    'tblock3' : 32,
+    'tblock1' : 48,
+    'tblock2' : 33,
+    'tblock3' : 28,
     'simdType' : "avx512"
 }
 
@@ -51,11 +51,11 @@ if __name__ == "__main__":
     print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters}")
     
     #run tabu_greedy
-    print(20*"=","TABU",20*"=")
+    #print(20*"=","TABU",20*"=")
     #print('ARGS', sys.argv[1:])
-    args = parse()
-    ebtab, Sbtab, iterstab = parallel_tabu.parallel_tabu_greedy(S0,args.iter_max,args.tabu_size, NbP, Me)
-    print(f"Best score: {ebtab}, Solution: {str(Sbtab)}, Iters: {iterstab}")
+    #args = parse()
+    #ebtab, Sbtab, iterstab = parallel_tabu.parallel_tabu_greedy(S0,args.iter_max,args.tabu_size, NbP, Me)
+    #print(f"Best score: {ebtab}, Solution: {str(Sbtab)}, Iters: {iterstab}")
 
     #run annealing
     #print(20*"=","ANNEALING",20*"=")
@@ -63,14 +63,14 @@ if __name__ == "__main__":
     #os.system(cmd)
     
     
-    Lmethod= [[eb, Sb, iters],[ebtab, Sbtab, iterstab]]
-    if eb>ebtab:
-        print("Greedy simple is better")
-        print("eb",eb,"Sb",Sb,"iters", iters)
-        print("greedy tabu result")
-        print("ebtab",ebtab,"Sbtab",Sbtab,"iterstab", iterstab)
-    else:
-        print("greedy tabu is better")
-        print("ebtab",ebtab,"Sbtab",Sbtab,"iterstab", iterstab)
-        print("Greedy simple result")
-        print("eb",eb,"Sb",Sb,"iters", iters)
+    #Lmethod= [[eb, Sb, iters],[ebtab, Sbtab, iterstab]]
+    #if eb>ebtab:
+    #    print("Greedy simple is better")
+    #    print("eb",eb,"Sb",Sb,"iters", iters)
+    #    print("greedy tabu result")
+    #    print("ebtab",ebtab,"Sbtab",Sbtab,"iterstab", iterstab)
+    #else:
+    #    print("greedy tabu is better")
+     #   print("ebtab",ebtab,"Sbtab",Sbtab,"iterstab", iterstab)
+    #    print("Greedy simple result")
+    #    print("eb",eb,"Sb",Sb,"iters", iters)
