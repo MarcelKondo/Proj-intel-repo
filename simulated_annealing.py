@@ -5,7 +5,7 @@ import numpy as np
 import math
 import random as rd
 import general_config as GC
-from server_content.automated_compiling import find_number, define_exec_param, define_copiler_settings, Cost
+from server_content.automated_compiling_tabu import find_number, define_exec_param, define_copiler_settings, Cost
 
 param_space = {
     'n1' : [256, 257, 16],
