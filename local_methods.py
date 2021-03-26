@@ -51,10 +51,10 @@ def parse():
     parser.add_argument('-S0', '--S0', nargs='+', type=int)
     parser.add_argument('-method', '--method', metavar='', help="specify the method used (HC, PHC, GR, TGR, SA")
     parser.add_argument('-pl', '--param_list', nargs="+", help ="parameters to change")
-    parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
-    parser.add_argument('-ts', '--tabu_size', type=int, metavar='',required=True,help='tabu_size')
-    parser.add_argument('-opt', '--opt', default = 0, type=int, metavar='',required=True,help='Compiler optimization mode')
-    parser.add_argument('-simdType', '--simdType', default = "avx512", metavar='',required=True,help='Compiler optimization mode')
+    parser.add_argument('-itm', '--iter_max', type=int, metavar='',help='IterMax')
+    parser.add_argument('-ts', '--tabu_size', type=int, metavar='',help='tabu_size')
+    parser.add_argument('-opt', '--opt', default = 0, type=int, metavar='',help='Compiler optimization mode')
+    parser.add_argument('-simdType', '--simdType', default = "avx512", metavar='',help='Compiler optimization mode')
     args = parser.parse_args()
     return args
 
@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
    
     args = parse()
-    
+
     define_copiler_settings(opLevel=args.opt, simdType=args.simdType)
 
     GC.define_usedParameters(args.param_list)
@@ -77,7 +77,9 @@ if __name__ == "__main__":
         for i in range(len(args.S0)):
             S0[params[i]] = args.S0[i]
 
-
+    if args.simdType != None:
+        S0['simdType'] = args.simdType
+        
     if(args.method == "HC"):
         #Execute only HillClimbing
         print(f"Executing only {args.method}")
