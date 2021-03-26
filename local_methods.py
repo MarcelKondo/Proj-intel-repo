@@ -139,19 +139,18 @@ if __name__ == "__main__":
             eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
         time.sleep(1)
 
+        S0['simdType'] = args.simdType
         #Parallel HillClimbing
         best_E_PHC, best_S0_PHC, best_Sb_PHC = main_HC.execute(S0,args)
-       
-        print(f"Current S0 of process {Me}:  {S0}")
-        time.sleep(1)
+        S0['simdType'] = args.simdType
+
         #Greedy
         best_E_GR, best_S0_GR, best_Sb_GR = main_greedy.execute(S0, args)
+        S0['simdType'] = args.simdType
 
-        print(f"Current S0 of process {Me}:  {S0}")
-        time.sleep(1)
         #Tabu Greedy
         best_E_TGR, best_S0_TGR, best_Sb_TGR = main_tabu_greedy.execute(S0, args)
-
+        S0['simdType'] = args.simdType
         if Me == 0:
             print("\n")
             print("========================= Best Parameters ======================")
