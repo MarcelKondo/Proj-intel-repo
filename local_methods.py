@@ -13,7 +13,6 @@ import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
 
 
-define_copiler_settings(opLevel=3, simdType="avx512")
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me = comm.Get_rank()
@@ -54,12 +53,16 @@ def parse():
     parser.add_argument('-pl', '--param_list', nargs="+", help ="parameters to change")
     parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
     parser.add_argument('-ts', '--tabu_size', type=int, metavar='',required=True,help='tabu_size')
+    parser.add_argument('-opt', '--opt', default = 0, type=int, metavar='',required=True,help='Compiler optimization mode')
+    parser.add_argument('-simdType', '--simdType', default = "avx512", metavar='',required=True,help='Compiler optimization mode')
     args = parser.parse_args()
     return args
 
 
 if __name__ == "__main__":
-    
+
+    define_copiler_settings(opLevel=args.opt, simdType=args.simdType)
+
     args = parse()
     GC.define_usedParameters(args.param_list)
     if(args.S0 == None):
