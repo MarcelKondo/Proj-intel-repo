@@ -36,6 +36,9 @@ else:
 def execute(S0, args):
     PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
 
+    S0.pop('simdType',None) #simdType not int and useless at this point
+    PHC_sb.pop('simdType',None) #simdType not int and useless at this point
+
     PHC_eb = np.array([PHC_eb],dtype=np.float64)
     comm.Gather(PHC_eb,EbTab,root=0)
 
