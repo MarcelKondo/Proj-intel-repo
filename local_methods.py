@@ -79,7 +79,7 @@ if __name__ == "__main__":
 
     if args.simdType != None:
         S0['simdType'] = args.simdType
-        
+
     if(args.method == "HC"):
         #Execute only HillClimbing
         print(f"Executing only {args.method}")
@@ -142,9 +142,11 @@ if __name__ == "__main__":
         #Parallel HillClimbing
         best_E_PHC, best_S0_PHC, best_Sb_PHC = main_HC.execute(S0,args)
 
+        time.sleep(1)
         #Greedy
         best_E_GR, best_S0_GR, best_Sb_GR = main_greedy.execute(S0, args)
 
+        time.sleep(1)
         #Tabu Greedy
         best_E_TGR, best_S0_TGR, best_Sb_TGR = main_tabu_greedy.execute(S0, args)
 
