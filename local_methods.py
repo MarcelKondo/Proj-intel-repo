@@ -61,9 +61,11 @@ def parse():
 
 if __name__ == "__main__":
 
+   
+    args = parse()
+    
     define_copiler_settings(opLevel=args.opt, simdType=args.simdType)
 
-    args = parse()
     GC.define_usedParameters(args.param_list)
     if(args.S0 == None):
         S0 = GC.generateS0()
