@@ -142,7 +142,7 @@ def Guided(S0,IterMax,NbP, Me,IterMaxG):
                  e = eb
                  #fcost = 
                  while iterG < IterMaxG and NewBetterSG:
-                      fcost =fcost(S,penalties, Sb, eb,listparam)
+                      fcost =fcost(S,penalties, Sb, eb,listparam,lba)
                       c=ComputeC(S,fcost,Sb,eb,listparam) #Cost(Sb)## pb ici S pas assigné avant ComputeC(S,Sb) un fcost n'est pas calculé avan
                       penalties= ChoosePenaltyFeatures(penalties,c)
                       
