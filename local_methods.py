@@ -53,7 +53,7 @@ def parse():
     parser.add_argument('-pl', '--param_list', nargs="+", help ="parameters to change")
     parser.add_argument('-itm', '--iter_max', type=int, metavar='',help='IterMax')
     parser.add_argument('-ts', '--tabu_size', type=int, metavar='',help='tabu_size')
-    parser.add_argument('-opt', '--opt', default = 0, type=int, metavar='',help='Compiler optimization mode')
+    parser.add_argument('-opt', '--opt', default = 3, type=int, metavar='',help='Compiler optimization mode')
     parser.add_argument('-simdType', '--simdType', default = "avx512", metavar='',help='Compiler optimization mode')
     parser.add_argument('-ngbr', '--neighbourhood', default = "basic", metavar='',help="Specify the type of neighbourhood used")
     args = parser.parse_args()
