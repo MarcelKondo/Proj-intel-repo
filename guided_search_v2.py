@@ -45,12 +45,13 @@ def get_neighbourhood(S):
                     LNgbh.append(Skm)
     return LNgbh
  
-def ComputeC(S,fcost,Sb,eb,listparam):
+def ComputeC(S,Sb,eb,listparam):
                  c=[]
                  for param in listparam:
                     Sloc=Sb.copy()
-                    Sloc[param]=S[param]#Sb ou on ne change qu'un param comme il l'est dans S
-                    c.append(fcost-eb)
+                    Sloc[param]=S[param]
+                    cost= Cost(Sloc)#Sb ou on ne change qu'un param comme il l'est dans S
+                    c.append(cost-eb)
                  return c
             
 def fcost(S,penalties, Sb, eb,listparam,lba):
