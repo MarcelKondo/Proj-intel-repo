@@ -53,7 +53,7 @@ def ComputeC(S,fcost,Sb,eb,listparam):
                     c.append(fcost-eb)
                  return c
             
-def fcost(S,penalties, Sb, eb,listparam):#,lba):
+def fcost(S,penalties, Sb, eb,listparam,lba):
   
   fcost=Cost(S)
   w=1 #pour l'instant
