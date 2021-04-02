@@ -62,7 +62,7 @@ def fcost(S,penalties, Sb, eb,listparam,lba):
     #suppose que l'ordre des penalties est le meme que celui de listeparam
   for i in range(len(listparam)):
     prox= abs(S[listparam[i]]-Sb[listparam[i]])
-    fcost+=penalties[i]*prox*c[i] 
+    fcost+=penalties[i]*prox*c[i]*lba
   return(fcost)
 
 def find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb,eb) : #à paralléliser
