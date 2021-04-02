@@ -127,13 +127,14 @@ if __name__ == "__main__":
     elif (args.method == "SA"):
         #Execute only Tabu Greedy
         print(f"Executing only {args.method}")
+        print(20*"=","SIMU",20*"=")
+        if Me == 0:
+            eb_HC, Sb_HC, iters_HC = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
+            print(20*"=","SIMU",20*"=")
 
-        best_E, best_S0, best_Sb = main_SA.execute(S0, args)
-    if(Me == 0):
-        print(20*"=","HILL CLIMBING",20*"=")
-        eb_HC, Sb_HC, iters_HC = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
-        
-        print(20*"=","HILL CLIMBING",20*"=")
+            print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
+            print('\n')
+        #best_E, best_S0, best_Sb = main_SA.execute(S0, args)
         # print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
         # print('\n')
         # print("\n")
