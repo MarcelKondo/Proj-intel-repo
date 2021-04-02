@@ -80,7 +80,7 @@ def get_neighbourhood(S):
     return LNgbh
 
 def get_neighbourhood_basic(S):
-    print("BAAAAAAAAAAAASIC")
+    print("Basic neighbourhood")
     LNgbh = []
     print(param_space)
     for param in param_space.keys():
@@ -110,7 +110,7 @@ def get_neighbourhood_basic(S):
 
 def nghbrhd_other(S):
     LNgbh =[]
-    print("ANOTHER ONEEE")
+    print("another neighbourhood")
     keys = ['n1','n2','n3','tblock1','tblock2','tblock3']
     triplets = list(combinations(keys,3))  #toutes combinaisons de triplets possibles
     for _ in range(5):
