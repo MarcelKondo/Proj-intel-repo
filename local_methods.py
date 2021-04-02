@@ -55,6 +55,7 @@ def parse():
     parser.add_argument('-ts', '--tabu_size', type=int, metavar='',help='tabu_size')
     parser.add_argument('-opt', '--opt', default = 0, type=int, metavar='',help='Compiler optimization mode')
     parser.add_argument('-simdType', '--simdType', default = "avx512", metavar='',help='Compiler optimization mode')
+    parser.add_argument('-nbgh', '--neighbourhood', default = "basic", help="Specify the type of neighbourhood used")
     args = parser.parse_args()
     return args
 
@@ -67,7 +68,8 @@ if __name__ == "__main__":
     define_copiler_settings(opLevel=args.opt, simdType=args.simdType)
 
     GC.define_usedParameters(args.param_list)
-    GC.define_neighbourhood("basic")
+    GC.define_neighbourhood(args.neighbourhood)
+    
     if(args.S0 == None):
         S0 = GC.generateS0()
     else:
