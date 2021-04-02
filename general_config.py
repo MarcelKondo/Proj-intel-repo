@@ -20,7 +20,7 @@ param_space = {
 param_space_categorical = {
     #'simdType' : ["sse"]
 }
-
+global neighbourhood
 neighbourhood = None
 
 def GetNbDim():
