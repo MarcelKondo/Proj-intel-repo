@@ -95,6 +95,7 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,c, listparam,lba):
     #print("so",S0)
     eb= Cost(Sb)
     eb = fcost(Sb,penalties, Sb, eb,listparam,lba)
+    print("fcost dans parall greedy")
     iter = 0
     NewBetterS = True
 
@@ -142,8 +143,10 @@ def Guided(S0,IterMax,NbP, Me,IterMaxG):
                  e = eb
                  #fcost = 
                  while iterG < IterMaxG and NewBetterSG:
-                      fcost =fcost(S,penalties, Sb, eb,listparam,lba)
-                      c=ComputeC(S,fcost,Sb,eb,listparam) #Cost(Sb)## pb ici S pas assigné avant ComputeC(S,Sb) un fcost n'est pas calculé avan
+                      print("je suis arrivé dans la boucle")
+                      fcostg = fcost(S,penalties, Sb, eb,listparam,lba)
+                      print("fcost",fcostg)
+                      c=ComputeC(S,fcostg,Sb,eb,listparam) #Cost(Sb)## pb ici S pas assigné avant ComputeC(S,Sb) un fcost n'est pas calculé avan
                       penalties= ChoosePenaltyFeatures(penalties,c)
                       
                       e,S,iter = parallel_greedy(Sb,IterMax,NbP, Me,penalties,c,listparam,lba)
