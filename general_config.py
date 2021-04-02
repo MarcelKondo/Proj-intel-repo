@@ -21,7 +21,6 @@ param_space_categorical = {
     #'simdType' : ["sse"]
 }
 
-ngbr_space = ['basic', 'another']
 neighbourhood = None
 
 def GetNbDim():
@@ -65,13 +64,12 @@ def define_usedParameters(param_list):
         param_space[elem][2] = 0
     return 
 
-def define_neighbourhood(ngbr_name):
+def define_neighbourhood(nbgh_name):
     '''Define the type of neighbourhood to use'''
     global neighbourhood
-    print(ngbr_name)
-    if ngbr_name in ngbr_space:
-        if ngbr_name == "basic":
-            neighbourhood = get_neighbourhood_basic
+    print(nbgh_name)
+    if nbgh_name == "basic":
+        neighbourhood = get_neighbourhood_basic
     else:
         neighbourhood = nghbrhd_other
 
