@@ -162,7 +162,7 @@ def Guided(S0,IterMax,NbP, Me,IterMaxG):
                  
                  eb,Sb,iterb= parallel_greedy(Sb,IterMax,NbP, Me,penalties,c,listparam,lba)
                  
-                 return eb,Sb,iterb
+                 return eb,Sb,iterb,penalties,c
       
 
   
