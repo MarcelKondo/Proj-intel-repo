@@ -107,7 +107,7 @@ def HillClimbing(S0,IterMax,cost_type):  #T0, la, ltl unused in HC
             Sb = Sk
             eb = ek
             #LNgbh = Neighborhood(Sb, param_list)
-            LNgbh = GC.nghbrhd_other(Sb)
+            LNgbh = GC.get_neighbourhood(Sb)
         iter += 1
     
     #return best Energy, best Solution, and nb of iter
