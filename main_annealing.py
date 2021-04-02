@@ -8,9 +8,10 @@ import parallel_tabu
 #import run_simul_annealing_mpi
 import sys, getopt, argparse
 import HillClimbing as HC
+import main_parallel_HC as mpi_HC
 import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
-
+import simulated_annealing as SA
 
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
@@ -19,24 +20,29 @@ Me = comm.Get_rank()
 
 comm.barrier()
 
+T0 = 80
+IterMax = 10
+la = 0.8
+
 if Me == 0:
     print("PE: ", Me, "/",NbP,": all processes started")   
-    
-if (Me == 0):
+
+if Me == 0:        
     nd = GC.GetNbDim()
     EbTab = np.zeros(NbP*1,dtype=np.float64)
     SbTab = np.zeros(NbP*nd,dtype=int)
     S0Tab = np.zeros(NbP*nd,dtype=int)
     IterTab = np.zeros(NbP*1,dtype=int)
-else:
+else :
     EbTab   = None     
     SbTab   = None
     S0Tab   = None
     IterTab = None
 
 def execute(S0, args):
-    PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
 
+    
+    PHC_eb, PHC_sb, PHC_iter = SA.SimulatedAnnealing(S0, args.iter_max, T0, la)
     PHC_eb = np.array([PHC_eb],dtype=np.float64)
     comm.Gather(PHC_eb,EbTab,root=0)
 

@@ -9,9 +9,10 @@ import HillClimbing as HC
 import main_parallel_HC as main_HC
 import main_greedy as main_greedy
 import main_tabu_greedy as main_tabu_greedy
+import main_annealing as main_SA
 import general_config as GC
+import simulated_annealing as SA
 from server_content.automated_compiling_tabu import define_copiler_settings
-
 
 define_copiler_settings(opLevel=3, simdType="avx512")
 comm = MPI.COMM_WORLD
@@ -122,6 +123,26 @@ if __name__ == "__main__":
         print("Best performance (Gflops) " + str(best_E))
         print("Initial Solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
+        print("\n")
+    elif (args.method == "SA"):
+        #Execute only Tabu Greedy
+        print(f"Executing only {args.method}")
+        print(20*"=","SIMU",20*"=")
+        if Me == 0:
+            eb_HC, Sb_HC, iters_HC = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
+            print(20*"=","SIMU",20*"=")
+
+            print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
+            print('\n')
+        #best_E, best_S0, best_Sb = main_SA.execute(S0, args)
+        # print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
+        # print('\n')
+        # print("\n")
+        # print("========================= Best Parameters ======================")
+        # print("Simulated Annealing")
+        # print("Best Energy " + str(best_E))
+        # print("Initial Solution " + str(best_S0))
+        # print("Optimal solution " + str(best_Sb))
         print("\n")
     else:
         #Execute all methods
