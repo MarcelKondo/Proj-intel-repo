@@ -161,6 +161,7 @@ def Guided(S0,IterMax,NbP, Me,IterMaxG):
                         NewBetterSG = False
                       iterG += 1
                  
+                 penalties= [0]*len(listparam)
                  eb,Sb,iterb= parallel_greedy(Sb,IterMax,NbP, Me,penalties,c,listparam,lba)
                  
                  return eb,Sb,iterb,penalties,c
