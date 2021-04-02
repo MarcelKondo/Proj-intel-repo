@@ -1,4 +1,3 @@
-Guided(S0,IterMax,tabu_size,NbP, Me,IterMaxG):
 from mpi4py import MPI
 import guided_search_tg
 import sys, getopt, argparse
@@ -31,6 +30,7 @@ def parse():
     parser = argparse.ArgumentParser('Greedy Parallel Tabu')
     parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
     parser.add_argument('-itmG', '--iter_maxG', type=int, metavar='',required=True,help='IterMaxG')
+    parser.add_argument('-ts', '--tabu_size', type=int, metavar='',required=True,help='tabu_size')
     args = parser.parse_args()
     return args
 
@@ -38,7 +38,7 @@ def parse():
 if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
-    eb, Sb, iters, penalties, c, iterG= guided_search_tg.Guided(S0,args.iter_max, NbP, Me,args.iter_maxG)
+    eb, Sb, iters, penalties, c, iterG= guided_search_tg.Guided(S0,args.iter_max,args.tabu_size, NbP, Me,args.iter_maxG)
     print(f"Best score: {eb}, Solution: {str(Sb)}, Iters_last_greedy: {iters},IterGuided: {iterG},Penalties: {penalties},c: {c}")
     
     
