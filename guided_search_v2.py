@@ -72,8 +72,9 @@ def find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb,eb) : #à parallélise
     q = n//NbP
     rest = n%NbP
     j = Me*q
-    if j==n-rest:
-      liste_p = [LNgbh[i+j] for i in range(rest)]
+    if Me<rest:
+      liste_p = [LNgbh[i+j] for i in range(q)]
+      liste_p.append(LNgbh[j+Me])
     else:
       liste_p = [LNgbh[i+j] for i in range(q)]
     for Sp in liste_p:
