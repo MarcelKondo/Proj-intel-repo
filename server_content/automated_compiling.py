@@ -31,7 +31,7 @@ def define_exec_param(n1 = 256, n2 = 256, n3 = 256, nb_threads = 4, nb_it = 100,
 
 def define_copiler_settings(opLevel, simdType):
 
-    os.system("cd ~/Proj-Intel/Appli-iso3dfd/ && make -e OPTIMIZATION=\"-O"+ str(opLevel) + "\" -e simd=" + simdType + " last" )
+    os.system("cd ~/Proj-Intel/Appli-iso3dfd/ && make -e OPTIMIZATION=\"-O"+ str(opLevel) + "\" -e simd=" + simdType + "-e version=dev13 last" )
     
 print("V2 starting execution")
 #d = {'n1' : n1, "n2" : n2, "n3" : n3, "nb_threads" : nb_threads, "nb_it": nb_it, "tblock1" : tblock1, 
