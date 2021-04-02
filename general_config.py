@@ -68,9 +68,9 @@ def define_neighbourhood(nbgh_name):
     '''Define the type of neighbourhood to use'''
     
     if nbgh_name == "basic":
-        neighbourhood = get_neighbourhood_basic(S)
+        neighbourhood = get_neighbourhood_basic
     else:
-        neighbourhood = nghbrhd_other(S)
+        neighbourhood = nghbrhd_other
 
 def get_neighbourhood(S):
     '''neighbourhood that methods will implement'''
