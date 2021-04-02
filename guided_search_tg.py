@@ -66,7 +66,13 @@ def fcost(S,penalties, Sb, eb,listparam,lba):
     fcost+=penalties[i]*prox*c[i]*lba
   return(fcost)
 
-def find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb,eb) : #à paralléliser
+def fifo_add(Sb, L_tabu, tabu_size):
+    if len(L_tabu)==tabu_size:
+        L_tabu.pop(0)
+    L_tabu.append(Sb)
+    return L_tabu
+
+def find_best(LNgbh,L_tabu, NbP, Me,penalties,c,listparam,lba,Sb,eb) : #à paralléliser
     e = 0
     S = None
     n = len(LNgbh)
@@ -79,11 +85,12 @@ def find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb,eb) : #à parallélise
     else:
       liste_p = [LNgbh[i+j] for i in range(q)]
     for Sp in liste_p:
-       ep = fcost(Sp,penalties, Sb, eb,listparam,lba)
+        if Sp not in L_tabu:       
+            ep = fcost(Sp,penalties, Sb, eb,listparam,lba)
             #print('ep',ep)
-       if ep > e :
-          S = Sp
-          e = ep
+            if ep > e :
+                S = Sp
+                e = ep
     #print("me e",Me,e)
     mi= [e,Me]
     e,rank = comm.allreduce(mi,op=MPI.MAXLOC)
@@ -91,7 +98,7 @@ def find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb,eb) : #à parallélise
     S= comm.bcast(S, root=rank)
     return S, e
 
-def parallel_greedy(S0,IterMax,NbP, Me,penalties,c, listparam,lba):  
+def parallel_tabu_greedy(S0,IterMax,tabu_size,NbP, Me,penalties,c, listparam,lba):  
    
     Sb = S0
     #print("so",S0)
@@ -104,13 +111,15 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,c, listparam,lba):
     S = Sb
     e = eb
     LNgbh = GC.nghbrhd_other(S)
+    L_tabu = [Sb]
     
     while iter < IterMax and NewBetterS:
-        S,e = find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb,eb) 
+        S,e = find_best(LNgbh,L_tabu, NbP, Me,penalties,c,listparam,lba,Sb,eb) 
         if e > eb:
             #print("Eb GLOBAL TROUVÉ")
             Sb = S
             eb = e
+            L_tabu = fifo_add(Sb, L_tabu, tabu_size)
             LNgbh = GC.nghbrhd_other(Sb)
             #print(len(LNgbh))
         else:
@@ -130,14 +139,14 @@ def ChoosePenaltyFeatures(p,c):
   p[index_max]+=1
   return p
 
-def Guided(S0,IterMax,NbP, Me,IterMaxG):
+def Guided(S0,IterMax,tabu_size,NbP, Me,IterMaxG):
                  listparam= ['n1','n1','n1','tblock1','tblock2','tblock3']
                  penalties=[0]*len(listparam)
                  c= [0]*len(listparam)
                  lba=0.35#à tester
                  
                  #premier local search
-                 eb,Sb,iterb= parallel_greedy(S0,IterMax,NbP, Me,penalties,c,listparam,lba)
+                 eb,Sb,iterb= parallel_tabu_greedy(S0,IterMax,tabu_size,NbP, Me,penalties,c,listparam,lba)
                  
                  NewBetterSG= True
                  iterG=0
@@ -149,7 +158,7 @@ def Guided(S0,IterMax,NbP, Me,IterMaxG):
                       c=ComputeC(S,Sb,eb,listparam) #Cost(Sb)## pb ici S pas assigné avant ComputeC(S,Sb) un fcost n'est pas calculé avan
                       penalties= ChoosePenaltyFeatures(penalties,c)
                       
-                      e,S,iter = parallel_greedy(Sb,IterMax,NbP, Me,penalties,c,listparam,lba)
+                      e,S,iter = parallel_tabu_greedy(Sb,IterMax,tabu_size,NbP, Me,penalties,c,listparam,lba)
                       costS = Cost(S)
                       
                       if costS>eb:
@@ -161,6 +170,6 @@ def Guided(S0,IterMax,NbP, Me,IterMaxG):
                       iterG += 1
                  
                  penaltie= [0]*len(listparam)
-                 eb,Sb,iterb= parallel_greedy(Sb,IterMax,NbP, Me,penaltie,c,listparam,lba)
+                 eb,Sb,iterb= parallel_tabu_greedy(Sb,IterMax,tabu_size,NbP, Me,penaltie,c,listparam,lba)
                  
                  return eb,Sb,iterb,penalties,c,iterG
