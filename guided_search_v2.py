@@ -53,7 +53,7 @@ def ComputeC(S,fcost,Sb,eb,listparam):
                     c.append(fcost-eb)
                  return c
             
-def fcost(S,penalties, Sb, eb,listparam,lba):
+def fcost(S,penalties, Sb, eb,listparam):#,lba):
   
   fcost=Cost(S)
   w=1 #pour l'instant
@@ -101,7 +101,7 @@ def parallel_greedy(S0,IterMax,NbP, Me,penalties,c, listparam,lba):
     S = Sb
     e = eb
     LNgbh = GC.nghbrhd_other(S)
-
+    
     while iter < IterMax and NewBetterS:
         S,e = find_best(LNgbh, NbP, Me,penalties,c,listparam,lba,Sb,eb) 
         if e > eb:
@@ -138,18 +138,21 @@ def Guided(S0,IterMax,NbP, Me,IterMaxG):
                  
                  NewBetterSG= True
                  iterG=0
-                 
+                 S = Sb
+                 e = eb
+                 #fcost = 
                  while iterG < IterMaxG and NewBetterSG:
-                      c= ComputeC(S,Sb)
+                      fcost =fcost(S,penalties, Sb, eb,listparam)
+                      c=ComputeC(S,fcost,Sb,eb,listparam) #Cost(Sb)## pb ici S pas assigné avant ComputeC(S,Sb) un fcost n'est pas calculé avan
                       penalties= ChoosePenaltyFeatures(penalties,c)
                       
-                      eg,Sg,iterg = parallel_greedy(Sb,IterMax,NbP, Me,penalties,c,listparam,lba)
-                      costS = Cost(Sg)
+                      e,S,iter = parallel_greedy(Sb,IterMax,NbP, Me,penalties,c,listparam,lba)
+                      costS = Cost(S)
                       
                       if costS>eb:
-                        Sb = Sg
+                        Sb = S
                         eb = costS
-                        iterb=iterg #pas sur que ca ait vraiment un sens
+                        iterb=iter #pas sur que ca ait vraiment un sens
                       else:
                         NewBetterSG = False
                       iterG += 1
