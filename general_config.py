@@ -21,6 +21,8 @@ param_space_categorical = {
     #'simdType' : ["sse"]
 }
 
+neighbourhood = None
+
 def GetNbDim():
     return len(param_space) + len(param_space_categorical)
 
@@ -62,7 +64,22 @@ def define_usedParameters(param_list):
         param_space[elem][2] = 0
     return 
 
+def define_neighbourhood(nbgh_name):
+    '''Define the type of neighbourhood to use'''
+    
+    if nbgh_name == "basic":
+        neighbourhood = get_neighbourhood_basic(S)
+    else:
+        neighbourhood = nghbrhd_other(S)
+
 def get_neighbourhood(S):
+    '''neighbourhood that methods will implement'''
+
+    LNgbh = neighbourhood(S)
+    return LNgbh
+
+def get_neighbourhood_basic(S):
+    print("BAAAAAAAAAAAASIC")
     LNgbh = []
     print(param_space)
     for param in param_space.keys():
@@ -92,6 +109,7 @@ def get_neighbourhood(S):
 
 def nghbrhd_other(S):
     LNgbh =[]
+    print("ANOTHER ONEEE")
     keys = ['n1','n2','n3','tblock1','tblock2','tblock3']
     triplets = list(combinations(keys,3))  #toutes combinaisons de triplets possibles
     for _ in range(5):

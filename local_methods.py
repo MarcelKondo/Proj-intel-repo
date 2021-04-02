@@ -67,6 +67,7 @@ if __name__ == "__main__":
     define_copiler_settings(opLevel=args.opt, simdType=args.simdType)
 
     GC.define_usedParameters(args.param_list)
+    GC.define_neighbourhood("basic")
     if(args.S0 == None):
         S0 = GC.generateS0()
     else:
