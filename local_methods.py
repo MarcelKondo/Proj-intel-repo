@@ -55,7 +55,7 @@ def parse():
     parser.add_argument('-ts', '--tabu_size', type=int, metavar='',help='tabu_size')
     parser.add_argument('-opt', '--opt', default = 0, type=int, metavar='',help='Compiler optimization mode')
     parser.add_argument('-simdType', '--simdType', default = "avx512", metavar='',help='Compiler optimization mode')
-    parser.add_argument('-ngbr', '--neighbourhood', default = "basic", metarvar='',help="Specify the type of neighbourhood used")
+    parser.add_argument('-ngbr', '--neighbourhood', default = "basic", metavar='',help="Specify the type of neighbourhood used")
     args = parser.parse_args()
     return args
 
