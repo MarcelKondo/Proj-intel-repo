@@ -37,5 +37,5 @@ def parse():
 if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
-    eb, Sb, iters, penalties, c = guided_search_v2.Guided(S0,args.iter_max, NbP, Me,args.iter_maxG)
-    print(f"Best score: {eb}, Solution: {str(Sb)}, Iters: {iters},Penalties: {penalties},c: {c}")
+    eb, Sb, iters, penalties, c, iterG= guided_search_v2.Guided(S0,args.iter_max, NbP, Me,args.iter_maxG)
+    print(f"Best score: {eb}, Solution: {str(Sb)}, Iters_last_greedy: {iters},IterGuided: {iterG},Penalties: {penalties},c: {c}")
