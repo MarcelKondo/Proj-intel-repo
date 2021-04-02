@@ -143,13 +143,13 @@ def Guided(S0,IterMax,NbP, Me,IterMaxG):
                       c= ComputeC(S,Sb)
                       penalties= ChoosePenaltyFeatures(penalties,c)
                       
-                      e,S,iter= parallel_greedy(Sb,IterMax,NbP, Me,penalties,c,listparam,lba)
-                      costS = Cost(S)
+                      eg,Sg,iterg = parallel_greedy(Sb,IterMax,NbP, Me,penalties,c,listparam,lba)
+                      costS = Cost(Sg)
                       
                       if costS>eb:
-                        Sb = S
+                        Sb = Sg
                         eb = costS
-                        iterb=iter #pas sur que ca ait vraiment un sens
+                        iterb=iterg #pas sur que ca ait vraiment un sens
                       else:
                         NewBetterSG = False
                       iterG += 1
