@@ -129,10 +129,10 @@ if __name__ == "__main__":
         print(f"Executing only {args.method}")
         print(20*"=","SIMU",20*"=")
         if Me == 0:
-            eb_HC, Sb_HC, iters_HC = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
+            eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
             print(20*"=","SIMU",20*"=")
 
-            print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
+            print("eb_HC",eb_SA,"Sb_HC",Sb_SA,"iters_HC", iters_SA)
             print('\n')
         #best_E, best_S0, best_Sb = main_SA.execute(S0, args)
         # print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
@@ -151,6 +151,7 @@ if __name__ == "__main__":
         #HillClimbing
         if Me == 0:
             eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
+            eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
         time.sleep(1)
 
         #Parallel HillClimbing
@@ -195,6 +196,14 @@ if __name__ == "__main__":
             print("Optimal solution " + str(best_Sb_TGR))
             print("\n")
 
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Parallel Tabu Greedy")
+            print("Best performance (Gflops) " + str(eb_SA))
+            print("Initial Solution " + str(S0))
+            print("Optimal solution " + str(Sb_SA))
+            print("\n")
+            
 
 
 
