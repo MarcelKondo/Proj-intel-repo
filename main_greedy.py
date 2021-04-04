@@ -41,9 +41,14 @@ def execute(S0, args):
     GR_eb = np.array([GR_eb],dtype=np.float64)
     comm.Gather(GR_eb,EbTab,root=0)
 
+
+    S0.pop('simdType',None) #simdType not int and useless at this point
+
     S0_a = np.fromiter(S0.values(), dtype = int)
     comm.Gather(S0_a,S0Tab,root=0)
     
+    GR_sb.pop('simdType',None) #simdType not int and useless at this point
+
     GR_sb_a = np.fromiter(GR_sb.values(), dtype = int)
     comm.Gather(GR_sb_a,SbTab,root=0)
 

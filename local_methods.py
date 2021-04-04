@@ -14,7 +14,7 @@ import general_config as GC
 import simulated_annealing as SA
 from server_content.automated_compiling_tabu import define_copiler_settings
 
-define_copiler_settings(opLevel=3, simdType="avx512", version="dev13")
+
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me = comm.Get_rank()
@@ -53,16 +53,25 @@ def parse():
     parser.add_argument('-S0', '--S0', nargs='+', type=int)
     parser.add_argument('-method', '--method', metavar='', help="specify the method used (HC, PHC, GR, TGR, SA")
     parser.add_argument('-pl', '--param_list', nargs="+", help ="parameters to change")
-    parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
-    parser.add_argument('-ts', '--tabu_size', type=int, metavar='',required=True,help='tabu_size')
+    parser.add_argument('-itm', '--iter_max', type=int, metavar='',help='IterMax')
+    parser.add_argument('-ts', '--tabu_size', type=int, metavar='',help='tabu_size')
+    parser.add_argument('-opt', '--opt', default = 3, type=int, metavar='',help='Compiler optimization mode')
+    parser.add_argument('-simdType', '--simdType', default = "avx512", metavar='',help='Compiler optimization mode')
+    parser.add_argument('-ngbr', '--neighbourhood', default = "basic", metavar='',help="Specify the type of neighbourhood used")
     args = parser.parse_args()
     return args
 
 
 if __name__ == "__main__":
-    
+
+   
     args = parse()
+
+    define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13")
+
     GC.define_usedParameters(args.param_list)
+    GC.define_neighbourhood(args.neighbourhood)
+
     if(args.S0 == None):
         S0 = GC.generateS0()
     else:
@@ -73,6 +82,8 @@ if __name__ == "__main__":
         for i in range(len(args.S0)):
             S0[params[i]] = args.S0[i]
 
+    if args.simdType != None:
+        S0['simdType'] = args.simdType
 
     if(args.method == "HC"):
         #Execute only HillClimbing
@@ -154,15 +165,18 @@ if __name__ == "__main__":
             eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
         time.sleep(1)
 
+        S0['simdType'] = args.simdType
         #Parallel HillClimbing
         best_E_PHC, best_S0_PHC, best_Sb_PHC = main_HC.execute(S0,args)
+        S0['simdType'] = args.simdType
 
         #Greedy
         best_E_GR, best_S0_GR, best_Sb_GR = main_greedy.execute(S0, args)
+        S0['simdType'] = args.simdType
 
         #Tabu Greedy
         best_E_TGR, best_S0_TGR, best_Sb_TGR = main_tabu_greedy.execute(S0, args)
-
+        S0['simdType'] = args.simdType
         if Me == 0:
             print("\n")
             print("========================= Best Parameters ======================")
