@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
             print("\n")
             print("========================= Best Parameters ======================")
-            print("Parallel Tabu Greedy")
+            print("Simulated Annealing")
             print("Best performance (Gflops) " + str(eb_SA))
             print("Initial Solution " + str(S0))
             print("Optimal solution " + str(Sb_SA))
