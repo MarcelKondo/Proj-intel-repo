@@ -154,7 +154,7 @@ def execute(args):
             print('\n')
         print("\n")
 
-        print(f'PORRAAAAAAAAAAAAAAA BEST_E {best_E} best _Sb {best_Sb} best_S0 {best_S0}')
+    print(f'PORRAAAAAAAAAAAAAAA BEST_E {best_E} best _Sb {best_Sb} best_S0 {best_S0}')
     return best_E, best_Sb, best_S0, dt
 
 
