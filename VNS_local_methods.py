@@ -79,7 +79,9 @@ if __name__ == "__main__":
       params = ['n1','n2','n3','nb_threads','nb_it','tblock1','tblock2','tblock3']
       for i in range(len(args.S0)):
           S0[params[i]] = args.S0[i]
-
+    
+  if args.simdType != None:
+        S0['simdType'] = args.simdType
 
   if(args.method == "HC"):
       #Execute only HillClimbing
@@ -153,50 +155,87 @@ if __name__ == "__main__":
       for param in args.param_list:
         GC.define_usedParameters([param])
 
-        #HillClimbing
+
+       #HillClimbing
         if Me == 0:
+            t1 = time.time()
+            
             eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
+            
+            dt_HC = time.time()-t1
+            t1 = time.time()
+            
+            eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
+            
+            dt_SA = time.time()-t1
         time.sleep(1)
 
+        S0['simdType'] = args.simdType
         #Parallel HillClimbing
+        t1 = time.time()
+        
         best_E_PHC, best_S0_PHC, best_Sb_PHC = main_HC.execute(S0,args)
+        
+        dt_PHC = time.time()-t1
+        S0['simdType'] = args.simdType
 
         #Greedy
+        t1 = time.time()
         best_E_GR, best_S0_GR, best_Sb_GR = main_greedy.execute(S0, args)
+        dt_GR = time.time()-t1
+        S0['simdType'] = args.simdType
 
         #Tabu Greedy
+        t1 = time.time()
         best_E_TGR, best_S0_TGR, best_Sb_TGR = main_tabu_greedy.execute(S0, args)
+        dt_TGR = time.time()-t1
+        S0['simdType'] = args.simdType
+        if Me == 0:
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Hill Climbing")
+            print("\n")
+            print("Best performance (Gflops) " + str(eb_HC))
+            print("Initial solution " + str(S0))
+            print("Optimal solution " + str(Sb_HC))
+            print("Execution time {:.3f}".format(dt_HC))
 
-      if Me == 0:
-          print("\n")
-          print("========================= Best Parameters ======================")
-          print("Hill Climbing")
-          print("\n")
-          print("Best performance (Gflops) " + str(eb_HC))
-          print("Initial solution " + str(S0))
-          print("Optimal solution " + str(Sb_HC))
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Parallel HillClimbing")
+            print("\n")
+            print("Best performance (Gflops) " + str(best_E_PHC))
+            print("Initial solution " + str(best_S0_PHC))
+            print("Optimal solution " + str(best_Sb_PHC))
+            print("Execution time {:.3f}".format(dt_PHC))
+            
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Parallel Greedy")
+            print("\n")
+            print("Best performance (Gflops) " + str(best_E_GR))
+            print("Initial Solution " + str(best_S0_GR))
+            print("Optimal solution " + str(best_Sb_GR))
+            print("Execution time {:.3f}".format(dt_GR))
+            print("\n")
 
-          print("\n")
-          print("========================= Best Parameters ======================")
-          print("Parallel HillClimbing")
-          print("\n")
-          print("Best performance (Gflops) " + str(best_E_PHC))
-          print("Initial solution " + str(best_S0_PHC))
-          print("Optimal solution " + str(best_Sb_PHC))
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Parallel Tabu Greedy")
+            print("\n")
+            print("Best performance (Gflops) " + str(best_E_TGR))
+            print("Initial Solution " + str(best_S0_TGR))
+            print("Optimal solution " + str(best_Sb_TGR))
+            print("Execution time {:.3f}".format(dt_TGR))
+            print("\n")
 
-          print("\n")
-          print("========================= Best Parameters ======================")
-          print("Parallel Greedy")
-          print("Best performance (Gflops) " + str(best_E_GR))
-          print("Initial Solution " + str(best_S0_GR))
-          print("Optimal solution " + str(best_Sb_GR))
-          print("\n")
-
-          print("\n")
-          print("========================= Best Parameters ======================")
-          print("Parallel Greedy")
-          print("Best performance (Gflops) " + str(best_E_TGR))
-          print("Initial Solution " + str(best_S0_TGR))
-          print("Optimal solution " + str(best_Sb_TGR))
-          print("\n")
-          
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Simulated Annealing")
+            print("\n")
+            print("Best performance (Gflops) " + str(eb_SA))
+            print("Initial Solution " + str(S0))
+            print("Optimal solution " + str(Sb_SA))
+            print("Execution time {:.3f}".format(dt_SA))
+            print("\n")
+            
