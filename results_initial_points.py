@@ -15,9 +15,9 @@ import general_config as GC
 import simulated_annealing as SA
 import function_local_methods as run_LM
 from server_content.automated_compiling_tabu import define_copiler_settings
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
-
+plt.use(preferred_backend)
 
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
