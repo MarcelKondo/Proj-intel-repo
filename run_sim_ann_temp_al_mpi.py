@@ -4,6 +4,8 @@ import numpy as np
 import time
 from mpi4py import MPI
 import general_config as GC
+from server_content.automated_compiling_tabu import define_copiler_settings
+
 
 #Seed for S0 generation
 # seed = 15
@@ -20,6 +22,7 @@ temp_la_dict={
   3: [80, 0.8]
 }
 
+define_copiler_settings(opLevel=3, simdType="avx512", version="dev13")
 GC.define_neighbourhood("basic")
 
 #Process 0 prints a "hello msg"
