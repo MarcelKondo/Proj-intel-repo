@@ -10,6 +10,7 @@ import main_parallel_HC as main_HC
 import main_greedy as main_greedy
 import main_tabu_greedy as main_tabu_greedy
 import main_annealing as main_SA
+import main_guided_search as main_GS
 import general_config as GC
 import simulated_annealing as SA
 from server_content.automated_compiling_tabu import define_copiler_settings
@@ -155,6 +156,22 @@ if __name__ == "__main__":
         # print("Initial Solution " + str(best_S0))
         # print("Optimal solution " + str(best_Sb))
         print("\n")
+    elif (args.method == "GS"):
+        print(f"Executing only {args.method}")
+        print(20*"=","Guided Search",20*"=")
+
+        best_E,best_S0, best_Sb, GS_penalties, GS_c = main_GS.execute(S0, args)
+
+        print("\n")
+        print("========================= Best Parameters ======================")
+        print("Tabu Greedy")
+        print("Best performance (Gflops) " + str(best_E))
+        print("Initial Solution " + str(best_S0))
+        print("Optimal solution " + str(best_Sb))
+        print("Penalties " + str(GS_penalties))
+        print("C " + str(GS_c))
+        print("\n")
+
     else:
         #Execute all methods
         print(f"Executing all methods")
