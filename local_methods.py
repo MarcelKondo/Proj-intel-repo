@@ -171,7 +171,7 @@ if __name__ == "__main__":
         print("========================= Best Parameters ======================")
         print("Guided Search")
         print("Best performance (Gflops) " + str(GS_eb))
-        print("Optimal solution " + str(best_Sb))
+        print("Optimal solution " + str(GS_sb))
         print("Penalties " + str(GS_penalties))
         print("C " + str(GS_c))
         print("\n")
