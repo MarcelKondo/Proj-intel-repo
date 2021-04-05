@@ -87,6 +87,7 @@ if __name__ == "__main__":
       #Execute only HillClimbing
       print(f"Executing only {args.method}")
       if(Me == 0):
+          t1 = time.time()  
           print(20*"=","HILL CLIMBING",20*"=")
           tot_iter_HC = 0
           Sb_HC = S0
@@ -94,17 +95,21 @@ if __name__ == "__main__":
             GC.define_usedParameters([param])
             eb_HC, Sb_HC, iters_HC = HC.HillClimbing(Sb_HC, args.iter_max, "flops")
             tot_iter_HC += iters_HC
+          dt_HC = time.time()-t1
           print(20*"=","HILL CLIMBING",20*"=")
           print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", tot_iter_HC)
+          print("Execution time {:.3f}".format(dt_HC))
           print('\n')
           
   elif(args.method == "PHC"):
       #Execute only Parallel_HC
+      t1 = time.time()
       print(f"Executing only {args.method}")
       best_Sb = S0
       for param in args.param_list:
         GC.define_usedParameters([param])
         best_E, best_S0, best_Sb = main_HC.execute(best_Sb,args)
+      dt_PHC = time.time()-t1
       print("\n")
       print("========================= Best Parameters ======================")
       print("Parallel HillClimbing")
@@ -112,38 +117,60 @@ if __name__ == "__main__":
       print("Best performance (Gflops) " + str(best_E))
       print("Initial solution " + str(best_S0))
       print("Optimal solution " + str(best_Sb))
+      print("Execution time {:.3f}".format(dt_PHC))
 
 
   elif (args.method == "GR"):
       #Execute only Greedy
+      t1 = time.time()
       print(f"Executing only {args.method}")
       best_Sb = S0
       for param in args.param_list:
         GC.define_usedParameters([param])
         best_E, best_S0, best_Sb = main_greedy.execute(best_Sb, args)
+      dt_GR = time.time() - t1
       print("\n")
       print("========================= Best Parameters ======================")
       print("Parallel Greedy")
       print("Best performance (Gflops) " + str(best_E))
       print("Initial Solution " + str(best_S0))
       print("Optimal solution " + str(best_Sb))
+      print("Execution time {:.3f}".format(dt_GR))
       print("\n")
 
 
   elif (args.method == "TGR"):
       #Execute only Tabu Greedy
+      t1 = time.time()
       print(f"Executing only {args.method}")
       best_Sb = S0
       for param in args.param_list:
         GC.define_usedParameters([param])
         best_E, best_S0, best_Sb = main_tabu_greedy.execute(best_Sb, args)
+      dt_TGR = time.time() - t1
       print("\n")
       print("========================= Best Parameters ======================")
       print("Tabu Greedy")
       print("Best performance (Gflops) " + str(best_E))
       print("Initial Solution " + str(best_S0))
       print("Optimal solution " + str(best_Sb))
+      print("Execution time {:.3f}".format(dt_TGR))
       print("\n")
+    
+    elif (args.method == "SA"):
+        #Execute only Tabu Greedy
+        t1 = time.time()
+        print(f"Executing only {args.method}")
+        print(20*"=","SIMU",20*"=")
+        if Me == 0:
+            for param in args.param_list:
+                GC.define_usedParameters([param])
+                eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
+            dt_SA = time.time() - t1
+            print(20*"=","SIMU",20*"=")
+            print("eb_HC",eb_SA,"Sb_HC",Sb_SA,"iters_HC", iters_SA)
+            print("Execution time {:.3f}".format(dt_SA))
+            print('\n')
   else:
       print(f"Executing all methods")
       
