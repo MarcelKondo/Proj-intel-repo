@@ -58,11 +58,15 @@ for i in range(0,imax):
         if method == 'HC' or method == 'SA':
             if Me == 0:
                 current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+                comm.barrier()
+                time.sleep(1)
                 if current_E > best_energies[method]:
                     best_energies[method] = current_E
                     best_times[method] = current_dt
         else:
             current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+            comm.barrier()
+            time.sleep(1)
             if current_E > best_energies[method]:
                     best_energies[method] = current_E
                     best_times[method] = current_dt
