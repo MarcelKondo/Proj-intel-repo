@@ -3,4 +3,4 @@
 hostname
 source /opt/intel/oneapi/setvars.sh
 
-mpirun -np 1 -map-by ppr:1:socket -bind-to socket python3 local_methods.py -method TGR -S0 80 512 512 8 100 32 32 32  -pl n1 n2 n3 tblock1 tblock2 tblock3 -itm 50 -ts 8 
+mpirun -np 1 -map-by ppr:1:socket -bind-to socket python3 local_methods.py -method TGR -S0 80 512 512 32 100 32 32 32  -pl n1 n2 n3 tblock1 tblock2 tblock3 -itm 50 -ts 8 
