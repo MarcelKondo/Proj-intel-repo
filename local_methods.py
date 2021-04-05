@@ -55,6 +55,7 @@ def parse():
     parser.add_argument('-method', '--method', metavar='', help="specify the method used (HC, PHC, GR, TGR, SA")
     parser.add_argument('-pl', '--param_list', nargs="+", help ="parameters to change")
     parser.add_argument('-itm', '--iter_max', type=int, metavar='',help='IterMax')
+    parser.add_argument('-itmG', '--iter_maxG', type=int, default= 20, metavar='',help='IterMaxG')
     parser.add_argument('-ts', '--tabu_size', type=int, metavar='',help='tabu_size')
     parser.add_argument('-opt', '--opt', default = 3, type=int, metavar='',help='Compiler optimization mode')
     parser.add_argument('-simdType', '--simdType', default = "avx512", metavar='',help='Compiler optimization mode')
