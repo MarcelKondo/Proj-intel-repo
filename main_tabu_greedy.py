@@ -38,6 +38,9 @@ def execute(S0, args):
 
     TGR_eb, TGR_sb, TGR_iter = parallel_tabu.parallel_tabu_greedy(S0,args.iter_max,args.tabu_size, NbP, Me)
 
+    S0.pop('simdType',None) #simdType not int and useless at this point
+    TGR_sb.pop('simdType',None) #simdType not int and useless at this point
+    
     TGR_eb = np.array([TGR_eb],dtype=np.float64)
     comm.Gather(TGR_eb,EbTab,root=0)
 

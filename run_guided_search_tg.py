@@ -5,14 +5,14 @@ import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
 
 
-define_copiler_settings(opLevel=3, simdType="avx512")
+define_copiler_settings(opLevel=3, simdType="avx512",version="dev13")
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me = comm.Get_rank()
 
 #S0 = GC.generateS0()
 S0 = {
-    'n1' : 368,
+    'n1' : 512,
     'n2' : 228,
     'n3' : 292,
     'nb_threads' : 8,
@@ -27,7 +27,7 @@ param_space = {
     'n1' : [256, 1024, 16],
     'n2' : [256, 1024, 16],
     'n3' : [256, 1024, 16],
-    'nb_threads' : [8, 8, 0],
+    'nb_threads' : [4, 8, 0],
     'nb_it' : [10, 20, 0],
     'tblock1' : [32, 128, 16],
     'tblock2' : [32, 128, 4],
@@ -41,6 +41,7 @@ def parse():
     parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
     parser.add_argument('-itmG', '--iter_maxG', type=int, metavar='',required=True,help='IterMaxG')
     parser.add_argument('-ts', '--tabu_size', type=int, metavar='',required=True,help='tabu_size')
+    parser.add_argument('-lba', '--lba', type=float, metavar='',required=True,help='lambda')
     args = parser.parse_args()
     return args
 
@@ -48,7 +49,7 @@ def parse():
 if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
-    eb, Sb, iters, penalties, c, iterG= guided_search_tg.Guided(S0,args.iter_max,args.tabu_size, NbP, Me,args.iter_maxG)
+    eb, Sb, iters, penalties, c, iterG= guided_search_tg.Guided(S0,args.iter_max,args.tabu_size, NbP, Me,args.iter_maxG,args.lba)
     print(f"Best score: {eb}, Solution: {str(Sb)}, Iters_last_greedy: {iters},IterGuided: {iterG},Penalties: {penalties},c: {c}")
     
     

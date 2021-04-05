@@ -16,35 +16,35 @@ NbP = comm.Get_size()
 Me = comm.Get_rank()
 
 
-def get_neighbourhood(S):
-    LNgbh = []
+#def get_neighbourhood(S):
+#    LNgbh = []
   
-    for param in param_space.keys():
-        if param == 'simdType':
-            p_idx = param_space[param].index(S[param])
-            S1 = S.copy()
-            if p_idx + 1 < len(param_space[param]):
-                S1[param] = param_space[param][p_idx + 1]
-                LNgbh.append(S1)
+#    for param in param_space.keys():
+ #       if param == 'simdType':
+ #           p_idx = param_space[param].index(S[param])
+ #           S1 = S.copy()
+ #           if p_idx + 1 < len(param_space[param]):
+ #               S1[param] = param_space[param][p_idx + 1]
+ #               LNgbh.append(S1)
             
-            S2 = S.copy()
-            if p_idx - 1 >= 0:
-                S2[param] = param_space[param][p_idx - 1]
-                LNgbh.append(S2)
-        else:
-            for k in range(1,5):
-                Skp = S.copy()
-                Skm = S.copy()
+ #           S2 = S.copy()
+  #          if p_idx - 1 >= 0:
+ #               S2[param] = param_space[param][p_idx - 1]
+  #              LNgbh.append(S2)
+  #      else:
+  ##          for k in range(1,3):
+  #             Skp = S.copy()
+  #              Skm = S.copy()
+#
+ #               Skp[param] += k*param_space[param][2]
+ #               if Skp[param] < param_space[param][1]:
+#                    LNgbh.append(Skp)
+#
+ #               Skm[param] -= k*param_space[param][2]
+ #               if Skm[param] > 0:
+   #                 LNgbh.append(Skm)
+  #  return LNgbh
 
-                Skp[param] += k*param_space[param][2]
-                if Skp[param] < param_space[param][1]:
-                    LNgbh.append(Skp)
-
-                Skm[param] -= k*param_space[param][2]
-                if Skm[param] > 0:
-                    LNgbh.append(Skm)
-    return LNgbh
- 
 def ComputeC(S,Sb,eb,listparam):
                  c=[]
                  for param in listparam:
@@ -135,15 +135,15 @@ def ChoosePenaltyFeatures(p,c):
   s = len(p)*[0]
   for i in range(len(p)):
     s[i] = c[i]/(p[i]+1)
-  index_max = s.index(max(s))
+  index_max = s.index(min(s))
   p[index_max]+=1
   return p
 
-def Guided(S0,IterMax,tabu_size,NbP, Me,IterMaxG):
+def Guided(S0,IterMax,tabu_size,NbP, Me,IterMaxG,lba):
                  listparam= ['n1','n1','n1','tblock1','tblock2','tblock3']
                  penalties=[0]*len(listparam)
                  c= [0]*len(listparam)
-                 lba=0.5#à tester
+                 #lba=0.35#à tester
                  
                  #premier local search
                  eb,Sb,iterb= parallel_tabu_greedy(S0,IterMax,tabu_size,NbP, Me,penalties,c,listparam,lba)
