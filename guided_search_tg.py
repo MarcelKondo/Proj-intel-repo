@@ -16,35 +16,55 @@ NbP = comm.Get_size()
 Me = comm.Get_rank()
 
 
-def get_neighbourhood(S):
-    LNgbh = []
+#def get_neighbourhood(S):
+#    LNgbh = []
   
-    for param in param_space.keys():
-        if param == 'simdType':
-            p_idx = param_space[param].index(S[param])
-            S1 = S.copy()
-            if p_idx + 1 < len(param_space[param]):
-                S1[param] = param_space[param][p_idx + 1]
-                LNgbh.append(S1)
+#    for param in param_space.keys():
+ #       if param == 'simdType':
+ #           p_idx = param_space[param].index(S[param])
+ #           S1 = S.copy()
+ #           if p_idx + 1 < len(param_space[param]):
+ #               S1[param] = param_space[param][p_idx + 1]
+ #               LNgbh.append(S1)
             
-            S2 = S.copy()
-            if p_idx - 1 >= 0:
-                S2[param] = param_space[param][p_idx - 1]
-                LNgbh.append(S2)
-        else:
-            for k in range(1,3):
-                Skp = S.copy()
-                Skm = S.copy()
+ #           S2 = S.copy()
+  #          if p_idx - 1 >= 0:
+ #               S2[param] = param_space[param][p_idx - 1]
+  #              LNgbh.append(S2)
+  #      else:
+  ##          for k in range(1,3):
+  #             Skp = S.copy()
+  #              Skm = S.copy()
+#
+ #               Skp[param] += k*param_space[param][2]
+ #               if Skp[param] < param_space[param][1]:
+#                    LNgbh.append(Skp)
+#
+ #               Skm[param] -= k*param_space[param][2]
+ #               if Skm[param] > 0:
+   #                 LNgbh.append(Skm)
+  #  return LNgbh
 
-                Skp[param] += k*param_space[param][2]
-                if Skp[param] < param_space[param][1]:
-                    LNgbh.append(Skp)
+def get_neighbourhood(S):#neighb other en réalité
+    LNgbh =[]
+    print("another neighbourhood")
+    keys = ['n1','n2','n3','tblock1','tblock2','tblock3']
+    triplets = list(combinations(keys,3))  #toutes combinaisons de triplets possibles
+    for _ in range(5):
+        liste_params = rd.sample(triplets,6) # on n'en garde que 6 pour chaque itération
+        for params in liste_params:
+            S_new = S.copy()
+            for param in params:
+                rd_bool = bool(rd.getrandbits(1)) #random boolean
+                k = rd.randint(1,10)
+                if S_new[param]+k*param_space[param][2] < param_space[param][1] and S_new[param] - k*param_space[param][2] >0:
+                    S_new[param] += k*param_space[param][2]*rd_bool
+                    S_new[param] -= k*param_space[param][2]*(1-rd_bool)
 
-                Skm[param] -= k*param_space[param][2]
-                if Skm[param] > 0:
-                    LNgbh.append(Skm)
+            LNgbh.append(S_new)
     return LNgbh
- 
+
+
 def ComputeC(S,Sb,eb,listparam):
                  c=[]
                  for param in listparam:
