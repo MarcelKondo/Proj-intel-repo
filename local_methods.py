@@ -4,6 +4,7 @@ import time
 import os
 import deploy_greedy_v3
 import parallel_tabu
+import guided_search_v2
 import sys, getopt, argparse
 import HillClimbing as HC
 import main_parallel_HC as main_HC
@@ -162,13 +163,13 @@ if __name__ == "__main__":
         print(f"Executing only {args.method}")
         print(20*"=","Guided Search",20*"=")
 
-        best_E,best_S0, best_Sb, GS_penalties, GS_c = main_GS.execute(S0, args)
+        #best_E,best_S0, best_Sb, GS_penalties, GS_c = main_GS.execute(S0, args)
+        GS_eb, GS_sb, GS_iter, GS_penalties, GS_c, GC_iterG = guided_search_v2.Guided(S0,args.iter_max, NbP, Me,args.iter_maxG)
 
         print("\n")
         print("========================= Best Parameters ======================")
-        print("Tabu Greedy")
-        print("Best performance (Gflops) " + str(best_E))
-        print("Initial Solution " + str(best_S0))
+        print("Guided Search")
+        print("Best performance (Gflops) " + str(GS_eb))
         print("Optimal solution " + str(best_Sb))
         print("Penalties " + str(GS_penalties))
         print("C " + str(GS_c))
