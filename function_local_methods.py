@@ -57,6 +57,7 @@ def execute(args):
     best_E = None
     best_Sb = None
     best_S0 = None
+    dt = None
     
     if(args.S0 == None):
         S0 = GC.generateS0()
