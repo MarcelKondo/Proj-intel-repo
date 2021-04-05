@@ -87,8 +87,7 @@ if current_E > best_energies[method]:
 
 if Me == 0:
     df = pd.DataFrame({'Gflops': best_energies.values(), 'Execution time (s)': best_times.values()}, index = methods)
-    ax = df.plot.bar(rot=0)
-    fig = ax.get_figure()
-    fig.save('~/Proj-intel-repo/Images/InitialPoints.png')
+    #ax = df.plot.bar(rot=0)
+    df.to_csv(r'~/Proj-intel-repo/InitialPoints.csv', index = False, header=True)
 
 
