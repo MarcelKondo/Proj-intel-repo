@@ -55,6 +55,7 @@ for i in range(0,imax):
 
     for method in methods:
         args.method = method
+        print(f'ARGSSSSSSSSSSSSSS {args}')
         if method == 'HC' or method == 'SA':
             if Me == 0:
                 current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
