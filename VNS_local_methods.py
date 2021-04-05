@@ -157,7 +157,7 @@ if __name__ == "__main__":
       print("Execution time {:.3f}".format(dt_TGR))
       print("\n")
     
-    elif (args.method == "SA"):
+   elif (args.method == "SA"):
       #Execute only Tabu Greedy
       t1 = time.time()
       print(f"Executing only {args.method}")
