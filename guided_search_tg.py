@@ -133,11 +133,14 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size,NbP, Me,penalties,c, listparam,lba
   
 def ChoosePenaltyFeatures(p,c):
   s = len(p)*[0]
+  a= sum(p)
   for i in range(len(p)):
     s[i] = c[i]/(p[i]+1)
   index_max = s.index(min(s))
   print(20*"%",index_max,20*"%")
   p[index_max]+=1
+  if a==sum(p):
+    p[rd.randrange(0, len(p)]+=1
   return p
 
 def Guided(S0,IterMax,tabu_size,NbP, Me,IterMaxG,lba):
