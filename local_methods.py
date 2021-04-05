@@ -198,6 +198,11 @@ if __name__ == "__main__":
         #Tabu Greedy
         best_E_TGR, best_S0_TGR, best_Sb_TGR = main_tabu_greedy.execute(S0, args)
         S0['simdType'] = args.simdType
+        
+        #Guided Search
+        GS_eb, GS_sb, GS_iter, GS_penalties, GS_c, GC_iterG = guided_search_tg.Guided(S0,args.iter_max,args.tabu_size, NbP, Me,args.iter_maxG,args.lba)
+        S0['simdType'] = args.simdType
+        
         if Me == 0:
             print("\n")
             print("========================= Best Parameters ======================")
@@ -239,6 +244,17 @@ if __name__ == "__main__":
             print("Optimal solution " + str(Sb_SA))
             print("\n")
             
+            print("\n")
+            print("========================= Best Parameters ======================")
+            print("Guided Search")
+            print("\n")
+            print("Best performance (Gflops) " + str(GS_eb))
+            print("Initial solution " + str(S0))
+            print("Optimal solution " + str(GS_sb))
+            print("penalties at the end",GS_penalties)
+            print("cost at the end",GS_c)
+            print("iterG"+str(GC_iterG))
+
 
 
 
