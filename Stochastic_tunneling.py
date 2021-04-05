@@ -5,7 +5,7 @@ import numpy as np
 import math
 import random as rd
 
-from server_content.automated_compiling_tabu import find_number, define_exec_param, define_copiler_settings, Cost
+from server_content.automated_compiling import find_number, define_exec_param, define_copiler_settings, Cost
 
 param_space = {
     'n1' : [256, 257, 16],
@@ -45,7 +45,7 @@ def generateS0():
         grid_size = len(param_vals)
         pos = rd.randint(0, grid_size-1)
         S0[param] = param_vals[pos]
-
+    print(S0)
     return S0
 
 def get_neighbourhood(S):
@@ -86,14 +86,16 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
     #la: T = T*la: temperature evolution law for "simulated annealing"
     #ltl: length of Tabu list for "Tabu List" method
     #simIdx: version of the simulator (cost function)
+    gamma =0.5
     print(f"[SMA] STARTED OPTIMISATION : itermax:{IterMax}, T0:{T0}, la:{la}")
     Sb = S0
     eb = Cost(Sb)
     iter = 0
-    
+    feb=1
     T = T0
     S = Sb
     e = eb
+    fe =1
     LNgbh = get_neighbourhood(S)
     while iter < IterMax:
         if iter%10 == 0:
@@ -101,13 +103,16 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
         k = rd.randrange(len(LNgbh))
         Sp = LNgbh[k]
         ep = Cost(Sp)
-        if ep > e or rd.random() < np.exp(-(ep - e)/T):
+        fep= math.exp(-gamma*(ep-eb)) 
+        if fep > fe or rd.random() < np.exp(-(fep - fe)/T):
             S = Sp
             e = ep
+            fe = math.exp(-gamma*(e-eb))
             LNgbh = get_neighbourhood(S)
-            if (e > eb):
+            if (fe > feb):
                 Sb = S
                 eb = e
+                feb =1 
         T = la*T
         iter += 1
     print("[SMA] END")

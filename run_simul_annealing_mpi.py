@@ -5,15 +5,15 @@ import time
 from mpi4py import MPI
 
 #Seed for S0 generation
-seed = 15
+# seed = 15
 
 #MPI information extraction
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me  = comm.Get_rank()
 
-T0 = 100
-IterMax = 5
+T0 = 80
+IterMax = 10
 la = 0.8
 
 
@@ -23,7 +23,7 @@ if Me == 0:
   print("PE: ", Me, "/",NbP,": all processes started")
 
 #Each process runs a local search method from a random starting point
-S0 = SA.generateS0(seed)
+S0 = SA.generateS0()
 eb, Sb,iter = SA.SimulatedAnnealing(S0, IterMax, T0, la)
 
 #Process 0 (root) gathers results (Eb, Sb), Starting points (S0) and iter nb (Iter)
@@ -50,8 +50,8 @@ else :
 Eb = np.array([eb],dtype=np.float64)
 comm.Gather(Eb,EbTab,root=0)
 
-comm.Gather(Sb,SbTab,root=0)
-comm.Gather(S0,S0Tab,root=0)
+comm.Gather(np.array([x for x in Sb.values()]),SbTab,root=0)
+comm.Gather(np.array([x for x in S0.values()]),S0Tab,root=0)
 
 Iter = np.array([iter],dtype=int)
 comm.Gather(Iter,IterTab,root=0)

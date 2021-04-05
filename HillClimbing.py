@@ -4,12 +4,37 @@ import math
 import random as rd
 import numpy as np
 
-import automated_compiling as autcom
+import server_content.automated_compiling_tabu as autcom
+import general_config as GC
 
 NbDim = 8                       # 5 elts in a solution (n1,n2,n3,nb_t,nb_it,tblk1,tblk2,tblk3) (opt and simdType not used yet)
-size = 256                            
-lmin = [32, 32, 32, 1, 100, 16, 16, 16]
-lmax = [272, 272, 272, 8, 100, 80, 80, 80]
+size = 256  
+
+#lmin = [32, 32, 32, 1, 100, 16, 16, 16]
+lmin = {
+    'n1' : 32,
+    'n2' : 32,
+    'n3' : 32,
+    'nb_threads' : 1,
+    'nb_it' : 100,
+    'tblock1' : 16,
+    'tblock2' : 16,
+    'tblock3' : 16,
+    'simdType' : "avx512"
+}
+
+#lmax = [272, 272, 272, 8, 100, 80, 80, 80]
+lmax = {
+    'n1' : 273,
+    'n2' : 273,
+    'n3' : 273,
+    'nb_threads' : 8,
+    'nb_it' : 100,
+    'tblock1' : 80,
+    'tblock2' : 80,
+    'tblock3' : 80,
+    'simdType' : "avx512"
+}
 
 def GetNbDim():
   return(NbDim)
@@ -24,7 +49,7 @@ def generateS0():
  # rd.seed(Me+1000*(1+SeedInc))
   S0 = np.empty(NbDim,dtype=np.int)
   for i in range(NbDim):
-    if(i == 0 or i == 5  or i == 6 or i == 7 ):
+    if(i == 'n1' or i == 'tblock1'  or i == 'tblock2' or i == 'tblock3' ):
         S0[i] = rand_multiple(16, lmin[i], lmax[i]+1)
     elif (i == 4):
         S0[i] = 100
@@ -38,7 +63,7 @@ def Neighborhood(S, param_indices):
   
     for i in param_indices:
         S1 = S.copy()
-        if(i == 0 or i == 5 or i == 6 or i == 7):
+        if(i == 'n1' or i == 'tblock1' or i == 'tblock2' or i == 'tblock3'):
             S1[i] += 16
         else:
             S1[i] += 4
@@ -46,7 +71,7 @@ def Neighborhood(S, param_indices):
             LNgbh.append(S1)
         
         S2 = S.copy()
-        if(i == 0 or i == 5 or i == 6 or i == 7):
+        if(i == 'n1' or i == 'tblock1' or i == 'tblock2' or i == 'tblock3'):
             S2[i] -= 16
         else:
             S2[i] -= 4
@@ -55,7 +80,7 @@ def Neighborhood(S, param_indices):
     
     return LNgbh
 
-def HillClimbing(S0,IterMax,param_list,cost_type):  #T0, la, ltl unused in HC
+def HillClimbing(S0,IterMax,cost_type):  #T0, la, ltl unused in HC
     #SO: initial solution
     #IterMax: max nb of iteration
     #T0: initial temperature for "simulated annealing"
@@ -70,7 +95,8 @@ def HillClimbing(S0,IterMax,param_list,cost_type):  #T0, la, ltl unused in HC
     
     #local search
     S = Sb
-    LNgbh = Neighborhood(S, param_list)
+    #LNgbh = Neighborhood(S, param_list)
+    LNgbh = GC.nghbrhd_other(S)
     while iter < IterMax and len(LNgbh): #BetterSolFound:
         print("Iter: " + str(iter) + "\n")
         k = rd.randrange(len(LNgbh))
@@ -80,9 +106,11 @@ def HillClimbing(S0,IterMax,param_list,cost_type):  #T0, la, ltl unused in HC
         if ek > eb:
             Sb = Sk
             eb = ek
-            LNgbh = Neighborhood(Sb, param_list)
+            #LNgbh = Neighborhood(Sb, param_list)
+            LNgbh = GC.nghbrhd_other(Sb)
         iter += 1
     
     #return best Energy, best Solution, and nb of iter
     return eb,Sb,iter
+
 
