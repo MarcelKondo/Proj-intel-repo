@@ -140,7 +140,7 @@ def ChoosePenaltyFeatures(p,c):
   print(20*"%",index_max,20*"%")
   p[index_max]+=1
   if a==sum(p):
-    p[rd.randrange(0, len(p)]+=1
+    p[rd.randrange(0, len(p))]+=1
   return p
 
 def Guided(S0,IterMax,tabu_size,NbP, Me,IterMaxG,lba):
