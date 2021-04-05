@@ -144,10 +144,11 @@ def execute(args):
         print(20*"=","SIMU",20*"=")
         if Me == 0:
             best_E, best_Sb, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
-            dt_SA = time.time() - t1
+            dt = time.time() - t1
+            best_S0 = S0
             print(20*"=","SIMU",20*"=")
 
-            print("eb_HC",eb_SA,"Sb_HC",Sb_SA,"iters_HC", iters_SA)
+            print("eb_HC",best_E,"Sb_HC",best_Sb,"iters_HC", iters_SA)
             print("Execution time {:.3f}".format(dt_SA))
             print('\n')
         #best_E, best_S0, best_Sb = main_SA.execute(S0, args)
