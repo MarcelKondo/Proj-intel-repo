@@ -7,10 +7,10 @@ import random as rd
 from itertools import combinations
 
 param_space = {
-    'n1' : [160, 300, 16],
-    'n2' : [160, 300, 4],
-    'n3' : [160, 300, 4],
-    'nb_threads' : [1, 8, 1],
+    'n1' : [160, 1000, 16],
+    'n2' : [160, 1000, 4],
+    'n3' : [160, 1000, 4],
+    'nb_threads' : [8, 8, 1],
     'nb_it' : [10, 50, 1],
     'tblock1' : [16, 80, 16],
     'tblock2' : [16, 80, 4],
@@ -20,6 +20,8 @@ param_space = {
 param_space_categorical = {
     #'simdType' : ["sse"]
 }
+
+neighbourhood = None
 
 def GetNbDim():
     return len(param_space) + len(param_space_categorical)
@@ -62,7 +64,23 @@ def define_usedParameters(param_list):
         param_space[elem][2] = 0
     return 
 
+def define_neighbourhood(nbgh_name):
+    '''Define the type of neighbourhood to use'''
+    global neighbourhood
+    print(nbgh_name)
+    if nbgh_name == "basic":
+        neighbourhood = get_neighbourhood_basic
+    else:
+        neighbourhood = nghbrhd_other
+
 def get_neighbourhood(S):
+    '''neighbourhood that methods will implement'''
+
+    LNgbh = neighbourhood(S)
+    return LNgbh
+
+def get_neighbourhood_basic(S):
+    print("Basic neighbourhood")
     LNgbh = []
     print(param_space)
     for param in param_space.keys():
@@ -92,6 +110,7 @@ def get_neighbourhood(S):
 
 def nghbrhd_other(S):
     LNgbh =[]
+    print("another neighbourhood")
     keys = ['n1','n2','n3','tblock1','tblock2','tblock3']
     triplets = list(combinations(keys,3))  #toutes combinaisons de triplets possibles
     for _ in range(5):
