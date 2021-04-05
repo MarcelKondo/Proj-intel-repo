@@ -41,7 +41,7 @@ args = {
 args = dotdict((args))
 
 define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13")
-imax = 1
+imax = 20
 methods = ['HC', 'PHC', 'GR', 'TGR', 'SA']
 best_energies = dict()
 best_times = dict()
