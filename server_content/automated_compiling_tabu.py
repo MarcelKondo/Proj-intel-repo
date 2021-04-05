@@ -30,7 +30,7 @@ def define_exec_param(n1 = 256, n2 = 256, n3 = 256, nb_threads = 4, nb_it = 100,
     print(time)
     return [flops, thrpt, time]
 
-def define_copiler_settings(opLevel, simdType, version):
+def define_copiler_settings(opLevel, simdType, version = "dev13"):
 
     os.system("cd ~/Proj-Intel/Appli-iso3dfd/ && make -e OPTIMIZATION=\"-O"+ str(opLevel) + "\" -e simd=" + simdType + " -e version="+ version +" last" )
     
