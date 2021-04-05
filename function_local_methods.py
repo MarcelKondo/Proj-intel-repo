@@ -149,7 +149,7 @@ def execute(args):
             print(20*"=","SIMU",20*"=")
 
             print("eb_HC",best_E,"Sb_HC",best_Sb,"iters_HC", iters_SA)
-            print("Execution time {:.3f}".format(dt_SA))
+            print("Execution time {:.3f}".format(dt))
             print('\n')
         #best_E, best_S0, best_Sb = main_SA.execute(S0, args)
         # print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
