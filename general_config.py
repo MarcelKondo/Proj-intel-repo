@@ -10,7 +10,7 @@ param_space = {
     'n1' : [160, 1000, 16],
     'n2' : [160, 1000, 4],
     'n3' : [160, 1000, 4],
-    'nb_threads' : [8, 8, 1],
+    'nb_threads' : [8, 9, 1],
     'nb_it' : [10, 50, 1],
     'tblock1' : [16, 80, 16],
     'tblock2' : [16, 80, 4],
@@ -20,6 +20,7 @@ param_space = {
 param_space_categorical = {
     #'simdType' : ["sse"]
 }
+
 
 def GetNbDim():
     return len(param_space) + len(param_space_categorical)
@@ -108,3 +109,42 @@ def nghbrhd_other(S):
             LNgbh.append(S_new)
     return LNgbh
                
+
+
+def ngbh_decreasing(S, iter, iter_max, step_mult_min = 1, step_mult_max = 10): 
+    # iter_max: maximum number of iterations for the current algorithm
+    # step_mult_min: minimum value for the step multiplier (has to be an int >=1)
+    # step_mult_max: maximum value for the step multiplier (has to be an int >=1)
+    LNgbh = []
+    print(S)
+    #assert iter_max >= iter, "received iter bigger than iter_max"
+    if iter_max >= iter: print("received iter bigger than iter_max")
+    for param in param_space.keys():
+        if param_space[param][2] != 0:
+            S1 = S.copy()
+            step = param_space[param][2] * int((step_mult_max - iter/iter_max * (step_mult_max - step_mult_min)))
+            print(step)
+            if step < 1:
+                step = 1
+            S1[param] += step
+            if S1[param] < param_space[param][1]:
+                LNgbh.append(S1)
+            
+            S2 = S.copy()
+            S2[param] -= step
+            if S2[param] >= param_space[param][0]:
+                LNgbh.append(S2)
+    
+    for param in param_space_categorical.keys():
+        p_idx = param_space_categorical[param].index(S[param]) #we'll take the order of the list to define the neighbourhood
+        S1 = S.copy()
+        if p_idx + 1 < len(param_space_categorical[param]):
+            S1[param] = param_space_categorical[param][p_idx + 1]
+            LNgbh.append(S1)
+        
+        S2 = S.copy()
+        if p_idx - 1 >= 0:
+            S2[param] = param_space_categorical[param][p_idx - 1]
+            LNgbh.append(S2)
+    return LNgbh
+
