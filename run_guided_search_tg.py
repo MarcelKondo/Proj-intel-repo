@@ -41,7 +41,7 @@ def parse():
     parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
     parser.add_argument('-itmG', '--iter_maxG', type=int, metavar='',required=True,help='IterMaxG')
     parser.add_argument('-ts', '--tabu_size', type=int, metavar='',required=True,help='tabu_size')
-    parser.add_argument('-lba', '--lambda', type=float, metavar='',required=True,help='lambda')
+    parser.add_argument('-lba', '--lba', type=float, metavar='',required=True,help='lambda')
     args = parser.parse_args()
     return args
 
@@ -49,7 +49,7 @@ def parse():
 if __name__ == "__main__":
     #print('ARGS', sys.argv[1:])
     args = parse()
-    eb, Sb, iters, penalties, c, iterG= guided_search_tg.Guided(S0,args.iter_max,args.tabu_size, NbP, Me,args.iter_maxG,args.lambda)
+    eb, Sb, iters, penalties, c, iterG= guided_search_tg.Guided(S0,args.iter_max,args.tabu_size, NbP, Me,args.iter_maxG,args.lba)
     print(f"Best score: {eb}, Solution: {str(Sb)}, Iters_last_greedy: {iters},IterGuided: {iterG},Penalties: {penalties},c: {c}")
     
     
