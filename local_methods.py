@@ -69,7 +69,8 @@ if __name__ == "__main__":
    
     args = parse()
 
-    define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13")
+    if Me == 0:
+        define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13")
 
     GC.define_usedParameters(args.param_list)
     GC.define_neighbourhood(args.neighbourhood)
