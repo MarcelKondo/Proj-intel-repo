@@ -91,9 +91,9 @@ if Me == 0:
     if current_E > best_energies[method]:
         best_energies[method] = current_E
         best_times[method] = current_dt
-        
+
 if Me == 0:
-    df = pd.DataFrame({'Gflops': best_energies.values(), 'Execution time (s)': best_times.values()}, index = methods)
+    df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values())}, index = methods)
     #ax = df.plot.bar(rot=0)
     df.to_csv(r'~/Proj-intel-repo/InitialPoints.csv', index = True, header=True)
 
