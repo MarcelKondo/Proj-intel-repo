@@ -139,11 +139,11 @@ def ChoosePenaltyFeatures(p,c):
   p[index_max]+=1
   return p
 
-def Guided(S0,IterMax,tabu_size,NbP, Me,IterMaxG):
+def Guided(S0,IterMax,tabu_size,NbP, Me,IterMaxG,lba):
                  listparam= ['n1','n1','n1','tblock1','tblock2','tblock3']
                  penalties=[0]*len(listparam)
                  c= [0]*len(listparam)
-                 lba=0.35#à tester
+                 #lba=0.35#à tester
                  
                  #premier local search
                  eb,Sb,iterb= parallel_tabu_greedy(S0,IterMax,tabu_size,NbP, Me,penalties,c,listparam,lba)
