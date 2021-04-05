@@ -21,10 +21,7 @@ param_space_categorical = {
     #'simdType' : ["sse"]
 }
 
-<<<<<<< HEAD
-=======
 neighbourhood = None
->>>>>>> main
 
 def GetNbDim():
     return len(param_space) + len(param_space_categorical)
