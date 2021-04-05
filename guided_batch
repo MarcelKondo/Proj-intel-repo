@@ -1,5 +1,5 @@
 #!/bin/sh
-#SBATCH --time=15
+#SBATCH --time=60
 hostname
 source /opt/intel/oneapi/setvars.sh
 
