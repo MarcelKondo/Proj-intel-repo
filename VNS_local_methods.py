@@ -86,7 +86,7 @@ if __name__ == "__main__":
           print(20*"=","HILL CLIMBING",20*"=")
           tot_iter_HC = 0
           Sb_HC = S0
-          for param in param_list:
+          for param in args.param_list:
             GC.define_usedParameters([param])
             eb_HC, Sb_HC, iters_HC = HC.HillClimbing(Sb_HC, args.iter_max, "flops")
             tot_iter_HC += iters_HC
@@ -98,7 +98,7 @@ if __name__ == "__main__":
       #Execute only Parallel_HC
       print(f"Executing only {args.method}")
       best_Sb = S0
-      for param in param_list:
+      for param in args.param_list:
         GC.define_usedParameters([param])
         best_E, best_S0, best_Sb = main_HC.execute(best_Sb,args)
       print("\n")
@@ -114,7 +114,7 @@ if __name__ == "__main__":
       #Execute only Greedy
       print(f"Executing only {args.method}")
       best_Sb = S0
-      for param in param_list:
+      for param in args.param_list:
         GC.define_usedParameters([param])
         best_E, best_S0, best_Sb = main_greedy.execute(best_Sb, args)
       print("\n")
@@ -130,7 +130,7 @@ if __name__ == "__main__":
       #Execute only Tabu Greedy
       print(f"Executing only {args.method}")
       best_Sb = S0
-      for param in param_list:
+      for param in args.param_list:
         GC.define_usedParameters([param])
         best_E, best_S0, best_Sb = main_tabu_greedy.execute(best_Sb, args)
       print("\n")
@@ -148,7 +148,7 @@ if __name__ == "__main__":
       best_Sb_GR = S0
       best_Sb_TGR = S0
       
-      for param in param_list:
+      for param in args.param_list:
         GC.define_usedParameters([param])
 
         #HillClimbing
