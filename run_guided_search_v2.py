@@ -5,7 +5,7 @@ import general_config as GC
 from server_content.automated_compiling_tabu import define_copiler_settings
 
 
-define_copiler_settings(opLevel=3, simdType="avx512")
+define_copiler_settings(opLevel=3, simdType="avx512", version="dev13")
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me = comm.Get_rank()
