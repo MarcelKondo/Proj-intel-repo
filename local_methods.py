@@ -124,16 +124,20 @@ if __name__ == "__main__":
 
     
     elif (args.method == "TGR"):
+        t1 = time.time()
         #Execute only Tabu Greedy
         print(f"Executing only {args.method}")
         
         best_E, best_S0, best_Sb = main_tabu_greedy.execute(S0, args)
+        t2 = time.time()
+        dt = t2-t1
         print("\n")
         print("========================= Best Parameters ======================")
         print("Tabu Greedy")
         print("Best performance (Gflops) " + str(best_E))
         print("Initial Solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
+        print("Temps nécessaire :",dt)
         print("\n")
     elif (args.method == "SA"):
         #Execute only Tabu Greedy
@@ -197,6 +201,7 @@ if __name__ == "__main__":
             print("\n")
             print("========================= Best Parameters ======================")
             print("Parallel Greedy")
+            print("\n")
             print("Best performance (Gflops) " + str(best_E_GR))
             print("Initial Solution " + str(best_S0_GR))
             print("Optimal solution " + str(best_Sb_GR))
@@ -205,6 +210,7 @@ if __name__ == "__main__":
             print("\n")
             print("========================= Best Parameters ======================")
             print("Parallel Tabu Greedy")
+            print("\n")
             print("Best performance (Gflops) " + str(best_E_TGR))
             print("Initial Solution " + str(best_S0_TGR))
             print("Optimal solution " + str(best_Sb_TGR))
@@ -212,7 +218,8 @@ if __name__ == "__main__":
 
             print("\n")
             print("========================= Best Parameters ======================")
-            print("Simulated Annealing")
+            print("Simulated Annealing")            
+            print("\n")
             print("Best performance (Gflops) " + str(eb_SA))
             print("Initial Solution " + str(S0))
             print("Optimal solution " + str(Sb_SA))
