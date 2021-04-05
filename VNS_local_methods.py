@@ -217,7 +217,7 @@ if __name__ == "__main__":
         best_E_TGR, best_S0_TGR, best_Sb_TGR = main_tabu_greedy.execute(S0, args)
         dt_TGR = time.time()-t1
         S0['simdType'] = args.simdType
-    if Me == 0:
+      if Me == 0:
         print("\n")
         print("========================= Best Parameters ======================")
         print("Hill Climbing")
