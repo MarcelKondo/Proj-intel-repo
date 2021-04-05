@@ -1,0 +1,9 @@
+#!/bin/sh
+#SBATCH --time=60
+hostname
+source /opt/intel/oneapi/setvars.sh
+
+mpirun -np 8 -map-by ppr:2:socket -bind-to socket python3 run_guided_search_tg.py -itm 2 -itmG 4 -ts 8 -lba 0.3
+mpirun -np 8 -map-by ppr:2:socket -bind-to socket python3 run_guided_search_tg.py -itm 2 -itmG 4 -ts 8 -lba 0.8
+mpirun -np 8 -map-by ppr:2:socket -bind-to socket python3 run_guided_search_tg.py -itm 2 -itmG 4 -ts 8 -lba 1
+mpirun -np 8 -map-by ppr:2:socket -bind-to socket python3 run_guided_search_tg.py -itm 2 -itmG 4 -ts 8 -lba 2

@@ -13,8 +13,8 @@ def find_number(str):
             pass
     return value
 
-def define_exec_param(n1 = 256, n2 = 256, n3 = 256, nb_threads = 4, nb_it = 100, tblock1 = 32 , tblock2 = 32, tblock3 = 32, simdType = "avx512"):
-    res = subprocess.run("cd ~/Proj-Intel/Appli-iso3dfd/bin && iso3dfd_dev05_cpu_" + simdType + ".exe " + str(n1) + " " + str(n2) + " " + str(n3) + 
+def define_exec_param(n1 = 256, n2 = 256, n3 = 256, nb_threads = 4, nb_it = 100, tblock1 = 32 , tblock2 = 32, tblock3 = 32, simdType = "avx512", version = "dev13"):
+    res = subprocess.run("cd ~/Proj-Intel/Appli-iso3dfd/bin && iso3dfd_" + version + "_cpu_" + simdType + ".exe " + str(n1) + " " + str(n2) + " " + str(n3) + 
                          " " + str(nb_threads) + " " + str(nb_it) + " " + str(tblock1) + " " + str(tblock2) + " " + str(tblock3), shell=True,
                          stdout=subprocess.PIPE)
     res_str = str(res.stdout,'utf-8')
@@ -30,9 +30,9 @@ def define_exec_param(n1 = 256, n2 = 256, n3 = 256, nb_threads = 4, nb_it = 100,
     print(time)
     return [flops, thrpt, time]
 
-def define_copiler_settings(opLevel, simdType):
+def define_copiler_settings(opLevel, simdType, version):
 
-    os.system("cd ~/Proj-Intel/Appli-iso3dfd/ && make -e OPTIMIZATION=\"-O"+ str(opLevel) + "\" -e simd=" + simdType + " last" )
+    os.system("cd ~/Proj-Intel/Appli-iso3dfd/ && make -e OPTIMIZATION=\"-O"+ str(opLevel) + "\" -e simd=" + simdType + " -e version="+ version +" last" )
     
 print("V2 starting execution")
 #d = {'n1' : n1, "n2" : n2, "n3" : n3, "nb_threads" : nb_threads, "nb_it": nb_it, "tblock1" : tblock1, 

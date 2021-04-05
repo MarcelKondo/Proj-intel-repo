@@ -4,7 +4,7 @@ import time
 import numpy as np
 import math
 import random as rd
-
+import general_config as GC
 from server_content.automated_compiling_tabu import find_number, define_exec_param, define_copiler_settings, Cost
 
 param_space = {
@@ -94,7 +94,7 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
     T = T0
     S = Sb
     e = eb
-    LNgbh = get_neighbourhood(S)
+    LNgbh = GC.get_neighbourhood(S)
     while iter < IterMax:
         if iter%10 == 0:
             print(f"Iteration #{iter}")
@@ -104,7 +104,7 @@ def SimulatedAnnealing(S0,IterMax,T0,la):  #ltl unused in SA
         if ep > e or rd.random() < np.exp(-(ep - e)/T):
             S = Sp
             e = ep
-            LNgbh = get_neighbourhood(S)
+            LNgbh = GC.get_neighbourhood(S)
             if (e > eb):
                 Sb = S
                 eb = e
