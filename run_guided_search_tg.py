@@ -12,7 +12,7 @@ Me = comm.Get_rank()
 
 #S0 = GC.generateS0()
 S0 = {
-    'n1' : 368,
+    'n1' : 512,
     'n2' : 228,
     'n3' : 292,
     'nb_threads' : 8,
