@@ -136,6 +136,7 @@ def ChoosePenaltyFeatures(p,c):
   for i in range(len(p)):
     s[i] = c[i]/(p[i]+1)
   index_max = s.index(min(s))
+  print(20*"%",index_max,20*"%")
   p[index_max]+=1
   return p
 
