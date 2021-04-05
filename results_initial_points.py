@@ -18,6 +18,10 @@ from server_content.automated_compiling_tabu import define_copiler_settings
 #import matplotlib.pyplot as plt
 
 
+comm = MPI.COMM_WORLD
+NbP = comm.Get_size()
+Me = comm.Get_rank()
+
 class dotdict(dict):
     """dot.notation access to dictionary attributes"""
     __getattr__ = dict.get
@@ -49,11 +53,18 @@ for i in range(0,imax):
 
     for method in methods:
         args.method = method
-        current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-        print(type(current_E))
-        if current_E > best_energies[method]:
-            best_energies[method] = current_E
-            best_times[method] = current_dt
+        if Method == 'HC' or Method == 'SA':
+            if Me == 0:
+                current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+                if current_E > best_energies[method]:
+                    best_energies[method] = current_E
+                    best_times[method] = current_dt
+        else:
+            current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+            if current_E > best_energies[method]:
+                    best_energies[method] = current_E
+                    best_times[method] = current_dt
+
 
 if Me == 0:
     df = pd.DataFrame({'Gflops': best_energies.values(), 'Execution time (s)': best_times.values()}, index = method)
