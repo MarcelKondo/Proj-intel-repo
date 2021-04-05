@@ -65,7 +65,12 @@ for i in range(0,imax):
                 if current_E > best_energies[method]:
                         best_energies[method] = current_E
                         best_times[method] = current_dt
-
+        if Me == 0:
+            print('\n')
+            print('best result so far: ')
+            print('\n')
+            print(f'best_energies: {best_energies}')
+            print(f'best_times: {best_times}')
 # if Me == 0:
 #     method = 'HC'
 #     args.method = method
