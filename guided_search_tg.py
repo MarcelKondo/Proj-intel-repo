@@ -110,7 +110,7 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size,NbP, Me,penalties,c, listparam,lba
 
     S = Sb
     e = eb
-    LNgbh = GC.nghbrhd_other(S)
+    LNgbh = GC.get_neighbourhood(S)
     L_tabu = [Sb]
     
     while iter < IterMax and NewBetterS:
@@ -120,7 +120,7 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size,NbP, Me,penalties,c, listparam,lba
             Sb = S
             eb = e
             L_tabu = fifo_add(Sb, L_tabu, tabu_size)
-            LNgbh = GC.nghbrhd_other(Sb)
+            LNgbh = GC.get_neighbourhood(Sb)
             #print(len(LNgbh))
         else:
             NewBetterS = False
