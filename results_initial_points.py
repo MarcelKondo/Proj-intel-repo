@@ -93,6 +93,12 @@ if Me == 0:
         best_times[method] = current_dt
 
 if Me == 0:
+    print('\n')
+    print('\n')
+    print('\n')
+    print(f'best_energies: {best_energies}')
+    print(f'best_times: {best_times}')
+    print(df)
     df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values())}, index = methods)
     print(df)
     #ax = df.plot.bar(rot=0)
