@@ -14,7 +14,7 @@ import general_config as GC
 import simulated_annealing as SA
 from server_content.automated_compiling_tabu import define_copiler_settings
 
-
+t_i = time.time()
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me = comm.Get_rank()
@@ -225,7 +225,7 @@ if __name__ == "__main__":
             print("Optimal solution " + str(Sb_SA))
             print("\n")
             
-
+print("Total time running:",time.time()-t_i)
 
 
 
