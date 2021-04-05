@@ -153,6 +153,8 @@ def execute(args):
             print("Execution time {:.3f}".format(dt))
             print('\n')
         print("\n")
+
+        print(f'PORRAAAAAAAAAAAAAAA BEST_E {best_E} best _Sb {best_Sb} best_S0 {best_S0}')
     return best_E, best_Sb, best_S0, dt
 
 
