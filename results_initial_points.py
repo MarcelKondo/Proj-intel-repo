@@ -17,7 +17,7 @@ import function_local_methods as run_LM
 from server_content.automated_compiling_tabu import define_copiler_settings
 #import matplotlib.pyplot as plt
 
-define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13")
+
 
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
@@ -42,6 +42,7 @@ args = {
 
 args = dotdict((args))
 
+define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13")
 imax = 1
 methods = ['HC', 'PHC', 'GR', 'TGR', 'SA']
 best_energies = dict()
