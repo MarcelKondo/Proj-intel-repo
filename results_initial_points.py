@@ -50,7 +50,7 @@ for i in range(0,imax):
     for method in methods:
         args.method = method
         current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-        
+        print(type(current_E))
         if current_E > best_energies[method]:
             best_energies[method] = current_E
             best_times[method] = current_dt
