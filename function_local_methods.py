@@ -58,7 +58,7 @@ def execute(args):
     best_Sb = None
     best_S0 = None
     dt = None
-    
+
     if(args.S0 == None):
         S0 = GC.generateS0()
     else:
@@ -78,10 +78,11 @@ def execute(args):
         if(Me == 0):
             t1 = time.time()
             print(20*"=","HILL CLIMBING",20*"=")
-            best_E, best_S0, best_Sb = HC.HillClimbing(S0, args.iter_max, "flops")
+            best_E, best_Sb, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
+            best_S0 = S0
             dt = time.time()-t1
             print(20*"=","HILL CLIMBING",20*"=")
-            print("eb_HC",best_E,"Sb_HC",best_S0,"iters_HC", best_Sb)
+            print("eb_HC",best_E,"Sb_HC",best_Sb,"iters_HC", iters_HC)
             print("Execution time {:.3f}".format(dt))
             print('\n')
             
@@ -90,7 +91,7 @@ def execute(args):
         t1 = time.time()
         print(f"Executing only {args.method}")
         best_E, best_S0, best_Sb = main_HC.execute(S0,args)
-        dt_PHC = time.time()-t1
+        dt = time.time()-t1
         print("\n")
         print("========================= Best Parameters ======================")
         print("Parallel HillClimbing")
@@ -98,7 +99,7 @@ def execute(args):
         print("Best performance (Gflops) " + str(best_E))
         print("Initial solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
-        print("Execution time {:.3f}".format(dt_PHC))
+        print("Execution time {:.3f}".format(dt))
 
 
     elif (args.method == "GR"):
@@ -107,7 +108,7 @@ def execute(args):
         print(f"Executing only {args.method}")
 
         best_E, best_S0, best_Sb = main_greedy.execute(S0, args)
-        dt_GR = time.time()-t1
+        dt= time.time()-t1
         print("\n")
         print("========================= Best Parameters ======================")
         print("Parallel Greedy")
@@ -115,7 +116,7 @@ def execute(args):
         print("Best performance (Gflops) " + str(best_E))
         print("Initial Solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
-        print("Execution time {:.3f}".format(dt_GR))
+        print("Execution time {:.3f}".format(dt))
         print("\n")
 
     
@@ -125,7 +126,7 @@ def execute(args):
         print(f"Executing only {args.method}")
        
         best_E, best_S0, best_Sb = main_tabu_greedy.execute(S0, args)
-        dt_TGR = time.time() - t1
+        dt = time.time() - t1
         print("\n")
         print("========================= Best Parameters ======================")
         print("Tabu Greedy")
@@ -133,7 +134,7 @@ def execute(args):
         print("Best performance (Gflops) " + str(best_E))
         print("Initial Solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
-        print("Execution time {:.3f}".format(dt_TGR))
+        print("Execution time {:.3f}".format(dt))
         print("\n")
         
     elif (args.method == "SA"):
@@ -142,7 +143,7 @@ def execute(args):
         print(f"Executing only {args.method}")
         print(20*"=","SIMU",20*"=")
         if Me == 0:
-            eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
+            best_E, best_Sb, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
             dt_SA = time.time() - t1
             print(20*"=","SIMU",20*"=")
 

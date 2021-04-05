@@ -38,4 +38,6 @@ args = dotdict((args))
 best_E,best_Sb, best_S0,dt = run_LM.execute(args)
 
 print(f'energy: {best_E}')
+print(f'S0 {best_S0}')
+print(f'best solution {best_Sb}')
 
