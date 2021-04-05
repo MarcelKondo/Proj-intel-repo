@@ -165,7 +165,7 @@ if __name__ == "__main__":
         print(20*"=","Guided Search",20*"=")
 
         #best_E,best_S0, best_Sb, GS_penalties, GS_c = main_GS.execute(S0, args)
-        GS_eb, GS_sb, GS_iter, GS_penalties, GS_c, GC_iterG = guided_search_tg.Guided(S0,args.iter_max, NbP, Me,args.iter_maxG,args.lba)
+        GS_eb, GS_sb, GS_iter, GS_penalties, GS_c, GC_iterG = guided_search_tg.Guided(S0,args.iter_max,args.tabu_size, NbP, Me,args.iter_maxG,args.lba)
 
         print("\n")
         print("========================= Best Parameters ======================")
