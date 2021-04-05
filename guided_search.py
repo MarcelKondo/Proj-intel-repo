@@ -7,6 +7,7 @@ import math
 import random as rd
 from mpi4py import MPI
 
+from run_guided_search import param_space
 import general_config as GC
 from numpy.core.arrayprint import SubArrayFormat
 
@@ -15,23 +16,6 @@ from server_content.automated_compiling_tabu import find_number, define_exec_par
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
 Me = comm.Get_rank()
-
-
-<<<<<<< HEAD
-param_space = {
-    'n1' : [256, 500, 16],
-    'n2' : [256, 500, 8],
-    'n3' : [256, 500, 8],
-    'nb_threads' : [4, 10, 0],
-    'nb_it' : [10, 20, 0],
-    'tblock1' : [32, 128, 16],
-    'tblock2' : [32, 128, 4],
-    'tblock3' : [32, 128, 4],
-    'simdType' : ["avx512"]
-}
-=======
-
->>>>>>> main
 
 def get_neighbourhood(S):
     LNgbh = []
@@ -50,7 +34,9 @@ def get_neighbourhood(S):
                 Skm[param] -= k*param_space[param][2]
                 if Skm[param] > 0:
                     LNgbh.append(Skm)
+    
     return LNgbh
+
 
 def nghbrhd_other(S):
     LNgbh =[]
@@ -68,19 +54,30 @@ def nghbrhd_other(S):
                     S_new[param] -= k*param_space[param][2]*(1-rd_bool)
 
             LNgbh.append(S_new)
-    return LNgbh
-               
-                     
+    return LNgbh 
 
+def guided_cost(S,Sb,LNgbh):#,Levol):
+  LNloc= nghbrhd_other(S)#get_neighbourhood(S)
+  e = Cost(S)
+  lda = 0.1
+  s= 0
+  for X in LNloc:
+    if X in LNgbh:
+      s+=lda*0.5
+      e+=-lda*0.5#le poids
+    elif X ==Sb:
+      e+=-lda*0.6
+      s+=lda*0.5#le poids central est un petit plus important
+  print("sssssss",s)
+  return e
 
 def fifo_add(Sb, L_tabu, tabu_size):
     if len(L_tabu)==tabu_size:
         L_tabu.pop(0)
     L_tabu.append(Sb)
     return L_tabu
- 
-  
-def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
+
+def find_best(LNgbh, L_tabu, NbP, Me,Sb): #à paralléliser
     e = 0
     S = None
     n = len(LNgbh)
@@ -93,7 +90,7 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
       liste_p = [LNgbh[i+j] for i in range(q)]
     for Sp in liste_p:
         if Sp not in L_tabu:
-            ep = Cost(Sp)
+            ep = guided_cost(Sp,Sb,LNgbh)
             #print('ep',ep)
             if ep > e :
                 S = Sp
@@ -104,6 +101,10 @@ def find_best(LNgbh, L_tabu, NbP, Me): #à paralléliser
     #print("BROADCAST")
     S= comm.bcast(S, root=rank)
     return S, e
+
+
+
+
 
 def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):  
     """#S0: initial solution
@@ -118,17 +119,17 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
 
     S = Sb
     e = eb
-    LNgbh = GC.get_neighbourhood(S)
+    LNgbh = GC.nghbrhd_other(S)
     L_tabu = [Sb]
 
     while iter < IterMax and NewBetterS:
-        S,e = find_best(LNgbh, L_tabu, NbP, Me) 
+        S,e = find_best(LNgbh, L_tabu, NbP, Me,Sb) 
         if e > eb:
             #print("Eb GLOBAL TROUVÉ")
             Sb = S
             eb = e
             L_tabu = fifo_add(Sb, L_tabu, tabu_size)
-            LNgbh = GC.get_neighbourhood(Sb)
+            LNgbh = GC.nghbrhd_other(Sb)
             #print(len(LNgbh))
         else:
             NewBetterS = False
@@ -137,6 +138,3 @@ def parallel_tabu_greedy(S0,IterMax,tabu_size, NbP, Me):
     print("[TG] END")
     
     return eb,Sb,iter
-
-  
-  
