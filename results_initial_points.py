@@ -24,7 +24,7 @@ class dotdict(dict):
 
 args = {
     'S0': [256, 256, 256, 4, 10,32,32,32],
-    'method': None,
+    'method': "HC",
     'param_list': ['n1','n2','n3'], 
     'iter_max': 10,
     'tabu_size': 8,
