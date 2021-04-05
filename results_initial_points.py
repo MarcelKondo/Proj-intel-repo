@@ -69,12 +69,14 @@ for method in methods:
 #             if current_E > best_energies[method]:
 #                     best_energies[method] = current_E
 #                     best_times[method] = current_dt
-method = 'HC'
-args.method = method
-current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-if current_E > best_energies[method]:
-    best_energies[method] = current_E
-    best_times[method] = current_dt
+
+if Me == 0:
+    method = 'HC'
+    args.method = method
+    current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+    if current_E > best_energies[method]:
+        best_energies[method] = current_E
+        best_times[method] = current_dt
 
 method = 'PHC'
 args.method = method
