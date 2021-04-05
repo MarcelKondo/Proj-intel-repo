@@ -17,7 +17,7 @@ NbP = comm.Get_size()
 Me = comm.Get_rank()
 
 
-<<<<<<< HEAD
+
 param_space = {
     'n1' : [256, 500, 16],
     'n2' : [256, 500, 8],
@@ -29,9 +29,9 @@ param_space = {
     'tblock3' : [32, 128, 4],
     'simdType' : ["avx512"]
 }
-=======
 
->>>>>>> main
+
+
 
 def get_neighbourhood(S):
     LNgbh = []
