@@ -51,25 +51,37 @@ for method in methods:
     best_energies[method] = 0
     best_times[method] = 0
 
-for i in range(0,imax):
+# for i in range(0,imax):
 
-    for method in methods:
-        args.method = method
-        comm.barrier()
-        time.sleep(1)
-        print(f'ARGSSSSSSSSSSSSSS {args}')
-        if method == 'HC' or method == 'SA':
-            if Me == 0:
-                current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-                if current_E > best_energies[method]:
-                    best_energies[method] = current_E
-                    best_times[method] = current_dt
-        else:
-            current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-            if current_E > best_energies[method]:
-                    best_energies[method] = current_E
-                    best_times[method] = current_dt
+#     for method in methods:
+#         args.method = method
+#         comm.barrier()
+#         time.sleep(1)
+#         print(f'ARGSSSSSSSSSSSSSS {args}')
+#         if method == 'HC' or method == 'SA':
+#             if Me == 0:
+#                 current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+#                 if current_E > best_energies[method]:
+#                     best_energies[method] = current_E
+#                     best_times[method] = current_dt
+#         else:
+#             current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+#             if current_E > best_energies[method]:
+#                     best_energies[method] = current_E
+#                     best_times[method] = current_dt
+method = 'HC'
+args.method = method
+current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+if current_E > best_energies[method]:
+    best_energies[method] = current_E
+    best_times[method] = current_dt
 
+method = 'PHC'
+args.method = method
+current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+if current_E > best_energies[method]:
+    best_energies[method] = current_E
+    best_times[method] = current_dt
 
 if Me == 0:
     df = pd.DataFrame({'Gflops': best_energies.values(), 'Execution time (s)': best_times.values()}, index = method)
