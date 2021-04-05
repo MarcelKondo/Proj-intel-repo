@@ -15,7 +15,7 @@ import general_config as GC
 import simulated_annealing as SA
 import function_local_methods as run_LM
 from server_content.automated_compiling_tabu import define_copiler_settings
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 class dotdict(dict):
@@ -58,6 +58,7 @@ for i in range(0,imax):
 if Me == 0:
     df = pd.DataFrame({'Gflops': best_energies.values(), 'Execution time (s)': best_times.values()}, index = method)
     ax = df.plot.bar(rot=0)
-    plt.show()
+    fig = ax.get_figure()
+    fig.save('~/Proj-intel-repo/Images/InitialPoints.png')
 
 
