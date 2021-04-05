@@ -135,7 +135,7 @@ def ChoosePenaltyFeatures(p,c):
   s = len(p)*[0]
   for i in range(len(p)):
     s[i] = c[i]/(p[i]+1)
-  index_max = s.index(max(s))
+  index_max = s.index(min(s))
   p[index_max]+=1
   return p
 
@@ -159,11 +159,11 @@ def Guided(S0,IterMax,tabu_size,NbP, Me,IterMaxG):
                       penalties= ChoosePenaltyFeatures(penalties,c)
                       
                       e,S,iter = parallel_tabu_greedy(Sb,IterMax,tabu_size,NbP, Me,penalties,c,listparam,lba)
-                      costS = Cost(S)
                       
-                      if costS>eb:
+                      
+                      if e>eb:
                         Sb = S
-                        eb = costS
+                        eb = e
                         iterb=iter #pas sur que ca ait vraiment un sens
                       else:
                         NewBetterSG = False
