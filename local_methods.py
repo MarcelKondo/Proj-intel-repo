@@ -137,7 +137,7 @@ if __name__ == "__main__":
         print("Best performance (Gflops) " + str(best_E))
         print("Initial Solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
-        print("Temps nécessaire :",dt)
+        print("Run Time Tabu :",dt)
         print("\n")
     elif (args.method == "SA"):
         #Execute only Tabu Greedy
