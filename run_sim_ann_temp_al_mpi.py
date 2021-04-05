@@ -17,9 +17,12 @@ Me  = comm.Get_rank()
 
 temp_la_dict={
   0: [80, 0.2],
-  1: [80, 0.4],
-  2: [80, 0.6],
-  3: [80, 0.8]
+  1: [80, 0.3],
+  2: [80, 0.4],
+  3: [80, 0.5],
+  4: [80, 0.6],
+  5: [80, 0.7],
+  6: [80, 0.8]
 }
 
 define_copiler_settings(opLevel=3, simdType="avx512", version="dev13")
