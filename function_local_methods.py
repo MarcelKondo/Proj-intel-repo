@@ -78,7 +78,6 @@ def execute(args):
         if(Me == 0):
             t1 = time.time()
             print(20*"=","HILL CLIMBING",20*"=")
-            print(f"DEBUUUUUUUG INITIAL SOLUTION {S0}")
             best_E, best_Sb, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
             best_S0 = S0
             dt = time.time()-t1
@@ -154,7 +153,6 @@ def execute(args):
             print('\n')
         print("\n")
 
-    print(f'PORRAAAAAAAAAAAAAAA BEST_E {best_E} best _Sb {best_Sb} best_S0 {best_S0}')
     return best_E, best_Sb, best_S0, dt
 
 
