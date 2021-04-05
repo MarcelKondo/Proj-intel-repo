@@ -36,7 +36,10 @@ else:
 
 def execute(S0, args):
     PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
-
+    print('\n')
+    print('\n')
+    print(f'DEEEEEENTRO DE MAIN_PHC {PHC_eb}')
+    print('\n')
     S0.pop('simdType',None) #simdType not int and useless at this point
     PHC_sb.pop('simdType',None) #simdType not int and useless at this point
 
