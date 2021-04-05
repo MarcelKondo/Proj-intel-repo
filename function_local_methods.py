@@ -54,6 +54,10 @@ def execute(args):
     GC.define_usedParameters(args.param_list)
     GC.define_neighbourhood(args.neighbourhood)
 
+    best_E = None
+    best_Sb = None
+    best_S0 = None
+    
     if(args.S0 == None):
         S0 = GC.generateS0()
     else:
