@@ -3,6 +3,7 @@ import random
 import numpy as np
 import time
 from mpi4py import MPI
+import general_config as GC
 
 #Seed for S0 generation
 # seed = 15
@@ -13,19 +14,22 @@ NbP = comm.Get_size()
 Me  = comm.Get_rank()
 
 temp_la_dict={
-  0: [80, 0.2]
+  0: [80, 0.2],
   1: [80, 0.4],
   2: [80, 0.6],
   3: [80, 0.8]
 }
 
-T0 = temp_al_dict[Me][0]
-la = temp_al_dict[Me][1]
+GC.define_neighbourhood("basic")
 
 #Process 0 prints a "hello msg"
 comm.barrier()
 if Me == 0:
   print("PE: ", Me, "/",NbP,": all processes started")
+
+T0 = temp_la_dict[Me][0]
+la = temp_la_dict[Me][1]
+IterMax = 20
 
 #Each process runs a local search method from a random starting point
 S0 = {
