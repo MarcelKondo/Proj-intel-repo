@@ -79,10 +79,19 @@ if Me == 0:
 method = 'PHC'
 args.method = method
 current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-if current_E > best_energies[method]:
-    best_energies[method] = current_E
-    best_times[method] = current_dt
+if Me == 0:
+    if current_E > best_energies[method]:
+        best_energies[method] = current_E
+        best_times[method] = current_dt
 
+method = 'GR'
+args.method = method
+current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+if Me == 0:
+    if current_E > best_energies[method]:
+        best_energies[method] = current_E
+        best_times[method] = current_dt
+        
 if Me == 0:
     df = pd.DataFrame({'Gflops': best_energies.values(), 'Execution time (s)': best_times.values()}, index = methods)
     #ax = df.plot.bar(rot=0)
