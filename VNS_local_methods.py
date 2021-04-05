@@ -158,19 +158,19 @@ if __name__ == "__main__":
       print("\n")
     
     elif (args.method == "SA"):
-        #Execute only Tabu Greedy
-        t1 = time.time()
-        print(f"Executing only {args.method}")
-        print(20*"=","SIMU",20*"=")
-        if Me == 0:
-            for param in args.param_list:
-                GC.define_usedParameters([param])
-                eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
-            dt_SA = time.time() - t1
-            print(20*"=","SIMU",20*"=")
-            print("eb_HC",eb_SA,"Sb_HC",Sb_SA,"iters_HC", iters_SA)
-            print("Execution time {:.3f}".format(dt_SA))
-            print('\n')
+      #Execute only Tabu Greedy
+      t1 = time.time()
+      print(f"Executing only {args.method}")
+      print(20*"=","SIMU",20*"=")
+      if Me == 0:
+          for param in args.param_list:
+              GC.define_usedParameters([param])
+              eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
+          dt_SA = time.time() - t1
+          print(20*"=","SIMU",20*"=")
+          print("eb_HC",eb_SA,"Sb_HC",Sb_SA,"iters_HC", iters_SA)
+          print("Execution time {:.3f}".format(dt_SA))
+          print('\n')
   else:
       print(f"Executing all methods")
       
