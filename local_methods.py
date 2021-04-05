@@ -4,7 +4,7 @@ import time
 import os
 import deploy_greedy_v3
 import parallel_tabu
-import guided_search_v2
+import guided_search_tg
 import sys, getopt, argparse
 import HillClimbing as HC
 import main_parallel_HC as main_HC
@@ -57,6 +57,7 @@ def parse():
     parser.add_argument('-pl', '--param_list', nargs="+", help ="parameters to change")
     parser.add_argument('-itm', '--iter_max', type=int, metavar='',help='IterMax')
     parser.add_argument('-itmG', '--iter_maxG', type=int, default= 20, metavar='',help='IterMaxG')
+    parser.add_argument('-lba', '--lba', type=float, metavar='',required=True,help='lambda')
     parser.add_argument('-ts', '--tabu_size', type=int, metavar='',help='tabu_size')
     parser.add_argument('-opt', '--opt', default = 3, type=int, metavar='',help='Compiler optimization mode')
     parser.add_argument('-simdType', '--simdType', default = "avx512", metavar='',help='Compiler optimization mode')
@@ -164,7 +165,7 @@ if __name__ == "__main__":
         print(20*"=","Guided Search",20*"=")
 
         #best_E,best_S0, best_Sb, GS_penalties, GS_c = main_GS.execute(S0, args)
-        GS_eb, GS_sb, GS_iter, GS_penalties, GS_c, GC_iterG = guided_search_v2.Guided(S0,args.iter_max, NbP, Me,args.iter_maxG)
+        GS_eb, GS_sb, GS_iter, GS_penalties, GS_c, GC_iterG = guided_search_v2.Guided(S0,args.iter_max, NbP, Me,args.iter_maxG,args.lba)
 
         print("\n")
         print("========================= Best Parameters ======================")
