@@ -68,6 +68,8 @@ if __name__ == "__main__":
     
   args = parse()
   GC.define_usedParameters(args.param_list)
+  GC.define_neighbourhood(args.neighbourhood)  
+    
   if(args.S0 == None):      #Si on ne renseigne pas de point de départ, on en genère un aléatoirement.
       S0 = GC.generateS0()
   else:
