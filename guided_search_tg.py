@@ -32,7 +32,7 @@ def get_neighbourhood(S):
                 S2[param] = param_space[param][p_idx - 1]
                 LNgbh.append(S2)
         else:
-            for k in range(1,5):
+            for k in range(1,3):
                 Skp = S.copy()
                 Skm = S.copy()
 
