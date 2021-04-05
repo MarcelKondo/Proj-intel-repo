@@ -9,8 +9,11 @@ import HillClimbing as HC
 import main_parallel_HC as main_HC
 import main_greedy as main_greedy
 import main_tabu_greedy as main_tabu_greedy
+import main_annealing as main_SA
 import general_config as GC
+import simulated_annealing as SA
 from server_content.automated_compiling_tabu import define_copiler_settings
+
 
 
 define_copiler_settings(opLevel=3, simdType="avx512")
@@ -51,23 +54,15 @@ def parse():
     parser.add_argument('-S0', '--S0', nargs='+', type=int)
     parser.add_argument('-method', '--method', metavar='', help="specify the method used (HC, PHC, GR, TGR, SA")
     parser.add_argument('-pl', '--param_list', nargs="+", help ="parameters to change")
-    parser.add_argument('-itm', '--iter_max', type=int, metavar='',required=True,help='IterMax')
-    parser.add_argument('-ts', '--tabu_size', type=int, metavar='',required=True,help='tabu_size')
+    parser.add_argument('-itm', '--iter_max', type=int, metavar='',help='IterMax')
+    parser.add_argument('-ts', '--tabu_size', type=int, metavar='',help='tabu_size')
+    parser.add_argument('-opt', '--opt', default = 3, type=int, metavar='',help='Compiler optimization mode')
+    parser.add_argument('-simdType', '--simdType', default = "avx512", metavar='',help='Compiler optimization mode')
+    parser.add_argument('-ngbr', '--neighbourhood', default = "basic", metavar='',help="Specify the type of neighbourhood used")
     args = parser.parse_args()
     return args
 
               
-def define_usedParameters(param_list):
-    '''Define parameters that will vary'''
-    param_keys = list(param_space.keys())
-    for param in param_list:
-        if param in param_keys:
-            param_keys.remove(param)
-    
-    for elem in param_keys:
-        param_space[elem][2] = 0    #Les paramètres non sélectionnés n'évolueront plus (le pas est de 0)
-    return 
-  
   
 if __name__ == "__main__":
     
