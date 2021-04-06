@@ -69,14 +69,18 @@ for method in methods:
     worst_energies[method] = 100000
     worst_times[method] = 1000000
 
-imax = 15 # nb runs
+imax = 2 # nb runs
 for i in range(0,imax):
 
     for method in methods:
         args.method = method
         S0 = GC.generateS0()
         args.S0 = list(S0.values())
-
+        print('\n')
+        print('\n')
+        print(args.S0)
+        print('\n')
+        print('\n')
         if method == 'HC' or method == 'SA':
             if Me == 0:
                 current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
@@ -110,8 +114,8 @@ for i in range(0,imax):
         print('\n')
         print(f'best_energies: {best_energies}')
         print(f'best_times: {best_times}')
-        print(f'best_energies: {worst_energies}')
-        print(f'best_times: {worst_times}')
+        print(f'worst_energies: {worst_energies}')
+        print(f'worst_times: {worst_times}')
 
 if Me == 0:
     average_energies = {key:value/imax for key, value in average_energies.items()}
