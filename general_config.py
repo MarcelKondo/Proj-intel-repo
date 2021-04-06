@@ -70,8 +70,10 @@ def define_neighbourhood(nbgh_name):
     print(nbgh_name)
     if nbgh_name == "basic":
         neighbourhood = get_neighbourhood_basic
-    else:
+    elif nbgh_name == "others":
         neighbourhood = nghbrhd_other
+    else:
+        neighbourhood = ngh_other_more_local
 
 def get_neighbourhood(S):
     '''neighbourhood that methods will implement'''
