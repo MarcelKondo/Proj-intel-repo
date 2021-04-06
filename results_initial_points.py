@@ -31,7 +31,7 @@ class dotdict(dict):
 #Parameters to change
 
 args = {
-    'S0': [512, 512, 512, 8, 10,32,32,32],
+    'S0': [256, 256, 256, 8, 10,32,32,32],
     'method': "all",
     'param_list': ['n1','n2','n3','tblock1','tblock2','tblock3'], 
     'iter_max': 10,
@@ -52,6 +52,7 @@ best_energies = dict()
 average_energies = dict()
 best_times = dict()
 average_times = dict()
+print('initial solution: ' + args.S0)
 
 for method in methods:
     best_energies[method] = 0
