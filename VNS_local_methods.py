@@ -15,6 +15,10 @@ import simulated_annealing as SA
 from server_content.automated_compiling_tabu import define_copiler_settings
 
 
+def listToDict(lst):
+    dic = {'n1' : lst[0], 'n2' : lst[1], 'n3' : lst[2], 'nb_threads' : lst[3], 'nb_it' : lst[4], 'tblock1' : lst[5], 'tblock2' : lst[6], 'tblock3' : lst[7] }
+    return dic
+
 
 define_copiler_settings(opLevel=3, simdType="avx512", version="dev13")
 comm = MPI.COMM_WORLD
@@ -94,6 +98,7 @@ if __name__ == "__main__":
           for param in args.param_list:
             GC.define_usedParameters([param])
             eb_HC, Sb_HC, iters_HC = HC.HillClimbing(Sb_HC, args.iter_max, "flops")
+            Sb_HC = listToDict(Sb_HC)
             tot_iter_HC += iters_HC
           dt_HC = time.time()-t1
           print(20*"=","HILL CLIMBING",20*"=")
@@ -109,6 +114,7 @@ if __name__ == "__main__":
       for param in args.param_list:
         GC.define_usedParameters([param])
         best_E, best_S0, best_Sb = main_HC.execute(best_Sb,args)
+        best_Sb = listToDict(best_Sb)
       dt_PHC = time.time()-t1
       print("\n")
       print("========================= Best Parameters ======================")
@@ -128,6 +134,7 @@ if __name__ == "__main__":
       for param in args.param_list:
         GC.define_usedParameters([param])
         best_E, best_S0, best_Sb = main_greedy.execute(best_Sb, args)
+        best_Sb = listToDict(best_Sb)
       dt_GR = time.time() - t1
       print("\n")
       print("========================= Best Parameters ======================")
@@ -147,6 +154,7 @@ if __name__ == "__main__":
       for param in args.param_list:
         GC.define_usedParameters([param])
         best_E, best_S0, best_Sb = main_tabu_greedy.execute(best_Sb, args)
+        best_Sb = listToDict(best_Sb)
       dt_TGR = time.time() - t1
       print("\n")
       print("========================= Best Parameters ======================")
@@ -165,7 +173,8 @@ if __name__ == "__main__":
       if Me == 0:
           for param in args.param_list:
               GC.define_usedParameters([param])
-              eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
+              eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(Sb_SA, args.iter_max, 80, 0.8)
+              Sb_SA = listToDict(Sb_SA)
           dt_SA = time.time() - t1
           print(20*"=","SIMU",20*"=")
           print("eb_HC",eb_SA,"Sb_HC",Sb_SA,"iters_HC", iters_SA)
@@ -178,6 +187,7 @@ if __name__ == "__main__":
       best_Sb_PHC = S0
       best_Sb_GR = S0
       best_Sb_TGR = S0
+      Sb_SA = S0  
       
       for param in args.param_list:
         GC.define_usedParameters([param])
@@ -187,12 +197,14 @@ if __name__ == "__main__":
         if Me == 0:
             t1 = time.time()
             
-            eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
+            eb_HC, Sb_HC, iters_HC = HC.HillClimbing(best_Sb, args.iter_max, "flops")
+            best_Sb = listToDict(best_Sb)
             
             dt_HC = time.time()-t1
             t1 = time.time()
             
-            eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
+            eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(Sb_SA, args.iter_max, 80, 0.8)
+            Sb_SA = listToDict(Sb_SA)
             
             dt_SA = time.time()-t1
         time.sleep(1)
@@ -201,20 +213,22 @@ if __name__ == "__main__":
         #Parallel HillClimbing
         t1 = time.time()
         
-        best_E_PHC, best_S0_PHC, best_Sb_PHC = main_HC.execute(S0,args)
-        
+        best_E_PHC, best_S0_PHC, best_Sb_PHC = main_HC.execute(best_Sb_PHC, args)
+        best_Sb_PHC = listToDict(best_Sb_PHC)
         dt_PHC = time.time()-t1
         S0['simdType'] = args.simdType
 
         #Greedy
         t1 = time.time()
-        best_E_GR, best_S0_GR, best_Sb_GR = main_greedy.execute(S0, args)
+        best_E_GR, best_S0_GR, best_Sb_GR = main_greedy.execute(best_Sb_GR, args)
+        best_Sb_GR = listToDict(best_Sb_GR)
         dt_GR = time.time()-t1
         S0['simdType'] = args.simdType
 
         #Tabu Greedy
         t1 = time.time()
-        best_E_TGR, best_S0_TGR, best_Sb_TGR = main_tabu_greedy.execute(S0, args)
+        best_E_TGR, best_S0_TGR, best_Sb_TGR = main_tabu_greedy.execute(best_Sb_TGR, args)
+        best_Sb_TGR = listToDict(best_Sb_TGR)
         dt_TGR = time.time()-t1
         S0['simdType'] = args.simdType
       if Me == 0:
