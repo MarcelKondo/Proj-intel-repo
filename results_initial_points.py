@@ -56,8 +56,9 @@ best_times = dict()
 average_times = dict()
 
 
-print('initial solution: ' + args.S0)
-print('initial solution: ' + args.S0)
+print('initial solution: ')
+print(args.S0)
+
 for method in methods:
     best_energies[method] = 0
     best_times[method] = 0
