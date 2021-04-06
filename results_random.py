@@ -71,7 +71,9 @@ for method in methods:
 
 imax = 2 # nb runs
 for i in range(0,imax):
-
+    print('\n')
+    print('\n')
+    print(f'Iteration: {i}')
     for method in methods:
         args.method = method
         S0 = GC.generateS0()
