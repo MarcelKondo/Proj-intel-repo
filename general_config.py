@@ -119,7 +119,7 @@ def nghbrhd_other(S):
             S_new = S.copy()
             for param in params:
                 rd_bool = bool(rd.getrandbits(1)) #random boolean
-                k = rd.randint(1,10)
+                k = rd.randint(1,2)
                 if S_new[param]+k*param_space[param][2] < param_space[param][1] and S_new[param] - k*param_space[param][2] >0:
                     S_new[param] += k*param_space[param][2]*rd_bool
                     S_new[param] -= k*param_space[param][2]*(1-rd_bool)
