@@ -75,9 +75,9 @@ while i!=1:
     i+=1
 print(dict_tot)
 
-a_file = open('/usr/users/cpust75/cpust75_14/Proj-Intel/Proj-intel-repo/tabu_size.json', "w")
-json.dump(dict_tot, a_file)
-a_file.close()
+#a_file = open('/usr/users/cpust75/cpust75_14/Proj-Intel/Proj-intel-repo/tabu_size.json', "w")
+#json.dump(dict_tot, a_file)
+#a_file.close()
 
 #df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values()), 'Average speed': list(average_energies.values()), 'Average time': list(average_times.values())}, index = np.arange(1,12,2))
 #print(df)
