@@ -38,7 +38,7 @@ args = {
     'tabu_size': 8,
     'opt': 3,
     'simdType': "avx512",
-    'neighbourhood': "other"
+    'neighbourhood': "basic"
 }
 
 args = dotdict((args))
