@@ -65,7 +65,7 @@ for method in methods:
     average_energies[method] = 0
     average_times[method] = 0
 
-imax = 2 # nb runs
+imax = 1 # nb runs
 for i in range(0,imax):
     for nbiter in itertest:
         args["iter_max"]= nbiter
