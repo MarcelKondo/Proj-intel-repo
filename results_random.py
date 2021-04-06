@@ -78,7 +78,7 @@ for i in range(0,imax):
         args.S0 = list(S0.values())
         print('\n')
         print('\n')
-        print(args.S0)
+        print(f'NEW INITIAL SOLUTION: {args.S0}')
         print('\n')
         print('\n')
         if method == 'HC' or method == 'SA':
