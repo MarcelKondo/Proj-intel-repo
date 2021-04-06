@@ -73,11 +73,13 @@ for i in range(0,imax):
     for ng in neighbs:
         args.S0 = GC.generateS0() #pour que LM et VNS aient le même aléatoire pour pouvoir comparer à chaque itération
         if ng == 'LM':
+            print(args.S0)
             current_E, current_Sb, current_S0, current_dt = LM.execute(args)
             LM_flops.append(current_E)
             LM_times.append(current_dt)
             LM_ng.append(current_Sb)
         else: # ng =='VNS_LM':
+            print(args.S0)
              current_E, current_Sb, current_S0, current_dt = VNS_LM.execute(args)   
              VNS_flops.append(current_E)
              VNS_times.append(current_dt)  
