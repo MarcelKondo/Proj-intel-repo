@@ -48,15 +48,15 @@ define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13
 
 
 methods = ['GR']
-best_energies = dict()
-average_energies = dict()
+best_flops = dict()
+average_flops = dict()
 best_times = dict()
 average_times = dict()
 
 for method in methods:
-    best_energies[method] = 0
+    best_flops[method] = 0
     best_times[method] = 0
-    average_energies[method] = 0
+    average_flops[method] = 0
     average_times[method] = 0
 
 imax = 2 # nb runs
@@ -68,36 +68,36 @@ for i in range(0,imax):
             if Me == 0:
                 current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
 
-                if current_E > best_energies[method]:
-                    best_energies[method] = current_E
+                if current_E > best_flops[method]:
+                    best_flops[method] = current_E
                     best_times[method] = current_dt
         else:
             current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
             if Me == 0:
-                if current_E > best_energies[method]:
-                        best_energies[method] = current_E
+                if current_E > best_flops[method]:
+                        best_flops[method] = current_E
                         best_times[method] = current_dt
 
-        average_energies[method] += current_E
+        average_flops[method] += current_E
         average_times[method] += current_dt
     if Me == 0:
         print('\n')
         print('best result so far: ')
         print('\n')
-        print(f'best_energies: {best_energies}')
+        print(f'best_flops: {best_flops}')
         print(f'best_times: {best_times}')
 
 if Me == 0:
-    average_energies = {key:value/imax for key, value in average_energies.items()}
+    average_flops = {key:value/imax for key, value in average_flops.items()}
     average_times = {key:value/imax for key, value in average_times.items()}
     print('\n')
     print('\n')
     print('\n')
-    print(f'best_energies: {best_energies}')
+    print(f'best_flops: {best_flops}')
     print(f'best_times: {best_times}')
-    print(f'average_energies: {average_energies}')
+    print(f'average_flops: {average_flops}')
     print(f'average_times: {average_times}')
-    df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values()), 'Average energy': list(average_energies.values()), 'Average time': list(average_times.values())}, index = methods)
+    df = pd.DataFrame({'Gflops': list(best_flops.values()), 'Execution time (s)': list(best_times.values()), 'Average speed': list(average_flops.values()), 'Average time': list(average_times.values())}, index = methods)
     print(df)
     #ax = df.plot.bar(rot=0)
     df.to_csv(r'~/Proj-intel-repo/VNS_greedy.csv', index = True, header=True)
