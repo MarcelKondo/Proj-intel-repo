@@ -79,7 +79,7 @@ for i in range(0,imax):
             LM_times.append(current_dt)
             LM_ng.append(current_Sb)
         else: # ng =='VNS_LM':
-            print(args.S0)
+             print(args.S0)
              current_E, current_Sb, current_S0, current_dt = VNS_LM.execute(args)   
              VNS_flops.append(current_E)
              VNS_times.append(current_dt)  
