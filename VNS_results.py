@@ -47,7 +47,7 @@ define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13
 
 
 
-methods = ['GR']
+methods = ['basic','basic6']  #Deux types de neighborhood
 best_flops = dict()
 average_flops = dict()
 best_times = dict()
@@ -64,22 +64,14 @@ for i in range(0,imax):
 
     for method in methods:
         args.method = method
-        if method == 'HC' or method == 'SA':
-            if Me == 0:
-                current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-
-                if current_E > best_flops[method]:
+        current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+        if Me == 0:
+            if current_E > best_flops[method]:
                     best_flops[method] = current_E
                     best_times[method] = current_dt
-        else:
-            current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-            if Me == 0:
-                if current_E > best_flops[method]:
-                        best_flops[method] = current_E
-                        best_times[method] = current_dt
 
-        average_flops[method] += current_E
-        average_times[method] += current_dt
+    average_flops[method] += current_E
+    average_times[method] += current_dt
     if Me == 0:
         print('\n')
         print('best result so far: ')
