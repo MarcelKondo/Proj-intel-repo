@@ -41,7 +41,7 @@ S0 = {
     #'simdType' : 'avx512'
 }
 
-param_space = {
+param_space_0 = {
     'n1' : [256, 1024, 16],
     'n2' : [256, 1024, 16],
     'n3' : [256, 1024, 16],
@@ -52,6 +52,18 @@ param_space = {
     'tblock3' : [32, 128, 4],
     #'simdType' : ["avx512"]
 }
+
+def define_usedParameters(param_list):
+    '''Define parameters that will vary'''
+    param_space = param_space_0.copy()           #Prend le param space défini juste au-dessus.
+    param_keys = list(param_space_0.keys())          #
+    for param in param_list:
+        if param in param_keys:
+            param_keys.remove(param)
+    
+    for elem in param_keys:
+        param_space[elem][2] = 0
+    return 
 
 def parse():
     parser = argparse.ArgumentParser('Geral Config')
@@ -71,7 +83,6 @@ def parse():
 if __name__ == "__main__":
     
   args = parse()
-  GC.define_usedParameters(args.param_list)
   GC.define_neighbourhood(args.neighbourhood)  
     
   if(args.S0 == None):      #Si on ne renseigne pas de point de départ, on en genère un aléatoirement.
@@ -96,7 +107,7 @@ if __name__ == "__main__":
           tot_iter_HC = 0
           Sb_HC = S0
           for param in args.param_list:
-            GC.define_usedParameters([param])
+            define_usedParameters([param])
             eb_HC, Sb_HC, iters_HC = HC.HillClimbing(Sb_HC, args.iter_max, "flops")
             Sb_HC = listToDict(Sb_HC)
             tot_iter_HC += iters_HC
@@ -112,7 +123,7 @@ if __name__ == "__main__":
       print(f"Executing only {args.method}")
       best_Sb = S0
       for param in args.param_list:
-        GC.define_usedParameters([param])
+        define_usedParameters([param])
         best_E, best_S0, best_Sb = main_HC.execute(best_Sb,args)
         best_Sb = listToDict(best_Sb)
       dt_PHC = time.time()-t1
@@ -132,7 +143,7 @@ if __name__ == "__main__":
       print(f"Executing only {args.method}")
       best_Sb = S0
       for param in args.param_list:
-        GC.define_usedParameters([param])
+        define_usedParameters([param])
         best_E, best_S0, best_Sb = main_greedy.execute(best_Sb, args)
         best_Sb = listToDict(best_Sb)
       dt_GR = time.time() - t1
@@ -152,7 +163,7 @@ if __name__ == "__main__":
       print(f"Executing only {args.method}")
       best_Sb = S0
       for param in args.param_list:
-        GC.define_usedParameters([param])
+        define_usedParameters([param])
         best_E, best_S0, best_Sb = main_tabu_greedy.execute(best_Sb, args)
         best_Sb = listToDict(best_Sb)
       dt_TGR = time.time() - t1
@@ -172,7 +183,7 @@ if __name__ == "__main__":
       print(20*"=","SIMU",20*"=")
       if Me == 0:
           for param in args.param_list:
-              GC.define_usedParameters([param])
+              define_usedParameters([param])
               eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(Sb_SA, args.iter_max, 80, 0.8)
               Sb_SA = listToDict(Sb_SA)
           dt_SA = time.time() - t1
@@ -190,7 +201,7 @@ if __name__ == "__main__":
       Sb_SA = S0  
       
       for param in args.param_list:
-        GC.define_usedParameters([param])
+        define_usedParameters([param])
 
 
        #HillClimbing
