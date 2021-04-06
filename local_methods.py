@@ -103,7 +103,9 @@ if __name__ == "__main__":
             print(20*"=","HILL CLIMBING",20*"=")
             print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
             print("Execution time {:.3f}".format(dt_HC))
+            print("Cost SO", GC.cost(S0))
             print('\n')
+            
     elif(args.method == "PHC"):
         #Execute only Parallel_HC
         t1 = time.time()
@@ -116,6 +118,7 @@ if __name__ == "__main__":
         print("\n")
         print("Best performance (Gflops) " + str(best_E))
         print("Initial solution " + str(best_S0))
+        print("Cost SO", GC.cost(S0))
         print("Optimal solution " + str(best_Sb))
         print("Execution time {:.3f}".format(dt_PHC))
 
@@ -132,6 +135,7 @@ if __name__ == "__main__":
         print("Parallel Greedy")
         print("Best performance (Gflops) " + str(best_E))
         print("Initial Solution " + str(best_S0))
+        print("Cost SO", GC.cost(S0))
         print("Optimal solution " + str(best_Sb))
         print("Execution time {:.3f}".format(dt_GR))
 
@@ -150,6 +154,7 @@ if __name__ == "__main__":
         print("Tabu Greedy")
         print("Best performance (Gflops) " + str(best_E))
         print("Initial Solution " + str(best_S0))
+        print("Cost SO", GC.cost(S0))
         print("Optimal solution " + str(best_Sb))
         print("Execution time {:.3f}".format(dt_TGR))
         print("\n")
@@ -191,6 +196,8 @@ if __name__ == "__main__":
         print("Penalties " + str(GS_penalties))
         print("C " + str(GS_c))
         print("Execution time {:.3f}".format(dt_GS))
+        print("Initial solution " + str(S0))
+        print("Cost SO", GC.cost(S0))
         print("\n")
 
     else:
@@ -292,7 +299,9 @@ if __name__ == "__main__":
             print("cost at the end",GS_c)
             print("iterG"+str(GC_iterG))
             print("Execution time {:.3f}".format(dt_GS))
-
+            
+            
+            print("Cost SO", GC.cost(S0))
 
 
 
