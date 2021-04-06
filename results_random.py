@@ -69,7 +69,7 @@ for method in methods:
     worst_energies[method] = 100000
     worst_times[method] = 1000000
 
-imax = 2 # nb runs
+imax = 10 # nb runs
 for i in range(0,imax):
     print('\n')
     print('\n')
