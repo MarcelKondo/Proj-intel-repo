@@ -34,11 +34,11 @@ def execute(args):
     # best_S0 = None
     # dt = None
 
-    if(args.S0 == None):
-        S0 = GC.generateS0()
-    else:
-        assert args.S0['n1'] % 16 == 0, "n1 must be divisble by 16"
-        assert args.S0['tblock1'] % 16 == 0, "tblock1 must be divisible by 16"
+    #if(args.S0 == None):
+     #   S0 = GC.generateS0()
+    #else:
+     ##   assert args.S0['n1'] % 16 == 0, "n1 must be divisble by 16"
+       # assert args.S0['tblock1'] % 16 == 0, "tblock1 must be divisible by 16"
 
       
 
@@ -99,7 +99,7 @@ def execute(args):
         t1 = time.time()
         print(f"Executing only {args.method}")
        
-        best_E, best_S0, best_Sb = main_tabu_greedy.execute(S0, args)
+        best_E, best_S0, best_Sb = main_tabu_greedy.execute(args.S0, args)
         dt = time.time() - t1
         print("\n")
         print("========================= Best Parameters ======================")
