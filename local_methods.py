@@ -179,10 +179,10 @@ if __name__ == "__main__":
     elif (args.method == "GS"):
         print(f"Executing only {args.method}")
         print(20*"=","Guided Search",20*"=")
-
+        t1 = time.time()
         #best_E,best_S0, best_Sb, GS_penalties, GS_c = main_GS.execute(S0, args)
         GS_eb, GS_sb, GS_iter, GS_penalties, GS_c, GC_iterG = guided_search_tg.Guided(S0,args.iter_maxg,args.tabu_size, NbP, Me,args.iter_maxG,args.lba)
-
+        dt_GS = time.time() - t1
         print("\n")
         print("========================= Best Parameters ======================")
         print("Guided Search")
@@ -190,6 +190,7 @@ if __name__ == "__main__":
         print("Optimal solution " + str(GS_sb))
         print("Penalties " + str(GS_penalties))
         print("C " + str(GS_c))
+        print("Execution time {:.3f}".format(dt_GS))
         print("\n")
 
     else:
