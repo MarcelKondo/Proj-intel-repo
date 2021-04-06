@@ -64,8 +64,8 @@ for method in methods:
     dict_iter[method]=[]
 
 imax = 1 # nb runs
-for i in range(0,imax):
-    for nbiter in itertest:
+for nbiter in itertest:
+    for i in range(0,imax):
         args["iter_max"]= nbiter
         for method in methods:
             args.method = method
@@ -92,8 +92,6 @@ for i in range(0,imax):
         
 
 if Me == 0:
-    average_energies = {key:value/imax for key, value in average_energies.items()}
-    average_times = {key:value/imax for key, value in average_times.items()}
     print('\n')
     print('\n')
     print('\n')
