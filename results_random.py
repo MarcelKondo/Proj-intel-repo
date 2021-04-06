@@ -123,7 +123,7 @@ if Me == 0:
     print(f'best_times: {best_times}')
     print(f'average_energies: {average_energies}')
     print(f'average_times: {average_times}')
-    df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values()), 'Average energy': list(average_energies.values()), 'Average time': list(average_times.values()), 'Worst Energy': list(worst_energies.values()), 'Worst Time': list(worst_times.values())}, index = methods)
+    df = pd.DataFrame({'Best Gflops': list(best_energies.values()), 'Best Exec time (s)': list(best_times.values()), 'Average Gflops': list(average_energies.values()), 'Average time': list(average_times.values()), 'Worst Gflops': list(worst_energies.values()), 'Worst time': list(worst_times.values())}, index = methods)
     print(df)
     #ax = df.plot.bar(rot=0)
     df.to_csv(r'~/Proj-intel-repo/RandomPoints.csv', index = True, header=True)
