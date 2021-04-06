@@ -89,7 +89,7 @@ if Me == 0:
     print(f'best_times: {best_times}')
     print(f'average_flops: {average_flops}')
     print(f'average_times: {average_times}')
-    df = pd.DataFrame({'Gflops': list(best_flops.values()), 'Execution time (s)': list(best_times.values()), 'Average speed': list(average_flops.values()), 'Average time': list(average_times.values())}, index = methods)
+    df = pd.DataFrame({'Gflops': list(best_flops.values()), 'Execution time (s)': list(best_times.values()), 'Average speed': list(average_flops.values()), 'Average time': list(average_times.values())}, index = neigbhs)
     print(df)
     #ax = df.plot.bar(rot=0)
     df.to_csv(r'~/Proj-intel-repo/VNS_greedy.csv', index = True, header=True)
