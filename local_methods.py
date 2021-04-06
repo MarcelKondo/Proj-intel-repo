@@ -198,7 +198,7 @@ if __name__ == "__main__":
         print(f"Executing all methods")
 
         #HillClimbing
-        if Me == 0
+        if Me == 0:
             t1 = time.time()
             eb_HC, Sb_HC, iters_HC = HC.HillClimbing(S0, args.iter_max, "flops")
             dt_HC = time.time()-t1
