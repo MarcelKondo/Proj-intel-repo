@@ -32,7 +32,7 @@ class dotdict(dict):
 #Parameters to change
 
 args = {
-    'S0': [512, 512, 512, 32, 10, 32, 32, 32],
+    'S0': None,
     'method': "GR",
     'param_list': ['n1','n2','n3','tblock1','tblock2','tblock3'], 
     'iter_max': 10,
@@ -54,6 +54,13 @@ average_flops = dict()
 best_times = dict()
 average_times = dict()
 
+LM_flops = []
+VNS_flops = []
+LM_times = []
+VNS_times = []
+LM_ng= []
+VNS_ng = []
+
 for ng in neighbs:
     best_flops[ng] = 0
     best_times[ng] = 0
@@ -67,9 +74,14 @@ for i in range(0,imax):
 #         args.neighbourhood = ng
         if ng == 'LM':
             current_E, current_Sb, current_S0, current_dt = LM.execute(args)
+            LM_flops.append(current_E)
+            LM_times.append(current_dt)
+            LM_ng.append(current_Sb)
         else: # ng =='VNS_LM':
-             current_E, current_Sb, current_S0, current_dt = VNS_LM.execute(args)    
-            
+             current_E, current_Sb, current_S0, current_dt = VNS_LM.execute(args)   
+             VNS_flops.append(current_E)
+             VNS_times.append(current_dt)  
+             VNS_ng.append(current_Sb)
         if Me == 0:
             if current_E > best_flops[ng]:
                     best_flops[ng] = current_E
@@ -95,7 +107,13 @@ if Me == 0:
     print(f'best_times: {best_times}')
     print(f'average_flops: {average_flops}')
     print(f'average_times: {average_times}')
-    df = pd.DataFrame({'Gflops': list(best_flops.values()), 'Execution time (s)': list(best_times.values()), 'Average speed': list(average_flops.values()), 'Average time': list(average_times.values())}, index = neighbs)
-    print(df)
+    df_LM = pd.DataFrame({'Gflops': LM_flops, 'Execution time (s)': LM_times,'Location': LM_ng, index = 'LM')
+    df_VNS = pd.DataFrame({'Gflops': VNS_flops, 'Execution time (s)': VNS_times,'Location': VNS_ng, index = 'VNS')
+    df_best = pd.DataFrame({'Gflops': list(best_flops.values()), 'Execution time (s)': list(best_times.values()), 'Average speed': list(average_flops.values()), 'Average time': list(average_times.values())}, index = neighbs)
+    print(df_LM)
+    print(df_VNS)
+    print(df_best)
     #ax = df.plot.bar(rot=0)
-    df.to_csv(r'~/Proj-intel-repo/VNS_greedy.csv', index = True, header=True)
+    df_LM.to_csv(r'~/Proj-intel-repo/CSV_LM.csv', index = True, header=True)
+    df_VNS.to_csv(r'~/Proj-intel-repo/CSV_VNS.csv', index = True, header=True)
+    df_best.to_csv(r'~/Proj-intel-repo/CSV_best.csv', index = True, header=True)
