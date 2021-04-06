@@ -42,8 +42,8 @@ def execute(args):
 
       
 
-    if args.simdType != None:
-        S0['simdType'] = args.simdType
+    #if args.simdType != None:
+    #   S0['simdType'] = args.simdType
 
     if(args.method == "HC"):
         #Execute only HillClimbing
