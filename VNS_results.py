@@ -71,7 +71,7 @@ imax = 2 # nb runs
 for i in range(0,imax):
 
     for ng in neighbs:
-        args.S0 = GC.generateS0() #pour que LM et VNS aient le même aléatoire pour pouvoir comparer à chaque itération
+        args.S0 = list(GC.generateS0().values()) #pour que LM et VNS aient le même aléatoire pour pouvoir comparer à chaque itération
         if ng == 'LM':
             print(args.S0)
             current_E, current_Sb, current_S0, current_dt = LM.execute(args)
