@@ -57,13 +57,12 @@ def ComputeC(S,Sb,eb,listparam):
 def fcost(S,penalties, Sb, eb,listparam,lba):
   
   fcost=Cost(S)
-  w=1 #pour l'instant
   c= ComputeC(S,Sb,eb,listparam)
     
     #suppose que l'ordre des penalties est le meme que celui de listeparam
   for i in range(len(listparam)):
-    prox= abs(S[listparam[i]]-Sb[listparam[i]])
-    fcost+=penalties[i]*prox*c[i]*lba
+    #prox= abs(S[listparam[i]]-Sb[listparam[i]])
+    fcost+=penalties[i]*c[i]*lba#*prox
   return(fcost)
 
 def fifo_add(Sb, L_tabu, tabu_size):
