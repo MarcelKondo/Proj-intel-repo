@@ -58,6 +58,8 @@ def parse():
     parser.add_argument('-opt', '--opt', default = 3, type=int, metavar='',help='Compiler optimization mode')
     parser.add_argument('-simdType', '--simdType', default = "avx512", metavar='',help='Compiler optimization mode')
     parser.add_argument('-ngbr', '--neighbourhood', default = "basic", metavar='',help="Specify the type of neighbourhood used")
+    parser.add_argument('-T0', '--T0', default = 80, type=float, help='Simulated Annealing: initial temperature')
+    parser.add_argument('-la', '--la', default = 0.8, type=float, help='Simulated Annealing: annealing factor')
     args = parser.parse_args()
     return args
 
@@ -154,8 +156,10 @@ if __name__ == "__main__":
         t1 = time.time()
         print(f"Executing only {args.method}")
         print(20*"=","SIMU",20*"=")
+        T0 = args.T0
+        la = args.la
         if Me == 0:
-            eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, 80, 0.8)
+            eb_SA, Sb_SA, iters_SA = SA.SimulatedAnnealing(S0, args.iter_max, T0, la)
             dt_SA = time.time() - t1
             print(20*"=","SIMU",20*"=")
 
