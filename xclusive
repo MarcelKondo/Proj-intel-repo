@@ -1,0 +1,3 @@
+/var/spool/slurm-llnl/slurmd/job11416/slurm_script: 4: /var/spool/slurm-llnl/slurmd/job11416/slurm_script: source: not found
+icpc: remark #10397: optimization reports are generated in *.optrpt files in the output location
+icpc: remark #10397: optimization reports are generated in *.optrpt files in the output location
