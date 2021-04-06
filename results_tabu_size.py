@@ -36,7 +36,7 @@ dict_tot = dict()
 #Parameters to change
 i=0
 while i!=5: 
-    print("=== /!\ NOUVEAU POINT S0 /!\ ===" 
+    print("=== /!\ NOUVEAU POINT S0 /!\ ===")
     print('Point S0 numéro ',i+1,'/5')
     S0 = GC.generateS0()
     print(S0)
