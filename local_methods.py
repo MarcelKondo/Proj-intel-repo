@@ -95,7 +95,7 @@ if __name__ == "__main__":
             dt_HC = time.time()-t1
             print(20*"=","HILL CLIMBING",20*"=")
             print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
-            print('Temps nécessaire :',dt_HC)
+            print("Execution time {:.3f}".format(dt_HC))
             print('\n')
             
     elif(args.method == "PHC"):
@@ -111,7 +111,7 @@ if __name__ == "__main__":
         print("Best performance (Gflops) " + str(best_E))
         print("Initial solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
-        print('Temps nécessaire :',dt_PHC)
+        print("Execution time {:.3f}".format(dt_PHC))
 
 
     elif (args.method == "GR"):
@@ -128,7 +128,7 @@ if __name__ == "__main__":
         print("Best performance (Gflops) " + str(best_E))
         print("Initial Solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
-        print('Temps nécessaire :',dt_GR)
+        print("Execution time {:.3f}".format(dt_GR))
         print("\n")
 
     
@@ -146,7 +146,7 @@ if __name__ == "__main__":
         print("Best performance (Gflops) " + str(best_E))
         print("Initial Solution " + str(best_S0))
         print("Optimal solution " + str(best_Sb))
-        print('Temps nécessaire :',dt_TGR)
+        print("Execution time {:.3f}".format(dt_TGR))
         print("\n")
         
     elif (args.method == "SA"):
@@ -160,7 +160,7 @@ if __name__ == "__main__":
             print(20*"=","SIMU",20*"=")
 
             print("eb_HC",eb_SA,"Sb_HC",Sb_SA,"iters_HC", iters_SA)
-            print('Temps nécessaire :',dt_SA)
+            print("Execution time {:.3f}".format(dt_SA))
             print('\n')
         #best_E, best_S0, best_Sb = main_SA.execute(S0, args)
         # print("eb_HC",eb_HC,"Sb_HC",Sb_HC,"iters_HC", iters_HC)
@@ -218,7 +218,7 @@ if __name__ == "__main__":
             print("Best performance (Gflops) " + str(eb_HC))
             print("Initial solution " + str(S0))
             print("Optimal solution " + str(Sb_HC))
-            print('Temps nécessaire :',dt_HC)
+            print("Execution time {:.3f}".format(dt_HC))
 
             print("\n")
             print("========================= Best Parameters ======================")
@@ -227,7 +227,7 @@ if __name__ == "__main__":
             print("Best performance (Gflops) " + str(best_E_PHC))
             print("Initial solution " + str(best_S0_PHC))
             print("Optimal solution " + str(best_Sb_PHC))
-            print('Temps nécessaire :',dt_PHC)
+            print("Execution time {:.3f}".format(dt_PHC))
             
             print("\n")
             print("========================= Best Parameters ======================")
@@ -236,7 +236,7 @@ if __name__ == "__main__":
             print("Best performance (Gflops) " + str(best_E_GR))
             print("Initial Solution " + str(best_S0_GR))
             print("Optimal solution " + str(best_Sb_GR))
-            print('Temps nécessaire :',dt_GR)
+            print("Execution time {:.3f}".format(dt_GR))
             print("\n")
 
             print("\n")
@@ -246,7 +246,7 @@ if __name__ == "__main__":
             print("Best performance (Gflops) " + str(best_E_TGR))
             print("Initial Solution " + str(best_S0_TGR))
             print("Optimal solution " + str(best_Sb_TGR))
-            print('Temps nécessaire :',dt_TGR)
+            print("Execution time {:.3f}".format(dt_TGR))
             print("\n")
 
             print("\n")
@@ -256,7 +256,7 @@ if __name__ == "__main__":
             print("Best performance (Gflops) " + str(eb_SA))
             print("Initial Solution " + str(S0))
             print("Optimal solution " + str(Sb_SA))
-            print('Temps nécessaire :',dt_SA)
+            print("Execution time {:.3f}".format(dt_SA))
             print("\n")
             
 
