@@ -51,19 +51,17 @@ define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13
 
 methods = ['HC', 'PHC', 'GR', 'TGR', 'SA']
 best_energies = dict()
-average_energies = dict()
 best_times = dict()
-average_times = dict()
+dict_iter = dict()
 
 
 print('initial solution: ')
 print(args.S0)
 
 for method in methods:
-    best_energies[method] = 0
-    best_times[method] = 0
-    average_energies[method] = 0
-    average_times[method] = 0
+    best_energies[method] = []
+    best_times[method] = []
+    dict_iter[method]=[]
 
 imax = 1 # nb runs
 for i in range(0,imax):
@@ -74,22 +72,15 @@ for i in range(0,imax):
             if method == 'HC' or method == 'SA':
                 if Me == 0:
                     current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-
-                    average_energies[method] += current_E
-                    average_times[method] += current_dt
-                    if current_E > best_energies[method]:
-                        best_energies[method] = current_E
-                        best_times[method] = current_dt
+                    best_energies[method].append(current_E)
+                    best_times[method].append(current_dt)
             else:
                 current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
 
                 if Me == 0:
-                    average_energies[method] += current_E
-                    average_times[method] += current_dt
-                    if current_E > best_energies[method]:
-                            best_energies[method] = current_E
-                            best_times[method] = current_dt
-
+                    best_energies[method].append(current_E)
+                    best_times[method].append(current_dt)
+            
 
         if Me == 0:
             print('\n')
@@ -97,6 +88,8 @@ for i in range(0,imax):
             print('\n')
             print(f'best_energies: {best_energies}')
             print(f'best_times: {best_times}')
+            dict_iter[method].append(args.iter_max)
+        
 
 if Me == 0:
     average_energies = {key:value/imax for key, value in average_energies.items()}
@@ -106,9 +99,9 @@ if Me == 0:
     print('\n')
     print(f'best_energies: {best_energies}')
     print(f'best_times: {best_times}')
-    print(f'average_energies: {average_energies}')
-    print(f'average_times: {average_times}')
-    df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values()), 'Average energy': list(average_energies.values()), 'Average time': list(average_times.values())}, index = methods)
+    print(f'dict_iter: {dict_iter}')
+    
+    df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values())}, index = methods)
     print(df)
     #ax = df.plot.bar(rot=0)
     df.to_csv(r'~/Proj-intel-repo/Iteration.csv', index = True, header=True)
