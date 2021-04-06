@@ -27,81 +27,48 @@ class dotdict(dict):
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
 
+dict_tot = dict()
 
-#Parameters to change
-
-args = {
-    'S0': [512, 512, 512, 8, 10,32,32,32],
-    'method': "all",
-    'param_list': ['n1','n2','n3','tblock1','tblock2','tblock3'], 
-    'iter_max': 10,
-    'tabu_size': 8,
-    'opt': 3,
-    'simdType': "avx512",
-    'neighbourhood': "other"
-}
-
-args = dotdict((args))
-
-define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13")
 
 
 
-methods = ['HC', 'PHC', 'GR', 'TGR', 'SA']
-best_energies = dict()
-average_energies = dict()
-best_times = dict()
-average_times = dict()
+#Parameters to change
+i=0
+while i!=1: 
+    S0 = GC.generateS0()
+    speeds = dict()
+    times = dict()
+    solutions = dict()
+    
+    for tabu_size in np.arange(1,5,2):
+        args = {
+            'S0': S0,
+            'method': "TGR",
+            'param_list': ['n1','n2','n3','tblock1','tblock2','tblock3'], 
+            'iter_max': 10,
+            'tabu_size': tabu_size,
+            'opt': 3,
+            'simdType': "avx512",
+            'neighbourhood': "basic"
+        }
 
-for method in methods:
-    best_energies[method] = 0
-    best_times[method] = 0
-    average_energies[method] = 0
-    average_times[method] = 0
+        args = dotdict((args))
+        define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13")
 
-imax = 2 # nb runs
-for i in range(0,imax):
-
-    for method in methods:
-        args.method = method
-        if method == 'HC' or method == 'SA':
-            if Me == 0:
-                current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-
-                average_energies[method] += current_E
-                average_times[method] += current_dt
-                if current_E > best_energies[method]:
-                    best_energies[method] = current_E
-                    best_times[method] = current_dt
-        else:
-            current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-
-            if Me == 0:
-                average_energies[method] += current_E
-                average_times[method] += current_dt
-                if current_E > best_energies[method]:
-                        best_energies[method] = current_E
-                        best_times[method] = current_dt
-
+        current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+        print('==================== PRINTING TO FOLLOW ====================')
+        print('Speed: ',current_E)
+        print('Tabu_size: ', args.tabu_size)
         
-    if Me == 0:
-        print('\n')
-        print('best result so far: ')
-        print('\n')
-        print(f'best_energies: {best_energies}')
-        print(f'best_times: {best_times}')
+        speeds[tabu_size] = current_E
+        times[tabu_size] = current_dt
+        solutions[tabu_size] = current_Sb
+        
+    dict_tot[S0] = {'speeds': speeds, 'times': times, 'solutions': solutions}
+    i+=1
+print(dict_tot)
 
-if Me == 0:
-    average_energies = {key:value/imax for key, value in average_energies.items()}
-    average_times = {key:value/imax for key, value in average_times.items()}
-    print('\n')
-    print('\n')
-    print('\n')
-    print(f'best_energies: {best_energies}')
-    print(f'best_times: {best_times}')
-    print(f'average_energies: {average_energies}')
-    print(f'average_times: {average_times}')
-    df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values()), 'Average speed': list(average_energies.values()), 'Average time': list(average_times.values())}, index = methods)
-    print(df)
-    #ax = df.plot.bar(rot=0)
-    df.to_csv(r'~/Proj-intel-repo/tabu_size.csv', index = True, header=True)
+#df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values()), 'Average speed': list(average_energies.values()), 'Average time': list(average_times.values())}, index = np.arange(1,12,2))
+#print(df)
+#ax = df.plot.bar(rot=0)
+#df.to_csv(r'~/Proj-intel-repo/tabu_size.csv', index = True, header=True)
