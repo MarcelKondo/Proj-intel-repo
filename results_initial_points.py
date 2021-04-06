@@ -74,8 +74,8 @@ for i in range(0,imax):
                     best_energies[method] = current_E
                     best_times[method] = current_dt
         else:
-            current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
             if Me == 0:
+                current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
                 average_energies[method] += current_E
                 average_times[method] += current_dt
                 if current_E > best_energies[method]:
