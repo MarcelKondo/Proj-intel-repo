@@ -36,6 +36,7 @@ dict_tot = dict()
 i=0
 while i!=1: 
     S0 = GC.generateS0()
+    print(S0)
     speeds = dict()
     times = dict()
     solutions = dict()
