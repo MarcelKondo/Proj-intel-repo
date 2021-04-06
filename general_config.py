@@ -70,6 +70,8 @@ def define_neighbourhood(nbgh_name):
     print(nbgh_name)
     if nbgh_name == "basic":
         neighbourhood = get_neighbourhood_basic
+    elif nbgh_name == "basic6":
+        neighbourhood = get_neighbourhood_basic_6
     else:
         neighbourhood = nghbrhd_other
 
@@ -94,6 +96,36 @@ def get_neighbourhood_basic(S):
             S2[param] -= param_space[param][2]
             if S2[param] >= param_space[param][0]:
                 LNgbh.append(S2)
+    
+    for param in param_space_categorical.keys():
+        p_idx = param_space_categorical[param].index(S[param]) #we'll take the order of the list to define the neighbourhood
+        S1 = S.copy()
+        if p_idx + 1 < len(param_space_categorical[param]):
+            S1[param] = param_space_categorical[param][p_idx + 1]
+            LNgbh.append(S1)
+        
+        S2 = S.copy()
+        if p_idx - 1 >= 0:
+            S2[param] = param_space_categorical[param][p_idx - 1]
+            LNgbh.append(S2)
+    return LNgbh
+
+def get_neighbourhood_basic_6(S):
+    print("Basic6 neighbourhood")
+    LNgbh = []
+    print(param_space)
+    for param in param_space.keys():
+        if param_space[param][2] != 0:
+            for k in range(1,4):
+                S1 = S.copy()
+                S1[param] += k*param_space[param][2]
+                if S1[param] < param_space[param][1]:
+                    LNgbh.append(S1)
+            
+                S2 = S.copy()
+                S2[param] -= k*param_space[param][2]
+                if S2[param] >= param_space[param][0]:
+                    LNgbh.append(S2)
     
     for param in param_space_categorical.keys():
         p_idx = param_space_categorical[param].index(S[param]) #we'll take the order of the list to define the neighbourhood
