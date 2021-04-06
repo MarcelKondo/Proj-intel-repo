@@ -13,7 +13,7 @@ import main_annealing as main_SA
 import general_config as GC
 import simulated_annealing as SA
 from server_content.automated_compiling_tabu import define_copiler_settings
-from VNS_local_methods import define_usedParameters
+from VNS_local_methods import define_usedParameters, listToDict
 
 comm = MPI.COMM_WORLD
 NbP = comm.Get_size()
