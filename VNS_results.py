@@ -60,6 +60,7 @@ LM_times = []
 VNS_times = []
 LM_ng= []
 VNS_ng = []
+initial = []
 
 for ng in neighbs:
     best_flops[ng] = 0
@@ -72,6 +73,7 @@ for i in range(0,imax):
 
     for ng in neighbs:
         args.S0 = list(GC.generateS0().values()) #pour que LM et VNS aient le même aléatoire pour pouvoir comparer à chaque itération
+        initial.append(args.S0)
         if ng == 'LM':
             print(args.S0)
             current_E, current_Sb, current_S0, current_dt = LM.execute(args)
@@ -109,8 +111,8 @@ if Me == 0:
     print(f'best_times: {best_times}')
     print(f'average_flops: {average_flops}')
     print(f'average_times: {average_times}')
-    df_LM = pd.DataFrame({'Gflops': LM_flops, 'Execution time (s)': LM_times,'Location': LM_ng}, index = ['LM'])
-    df_VNS = pd.DataFrame({'Gflops': VNS_flops, 'Execution time (s)': VNS_times,'Location': VNS_ng}, index = ['VNS'])
+    df_LM = pd.DataFrame({'Gflops': LM_flops, 'Execution time (s)': LM_times,'Location': LM_ng}, index = initial)
+    df_VNS = pd.DataFrame({'Gflops': VNS_flops, 'Execution time (s)': VNS_times,'Location': VNS_ng}, index = initial)
     df_best = pd.DataFrame({'Gflops': list(best_flops.values()), 'Execution time (s)': list(best_times.values()), 'Average speed': list(average_flops.values()), 'Average time': list(average_times.values())}, index = neighbs)
     print(df_LM)
     print(df_VNS)
