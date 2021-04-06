@@ -70,8 +70,8 @@ for i in range(0,imax):
                     best_flops[ng] = current_E
                     best_times[ng] = current_dt
 
-    average_flops[ng] += current_E
-    average_times[ng] += current_dt
+        average_flops[ng] += current_E
+        average_times[ng] += current_dt
     if Me == 0:
         print('\n')
         print('best result so far: ')
