@@ -70,10 +70,9 @@ for ng in neighbs:
 
 imax = 2 # nb runs
 for i in range(0,imax):
-
+    args.S0 = list(GC.generateS0().values()) #pour que LM et VNS aient le même aléatoire pour pouvoir comparer à chaque itération
+    start_point.append(args.S0)
     for ng in neighbs:
-        args.S0 = list(GC.generateS0().values()) #pour que LM et VNS aient le même aléatoire pour pouvoir comparer à chaque itération
-        start_point.append(args.S0)
         if ng == 'LM':
             print(args.S0)
             current_E, current_Sb, current_S0, current_dt = LM.execute(args)
