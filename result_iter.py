@@ -102,7 +102,7 @@ if Me == 0:
     df = pd.DataFrame({'Gflops': best_energies, 'Execution time (s)': best_times}, index = methods)
     print(df)
     #ax = df.plot.bar(rot=0)
-    df.to_csv(usr/users/cpust75/cpust75_5/Proj-intel-repo/Iteration.csv', index = True, header=True)
+    df.to_csv('usr/users/cpust75/cpust75_5/Proj-intel-repo/Iteration.csv', index = True, header=True)
     
     
     
