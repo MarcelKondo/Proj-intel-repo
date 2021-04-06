@@ -136,7 +136,7 @@ for neighbourhood in neighbourhoods:
         df = pd.DataFrame({'Best Gflops': list(best_energies.values()), 'Best Exec time (s)': list(best_times.values()), 'Average Gflops': list(average_energies.values()), 'Average time': list(average_times.values()), 'Worst Gflops': list(worst_energies.values()), 'Worst time': list(worst_times.values())}, index = methods)
         print(df)
         #ax = df.plot.bar(rot=0)
-        path = '~/Proj-intel-repo/Results_' + neighbourhood + '.csv'
+        path = '~/Proj-intel-repo/Results_Parallel' + neighbourhood + '.csv'
         df.to_csv(path, index = True, header=True)
 
 
