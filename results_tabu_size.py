@@ -45,6 +45,8 @@ while i!=5:
     solutions = dict()
     
     for tabu_size in np.arange(1,12,2):
+        print("=== /!\ NOUVELLE TABU_SIZE POUR S0 /!\ ===")
+        print("Tabu_size :",tabu_size)
         args = {
             'S0': S0,
             'method': "TGR",
