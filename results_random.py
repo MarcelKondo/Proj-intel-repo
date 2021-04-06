@@ -132,6 +132,6 @@ if Me == 0:
     df = pd.DataFrame({'Best Gflops': list(best_energies.values()), 'Best Exec time (s)': list(best_times.values()), 'Average Gflops': list(average_energies.values()), 'Average time': list(average_times.values()), 'Worst Gflops': list(worst_energies.values()), 'Worst time': list(worst_times.values())}, index = methods)
     print(df)
     #ax = df.plot.bar(rot=0)
-    df.to_csv(r'~/Proj-intel-repo/RandomPoints.csv', index = True, header=True)
+    df.to_csv(r'~/Proj-intel-repo/RandomPoints_Parallel.csv', index = True, header=True)
 
 
