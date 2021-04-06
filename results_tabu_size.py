@@ -1,5 +1,6 @@
 from mpi4py import MPI
 import numpy as np
+import json
 import pandas as pd
 import time
 import os
@@ -34,14 +35,16 @@ dict_tot = dict()
 
 #Parameters to change
 i=0
-while i!=1: 
+while i!=5: 
+    print("=== /!\ NOUVEAU POINT S0 /!\ ===" 
+    print('Point S0 numéro ',i+1,'/5')
     S0 = GC.generateS0()
     print(S0)
     speeds = dict()
     times = dict()
     solutions = dict()
     
-    for tabu_size in np.arange(1,3,2):
+    for tabu_size in np.arange(1,12,2):
         args = {
             'S0': S0,
             'method': "TGR",
@@ -68,6 +71,10 @@ while i!=1:
     dict_tot[i+1] = {'point init':S0, 'vitesses':speeds, 'temps':times, 'Solutions':solutions}
     i+=1
 print(dict_tot)
+
+a_file = open(r'~/Proj-intel-repo/tabu_size.json', "w")
+json.dump(dict_tot, a_file)
+a_file.close()
 
 #df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values()), 'Average speed': list(average_energies.values()), 'Average time': list(average_times.values())}, index = np.arange(1,12,2))
 #print(df)
