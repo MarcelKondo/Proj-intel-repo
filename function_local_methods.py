@@ -37,12 +37,10 @@ def execute(args):
     if(args.S0 == None):
         S0 = GC.generateS0()
     else:
-        assert args.S0[0] % 16 == 0, "n1 must be divisble by 16"
-        assert args.S0[5] % 16 == 0, "tblock1 must be divisible by 16"
+        assert args.S0['n1'] % 16 == 0, "n1 must be divisble by 16"
+        assert args.S0['tblock1'] % 16 == 0, "tblock1 must be divisible by 16"
 
-        params = ['n1','n2','n3','nb_threads','nb_it','tblock1','tblock2','tblock3']
-        for i in range(len(args.S0)):
-            S0[params[i]] = args.S0[i]
+      
 
     if args.simdType != None:
         S0['simdType'] = args.simdType
