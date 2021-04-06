@@ -31,7 +31,7 @@ class dotdict(dict):
 #Parameters to change
 itertest= [1,2,5,10,20,40,80,160,320,500]
 args = {
-    'S0': [256, 256, 256, 32, 10,32,32,32],
+    'S0': [512, 512, 512, 32, 10,32,32,32],
     'method': "all",
     'param_list': ['n1','n2','n3','tblock1','tblock2','tblock3'], 
     'iter_max': 5,
