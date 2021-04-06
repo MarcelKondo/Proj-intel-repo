@@ -99,7 +99,7 @@ if Me == 0:
     print(f'best_times: {best_times}')
     print(f'dict_iter: {dict_iter}')
     
-    df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values())}, index = methods)
+    df = pd.DataFrame({'Gflops': best_energies, 'Execution time (s)': best_times}, index = methods)
     print(df)
     #ax = df.plot.bar(rot=0)
     df.to_csv(r'~/Proj-intel-repo/Iteration.csv', index = True, header=True)
