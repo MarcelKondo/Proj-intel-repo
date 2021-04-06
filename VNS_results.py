@@ -32,13 +32,13 @@ class dotdict(dict):
 
 args = {
     'S0': [512, 512, 512, 32, 10, 32, 32, 32],
-    'method': "all",
+    'method': "GR",
     'param_list': ['n1','n2','n3','tblock1','tblock2','tblock3'], 
     'iter_max': 10,
     'tabu_size': 8,
     'opt': 3,
     'simdType': "avx512",
-    'neighbourhood': "basic"
+    'neighbourhood': ["basic", "basic6"]
 }
 
 args = dotdict((args))
@@ -47,31 +47,31 @@ define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13
 
 
 
-methods = ['basic','basic6']  #Deux types de neighborhood
+neighbs = ['basic','basic6']  #Deux types de neighborhood
 best_flops = dict()
 average_flops = dict()
 best_times = dict()
 average_times = dict()
 
-for method in methods:
-    best_flops[method] = 0
-    best_times[method] = 0
-    average_flops[method] = 0
-    average_times[method] = 0
+for ng in neighbs:
+    best_flops[ng] = 0
+    best_times[ng] = 0
+    average_flops[ng] = 0
+    average_times[ng] = 0
 
 imax = 2 # nb runs
 for i in range(0,imax):
 
-    for method in methods:
-        args.method = method
-        current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
+    for ng in neighbs:
+        args.neighbourhood = ng
+        current_E, current_Sb, current_S0, current_dt = run_LM.execute(args)
         if Me == 0:
-            if current_E > best_flops[method]:
-                    best_flops[method] = current_E
-                    best_times[method] = current_dt
+            if current_E > best_flops[ng]:
+                    best_flops[ng] = current_E
+                    best_times[ng] = current_dt
 
-    average_flops[method] += current_E
-    average_times[method] += current_dt
+    average_flops[ng] += current_E
+    average_times[ng] += current_dt
     if Me == 0:
         print('\n')
         print('best result so far: ')
