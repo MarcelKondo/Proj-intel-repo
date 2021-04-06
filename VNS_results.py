@@ -13,7 +13,8 @@ import main_tabu_greedy as main_tabu_greedy
 import main_annealing as main_SA
 import general_config as GC
 import simulated_annealing as SA
-import function_VNS_local_methods as run_LM
+import function_VNS_local_methods as VNS_LM
+import function_local_methods as LM
 from server_content.automated_compiling_tabu import define_copiler_settings
 
 
@@ -38,7 +39,7 @@ args = {
     'tabu_size': 8,
     'opt': 3,
     'simdType': "avx512",
-    'neighbourhood': ["basic", "basic6"]
+    'neighbourhood': "basic"
 }
 
 args = dotdict((args))
@@ -47,7 +48,7 @@ define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13
 
 
 
-neighbs = ['basic','basic6']  #Deux types de neighborhood
+neighbs = ['LM','VNS_LM']  #Deux types de neighborhood
 best_flops = dict()
 average_flops = dict()
 best_times = dict()
@@ -64,7 +65,7 @@ for i in range(0,imax):
 
     for ng in neighbs:
         args.neighbourhood = ng
-        current_E, current_Sb, current_S0, current_dt = run_LM.execute(args)
+        current_E, current_Sb, current_S0, current_dt = ng.execute(args)
         if Me == 0:
             if current_E > best_flops[ng]:
                     best_flops[ng] = current_E
