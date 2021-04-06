@@ -48,22 +48,35 @@ define_copiler_settings(opLevel=args.opt, simdType=args.simdType, version="dev13
 
 
 methods = ['HC', 'PHC', 'GR', 'TGR', 'SA']
+
 best_energies = dict()
 average_energies = dict()
+worst_energies = dict()
+
+
 best_times = dict()
 average_times = dict()
+worst_times = dict()
+
 
 for method in methods:
     best_energies[method] = 0
     best_times[method] = 0
+
     average_energies[method] = 0
     average_times[method] = 0
 
-imax = 2 # nb runs
+    worst_energies[method] = 100000
+    worst_times[method] = 1000000
+
+imax = 15 # nb runs
 for i in range(0,imax):
 
     for method in methods:
         args.method = method
+        S0 = GC.generateS0()
+        args.S0 = list(S0.values())
+
         if method == 'HC' or method == 'SA':
             if Me == 0:
                 current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
@@ -73,6 +86,10 @@ for i in range(0,imax):
                 if current_E > best_energies[method]:
                     best_energies[method] = current_E
                     best_times[method] = current_dt
+
+                if current_E < worst_energies[method]:
+                    worst_energies[method] = current_E
+                    worst_times[method] = current_dt
         else:
             current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
 
@@ -80,8 +97,11 @@ for i in range(0,imax):
                 average_energies[method] += current_E
                 average_times[method] += current_dt
                 if current_E > best_energies[method]:
-                        best_energies[method] = current_E
-                        best_times[method] = current_dt
+                    best_energies[method] = current_E
+                    best_times[method] = current_dt
+                if current_E < worst_energies[method]:
+                    worst_energies[method] = current_E
+                    worst_times[method] = current_dt
 
         
     if Me == 0:
@@ -90,6 +110,8 @@ for i in range(0,imax):
         print('\n')
         print(f'best_energies: {best_energies}')
         print(f'best_times: {best_times}')
+        print(f'best_energies: {worst_energies}')
+        print(f'best_times: {worst_times}')
 
 if Me == 0:
     average_energies = {key:value/imax for key, value in average_energies.items()}
@@ -101,9 +123,9 @@ if Me == 0:
     print(f'best_times: {best_times}')
     print(f'average_energies: {average_energies}')
     print(f'average_times: {average_times}')
-    df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values()), 'Average energy': list(average_energies.values()), 'Average time': list(average_times.values())}, index = methods)
+    df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values()), 'Average energy': list(average_energies.values()), 'Average time': list(average_times.values()), 'Worst Energy': list(worst_energies.values()), 'Worst Time': list(worst_times.values())}, index = methods)
     print(df)
     #ax = df.plot.bar(rot=0)
-    df.to_csv(r'~/Proj-intel-repo/InitialPointsParallel.csv', index = True, header=True)
+    df.to_csv(r'~/Proj-intel-repo/RandomPoints.csv', index = True, header=True)
 
 
