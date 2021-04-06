@@ -260,7 +260,7 @@ if __name__ == "__main__":
             print("Optimal solution " + str(Sb_SA))
             print("Execution time {:.3f}".format(dt_SA))
             print("\n")
-            
+            print(E_0)
             print(pd.DataFrame({'Ratio e_b/e_0': [eb_HC/E_0,best_E_PHC/E_0,best_E_GR/E_0,best_E_TGR/E_0,eb_SA/E_0]},index=['HC','PHC','GR','TGR','SA']))
 
 
