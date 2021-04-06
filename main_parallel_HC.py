@@ -22,21 +22,25 @@ comm.barrier()
 if Me == 0:
     print("PE: ", Me, "/",NbP,": all processes started")   
     
-if (Me == 0):
-    nd = GC.GetNbDim()
-    EbTab = np.zeros(NbP*1,dtype=np.float64)
-    SbTab = np.zeros(NbP*nd,dtype=int)
-    S0Tab = np.zeros(NbP*nd,dtype=int)
-    IterTab = np.zeros(NbP*1,dtype=int)
-else:
-    EbTab   = None     
-    SbTab   = None
-    S0Tab   = None
-    IterTab = None
+
 
 def execute(S0, args):
-    PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
+    if (Me == 0):
+        nd = GC.GetNbDim()
+        EbTab = np.zeros(NbP*1,dtype=np.float64)
+        SbTab = np.zeros(NbP*nd,dtype=int)
+        S0Tab = np.zeros(NbP*nd,dtype=int)
+        IterTab = np.zeros(NbP*1,dtype=int)
+    else:
+        EbTab   = None     
+        SbTab   = None
+        S0Tab   = None
+        IterTab = None
 
+    PHC_eb, PHC_sb,PHC_iter = HC.HillClimbing(S0, args.iter_max, "flops")
+    print('\n')
+    print('\n')
+    print('\n')
     S0.pop('simdType',None) #simdType not int and useless at this point
     PHC_sb.pop('simdType',None) #simdType not int and useless at this point
 
