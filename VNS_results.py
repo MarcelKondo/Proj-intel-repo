@@ -35,7 +35,7 @@ args = {
     'S0': None,
     'method': "GR",
     'param_list': ['n1','n2','n3','tblock1','tblock2','tblock3'], 
-    'iter_max': 2,
+    'iter_max': 10,
     'tabu_size': 8,
     'opt': 3,
     'simdType': "avx512",
