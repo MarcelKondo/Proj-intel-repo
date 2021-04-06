@@ -49,7 +49,7 @@ def execute(args):
     #'simdType' : 'avx512'
     }
 
- GC.define_neighbourhood(args.neighbourhood)  
+  GC.define_neighbourhood(args.neighbourhood)  
     
   if(args.S0 == None):      #Si on ne renseigne pas de point de départ, on en genère un aléatoirement.
       S0 = GC.generateS0()
