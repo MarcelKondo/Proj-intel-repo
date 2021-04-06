@@ -1,5 +1,6 @@
 from mpi4py import MPI
 import numpy as np
+import pandas as pd
 import time
 import os
 import deploy_greedy_v3
@@ -12,7 +13,7 @@ import main_tabu_greedy as main_tabu_greedy
 import main_annealing as main_SA
 import general_config as GC
 import simulated_annealing as SA
-from server_content.automated_compiling_tabu import define_copiler_settings
+from server_content.automated_compiling_tabu import define_copiler_settings, Cost
 
 
 comm = MPI.COMM_WORLD
@@ -84,7 +85,8 @@ if __name__ == "__main__":
 
     if args.simdType != None:
         S0['simdType'] = args.simdType
-
+    
+    E_0 = Cost(S0)
     if(args.method == "HC"):
         #Execute only HillClimbing
         print(f"Executing only {args.method}")
@@ -259,6 +261,7 @@ if __name__ == "__main__":
             print("Execution time {:.3f}".format(dt_SA))
             print("\n")
             
+            print(pd.Dataframe({'Ratio e_b/e_0': [best_E_HC/E_0,best_E_PHC/E_0,best_E_GR/E_0,best_E_TGR/E_0,best_E_SA/E_0]},index=['HC','PHC','GR','TGR','SA']))
 
 
 
