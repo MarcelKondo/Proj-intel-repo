@@ -66,9 +66,9 @@ while i!=1:
         print('Speed: ',current_E)
         print('Tabu_size: ', args.tabu_size)
         
-        speeds[tabu_size] = current_E
-        times[tabu_size] = current_dt
-        solutions[tabu_size] = current_Sb
+        speeds[int(tabu_size)] = current_E
+        times[int(tabu_size)] = current_dt
+        solutions[int(tabu_size)] = current_Sb
         
     dict_tot[int(i+1)] = {'point init':S0, 'vitesses':speeds, 'temps':times, 'Solutions':solutions}
     print(dict_tot[int(i+1)])
