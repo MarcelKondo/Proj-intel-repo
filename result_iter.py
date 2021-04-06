@@ -112,3 +112,15 @@ if Me == 0:
     print(df)
     #ax = df.plot.bar(rot=0)
     df.to_csv(r'~/Proj-intel-repo/Iteration.csv', index = True, header=True)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
