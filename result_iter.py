@@ -88,7 +88,7 @@ for i in range(0,imax):
             print('\n')
             print(f'best_energies: {best_energies}')
             print(f'best_times: {best_times}')
-            dict_iter[method].append(arg.iter_max)
+            dict_iter[method].append(args.iter_max)
         
 
 if Me == 0:
