@@ -29,12 +29,12 @@ class dotdict(dict):
 
 
 #Parameters to change
-
+itertest= [5,10,20,40,80,160]
 args = {
     'S0': [256, 256, 256, 8, 10,32,32,32],
     'method': "all",
     'param_list': ['n1','n2','n3','tblock1','tblock2','tblock3'], 
-    'iter_max': 10,
+    'iter_max': 5,
     'tabu_size': 8,
     'opt': 3,
     'simdType': "avx512",
@@ -67,35 +67,36 @@ for method in methods:
 
 imax = 2 # nb runs
 for i in range(0,imax):
+    for nbiter in itertest:
+        args["iter_max"]= nbiter
+        for method in methods:
+            args.method = method
+            if method == 'HC' or method == 'SA':
+                if Me == 0:
+                    current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
 
-    for method in methods:
-        args.method = method
-        if method == 'HC' or method == 'SA':
-            if Me == 0:
-                current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-
-                average_energies[method] += current_E
-                average_times[method] += current_dt
-                if current_E > best_energies[method]:
-                    best_energies[method] = current_E
-                    best_times[method] = current_dt
-        else:
-            current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
-
-            if Me == 0:
-                average_energies[method] += current_E
-                average_times[method] += current_dt
-                if current_E > best_energies[method]:
+                    average_energies[method] += current_E
+                    average_times[method] += current_dt
+                    if current_E > best_energies[method]:
                         best_energies[method] = current_E
                         best_times[method] = current_dt
+            else:
+                current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
 
-        
-    if Me == 0:
-        print('\n')
-        print('best result so far: ')
-        print('\n')
-        print(f'best_energies: {best_energies}')
-        print(f'best_times: {best_times}')
+                if Me == 0:
+                    average_energies[method] += current_E
+                    average_times[method] += current_dt
+                    if current_E > best_energies[method]:
+                            best_energies[method] = current_E
+                            best_times[method] = current_dt
+
+
+        if Me == 0:
+            print('\n')
+            print('best result so far: ')
+            print('\n')
+            print(f'best_energies: {best_energies}')
+            print(f'best_times: {best_times}')
 
 if Me == 0:
     average_energies = {key:value/imax for key, value in average_energies.items()}
@@ -110,4 +111,4 @@ if Me == 0:
     df = pd.DataFrame({'Gflops': list(best_energies.values()), 'Execution time (s)': list(best_times.values()), 'Average energy': list(average_energies.values()), 'Average time': list(average_times.values())}, index = methods)
     print(df)
     #ax = df.plot.bar(rot=0)
-    df.to_csv(r'~/Proj-intel-repo/InitialPointsParallel.csv', index = True, header=True)
+    df.to_csv(r'~/Proj-intel-repo/Iteration.csv', index = True, header=True)
