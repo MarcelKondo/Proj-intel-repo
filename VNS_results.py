@@ -84,7 +84,7 @@ for i in range(0,imax):
              current_E, current_Sb, current_S0, current_dt = VNS_LM.execute(args)   
              VNS_flops.append(current_E)
              VNS_times.append(current_dt)  
-             VNS_ng.append(current_Sb)
+             VNS_ng.append(list(current_Sb.values()))
         if Me == 0:
             if current_E > best_flops[ng]:
                     best_flops[ng] = current_E
