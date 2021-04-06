@@ -68,7 +68,7 @@ for ng in neighbs:
     average_flops[ng] = 0
     average_times[ng] = 0
 
-imax = 2 # nb runs
+imax = 20 # nb runs
 for i in range(0,imax):
     args.S0 = list(GC.generateS0().values()) #pour que LM et VNS aient le même aléatoire pour pouvoir comparer à chaque itération
 #     start_point.append(args.S0)
