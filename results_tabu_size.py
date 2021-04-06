@@ -42,7 +42,7 @@ while i!=6:
     print(S0)
     speeds = dict()
     times = dict()
-    solutions = dict()
+    #solutions = dict()
     
     for tabu_size in np.arange(1,10,2):
         print("=== /!\ NOUVELLE TABU_SIZE POUR S0 /!\ ===")
@@ -68,9 +68,9 @@ while i!=6:
         
         speeds[int(tabu_size)] = current_E
         times[int(tabu_size)] = current_dt
-        solutions[int(tabu_size)] = current_Sb
+        #solutions[int(tabu_size)] = current_Sb
         
-    dict_tot[int(i+1)] = {'point init':S0, 'vitesses':speeds, 'temps':times, 'Solutions':solutions}
+    dict_tot[int(i+1)] = {'point init':S0, 'vitesses':speeds, 'temps':times}
     print(dict_tot[int(i+1)])
     i+=1
 print(dict_tot)
