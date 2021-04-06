@@ -75,7 +75,7 @@ while i!=1:
     i+=1
 print(dict_tot)
 
-a_file = open(r'~/Proj-intel-repo/tabu_size.json', "w")
+a_file = open('/usr/users/cpust75/cpust75_14/Proj-Intel/Proj-intel-repo/tabu_size.json', "w")
 json.dump(dict_tot, a_file)
 a_file.close()
 
