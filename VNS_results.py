@@ -13,7 +13,7 @@ import main_tabu_greedy as main_tabu_greedy
 import main_annealing as main_SA
 import general_config as GC
 import simulated_annealing as SA
-import function_local_methods as run_LM
+import function_VNS_local_methods as run_LM
 from server_content.automated_compiling_tabu import define_copiler_settings
 
 
