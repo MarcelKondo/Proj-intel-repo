@@ -64,8 +64,12 @@ imax = 2 # nb runs
 for i in range(0,imax):
 
     for ng in neighbs:
-        args.neighbourhood = ng
-        current_E, current_Sb, current_S0, current_dt = ng.execute(args)
+#         args.neighbourhood = ng
+        if ng == 'LM':
+            current_E, current_Sb, current_S0, current_dt = LM.execute(args)
+        else: # ng =='VNS_LM':
+             current_E, current_Sb, current_S0, current_dt = VNS_LM.execute(args)    
+            
         if Me == 0:
             if current_E > best_flops[ng]:
                     best_flops[ng] = current_E
@@ -73,6 +77,7 @@ for i in range(0,imax):
 
         average_flops[ng] += current_E
         average_times[ng] += current_dt
+        
     if Me == 0:
         print('\n')
         print('best result so far: ')
