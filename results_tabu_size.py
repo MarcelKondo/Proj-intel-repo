@@ -35,7 +35,7 @@ dict_tot = dict()
 
 #Parameters to change
 i=0
-while i!=1: 
+while i!=5: 
     print("=== /!\ NOUVEAU POINT S0 /!\ ===")
     print('Point S0 numéro ',i+1,'/5')
     S0 = GC.generateS0()
@@ -44,7 +44,7 @@ while i!=1:
     times = dict()
     solutions = dict()
     
-    for tabu_size in np.arange(1,3,2):
+    for tabu_size in np.arange(1,10,2):
         print("=== /!\ NOUVELLE TABU_SIZE POUR S0 /!\ ===")
         print("Tabu_size :",tabu_size)
         args = {
