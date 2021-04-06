@@ -124,8 +124,8 @@ for neighbourhood in neighbourhoods:
         print(f'worst_times: {worst_times}')
 
     if Me == 0:
-        average_energies = {key:value/imax for key, value in average_energies.items()}
-        average_times = {key:value/imax for key, value in average_times.items()}
+        #average_energies = {key:value/imax for key, value in average_energies.items()}
+        #average_times = {key:value/imax for key, value in average_times.items()}
         print('\n')
         print('\n')
         print('\n')
