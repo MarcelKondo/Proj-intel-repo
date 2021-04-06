@@ -41,7 +41,7 @@ while i!=1:
     times = dict()
     solutions = dict()
     
-    for tabu_size in np.arange(1,5,2):
+    for tabu_size in np.arange(1,3,2):
         args = {
             'S0': S0,
             'method': "TGR",
@@ -65,7 +65,7 @@ while i!=1:
         times[tabu_size] = current_dt
         solutions[tabu_size] = current_Sb
         
-    dict_tot[S0] = [speeds, times, solutions]
+    dict_tot[i] = [S0, speeds, times, solutions]
     i+=1
 print(dict_tot)
 
