@@ -29,9 +29,9 @@ class dotdict(dict):
 
 
 #Parameters to change
-itertest= [5,10,20,40,80,160]
+itertest= [1,2,5,10,20,40,80,160,320,500]
 args = {
-    'S0': [256, 256, 256, 8, 10,32,32,32],
+    'S0': [256, 256, 256, 32, 10,32,32,32],
     'method': "all",
     'param_list': ['n1','n2','n3','tblock1','tblock2','tblock3'], 
     'iter_max': 5,
@@ -74,13 +74,14 @@ for nbiter in itertest:
                     current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
                     best_energies[method].append(current_E)
                     best_times[method].append(current_dt)
+                    dict_iter[method].append(args.iter_max)
             else:
                 current_E,current_Sb, current_S0,current_dt = run_LM.execute(args)
 
                 if Me == 0:
                     best_energies[method].append(current_E)
                     best_times[method].append(current_dt)
-            
+                    dict_iter[method].append(args.iter_max)
 
         if Me == 0:
             print('\n')
@@ -88,7 +89,7 @@ for nbiter in itertest:
             print('\n')
             print(f'best_energies: {best_energies}')
             print(f'best_times: {best_times}')
-            dict_iter[method].append(args.iter_max)
+            
         
 
 if Me == 0:
@@ -99,7 +100,7 @@ if Me == 0:
     print(f'best_times: {best_times}')
     print(f'dict_iter: {dict_iter}')
     
-    df = pd.DataFrame({'Gflops': best_energies, 'Execution time (s)': best_times}, index = methods)
+    df = pd.DataFrame({'Gflops': best_energies, 'Execution time (s)': best_times,'iteration ordre':dict_iter}, index = methods)
     print(df)
     #ax = df.plot.bar(rot=0)
     df.to_csv('/usr/users/cpust75/cpust75_5/Proj-intel-repo/Iteration.csv', index = True, header=True)
