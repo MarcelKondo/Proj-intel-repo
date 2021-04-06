@@ -7,11 +7,11 @@ import random as rd
 from itertools import combinations
 
 param_space = {
-    'n1' : [160, 1000, 16],
-    'n2' : [160, 1000, 4],
-    'n3' : [160, 1000, 4],
+    'n1' : [160, 900, 16],
+    'n2' : [160, 900, 4],
+    'n3' : [160, 900, 4],
     'nb_threads' : [32, 32, 0],
-    'nb_it' : [10, 200, 10],
+    'nb_it' : [10, 100, 10],
     'tblock1' : [16, 80, 16],
     'tblock2' : [16, 80, 4],
     'tblock3' : [16, 80, 4]
