@@ -99,7 +99,7 @@ if Me == 0:
     print(f'best_energies: {best_energies}')
     print(f'best_times: {best_times}')
     print(f'dict_iter: {dict_iter}')
-    
+    print("S0",S0)
     df = pd.DataFrame({'Gflops': best_energies, 'Execution time (s)': best_times,'iteration ordre':dict_iter}, index = methods)
     print(df)
     #ax = df.plot.bar(rot=0)
